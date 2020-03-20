@@ -1,0 +1,7 @@
+#include "Fonts/SIMKAIFont12pt.h"
+#include "Fonts/SIMKAIFont18pt.h"
+#include "Fonts/SIMKAIFont24pt.h"
+#include "Fonts/SIMKAIFont36pt.h"
+#include "Fonts/SIMKAIFont48pt.h"
+#include "Fonts/SIMKAIFont72pt.h"
+#include "Fonts/malgunFont24pt.h"
