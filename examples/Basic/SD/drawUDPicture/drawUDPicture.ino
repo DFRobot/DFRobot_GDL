@@ -82,9 +82,9 @@ void loop()
    * @param ey 结束显示的y坐标
    * @param screenDrawPixel 画点函数名
    */
-  drawSDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+  drawUDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   screen.fillScreen(COLOR_RGB565_WHITE);
-  drawSDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+  drawUDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   /*
   *UD.open函数可设置的mode参数
   *FILE_READ: 打开文件进行读取，从文件的开头开始
