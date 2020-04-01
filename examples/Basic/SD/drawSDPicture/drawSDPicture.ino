@@ -1,6 +1,7 @@
 /*!
  * @file SD.ino
- * @brief 从SD卡上读取bmp/jpg/jpeg格式图片并显示在屏幕上，bmp支持16位/24位/32位，jpg只支持JFIF格式用windows的画图打开然后保存一下,就是这个格式了
+ * @brief 从SD卡上读取bmp/jpg/jpeg格式图片并显示在屏幕上，bmp支持16位/24位/32位，jpg只支持JFIF格式用windows的画图打开然后另存为这个格式就行了。
+ * @n 本demo的演示图片存放在example->SD->picture下；拷贝picture文件夹到SD卡即可
  * @n 本示例支持的主板有ESP8266、FireBeetle-M0,MAGE2560，UNO
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -96,17 +97,16 @@ void loop()
    * @param ey 结束显示的y坐标
    * @param screenDrawPixel 画点函数名
    */
-  drawSDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/240,/*ey=*/240,/*screenDrawPixel=*/screenDrawPixel);
-  /*设置屏幕颜色为白色*/
+  drawSDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   screen.fillScreen(COLOR_RGB565_WHITE);
-  drawSDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/45,/*sy=*/45,/*ex=*/195,/*ey=*/195,/*screenDrawPixel=*/screenDrawPixel);
+  drawSDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
 
   /*设置屏幕颜色为白色*/
   screen.fillScreen(COLOR_RGB565_WHITE);
 
   //批量显示图标，大容量主板显示任意数量的图标
   /*FireBeetle-M0，ESP32和ESP8266*/
-#if defined ARDUINO_SAM_ZERO || defined(ESP32) || defined(ESP8266)
+#if defined ARDUINO_SAM_ZERO || defined(ESP8266)
   /*
   *SD.open函数可设置的mode参数
   *FILE_READ: 打开文件进行读取，从文件的开头开始
@@ -151,7 +151,7 @@ quit:
   drawSDPicture("picture/Icon/5.bmp",128,128,160,160,screenDrawPixel);
   drawSDPicture("picture/Icon/6.bmp",160,160,192,192,screenDrawPixel);
   drawSDPicture("picture/Icon/7.bmp",192,192,224,224,screenDrawPixel);
-  drawSDPicture("picture/Icon/8.bmp",224,224,240,240,screenDrawPixel);
+  //drawSDPicture("picture/Icon/8.bmp",224,224,250,250,screenDrawPixel);
 #endif
   delay(1000);
 }

@@ -1,6 +1,7 @@
 /*!
  * @file UD.ino
- * @brief 从SD卡上读取bmp/jpg/jpeg格式图片并显示在屏幕上，bmp支持16位/24位/32位，jpg只支持JFIF格式用windows的画图打开然后保存一下,就是这个格式了
+ * @brief 从SD卡上读取bmp/jpg/jpeg格式图片并显示在屏幕上，bmp支持16位/24位/32位，jpg只支持JFIF格式用windows的画图打开然后另存为这个格式就行了。
+ * @n 本demo的演示图片存放在example->SD->picture下；拷贝picture文件夹到M0的flash里S即可
  * @n 本示例支持的主板有FireBeetle-M0
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -16,21 +17,10 @@
 
 //自定义通信引脚
 /*M0*/
-#if defined ARDUINO_SAM_ZERO
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
-/*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D3
-#define TFT_CS  D4
-#define TFT_RST D5
-/*AVR系列主板*/
-#else
-#define TFT_DC  2
-#define TFT_CS  3
-#define TFT_RST 6
-#endif
+
 /**
  * @brief Constructor  硬件SPI通信的构造函数
  * @param dc  SPI通信的命令/数据线引脚
@@ -92,10 +82,9 @@ void loop()
    * @param ey 结束显示的y坐标
    * @param screenDrawPixel 画点函数名
    */
-  drawUDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/240,/*ey=*/240,/*screenDrawPixel=*/screenDrawPixel);
-  /*设置屏幕颜色为白色*/
+  drawSDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   screen.fillScreen(COLOR_RGB565_WHITE);
-  drawUDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/45,/*sy=*/45,/*ex=*/195,/*ey=*/195,/*screenDrawPixel=*/screenDrawPixel);
+  drawSDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   /*
   *UD.open函数可设置的mode参数
   *FILE_READ: 打开文件进行读取，从文件的开头开始

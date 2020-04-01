@@ -26,18 +26,20 @@
 
 /*M0*/
 #if defined ARDUINO_SAM_ZERO
-#define	JD_SZBUF		1024	//读图片的缓冲区大小
-#define JPEG_WBUF_SIZE  4096 	//定义jpg工作区数组大小,最少应不小于3092字节
+#define  JD_SZBUF    1024  //读图片的缓冲区大小
+#define JPEG_WBUF_SIZE  4096  //定义jpg工作区数组大小,最少应不小于3092字节
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
-#define	JD_SZBUF		1024	//读图片的缓冲区大小
-#define JPEG_WBUF_SIZE  4096 	//定义jpg工作区数组大小,最少应不小于3092字节
+#define JD_SZBUF    1024  //读图片的缓冲区大小
+#define JPEG_WBUF_SIZE  4096  //定义jpg工作区数组大小,最少应不小于3092字节
 /*AVR系列主板*/
+#elif defined(ARDUINO_AVR_UNO)
+#define JD_SZBUF    66  //读图片的缓冲区大小，为确保正常读文件头，大小至少要大于bmp文件头部
+#define JPEG_WBUF_SIZE  0       //无法完成jpg解码
 #else
-#define	JD_SZBUF		512 	//读图片的缓冲区大小
-#define JPEG_WBUF_SIZE  0 	    //无法完成jpg解码
+#define  JD_SZBUF    512  //读图片的缓冲区大小
+#define JPEG_WBUF_SIZE  0       //无法完成jpg解码
 #endif
-
 
 
 //jpg解码使用的宏定义
