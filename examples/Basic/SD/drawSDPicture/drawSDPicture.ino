@@ -32,7 +32,7 @@
 #else
 #define TFT_DC  2
 #define TFT_CS  3
-#define TFT_RST 5
+#define TFT_RST 4
 #define TFT_SD  6
 #endif
 /**
