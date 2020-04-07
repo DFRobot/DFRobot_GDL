@@ -1,14 +1,14 @@
 # DFRobot_GDL
-DFRobot_GDL 是一个支持多种MCU，集显示、触摸、UI于一体的综合显示交互框架。<br>
-支持多种显示IC和触摸IC。用户可以用GDL驱动各种各样的显示屏，如彩屏、黑白屏、墨水屏等等。<br>
+DFRobot_GDL is a comprehensive display interaction framework that supports multiple MCUs, supporting display, touch, and UI.<br>
+It supports a variety of display ICs and touch ICs. Users can use GDL to drive a wide variety of displays, such as colorful screen, black and white screen, e-ink screen and so on.<br>
 
-GDL旨在让用户能更简单快速上手和快速学习；从而实现多种显示效果，能让你的项目更加丰富多彩。
+GDL is designed to make your project more colorful by making it easier and faster to get started and learn.
 
-## GDL软件
-GDL集成了大量的功能组件，wiki中包含这些组件的使用方法<br>
-#### 查看wiki
-* 点击[此处查看中文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/中文-WIKI)<br>
-* 点击[此处查看英文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/English-WIKI)
+## GDL Software
+GDL integrates a number of functional components contained in the wiki<br>
+#### GDL WIKI
+* 点击此处查看中文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/中文-WIKI)<br>
+* Click here to check its wiki[此处查看英文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/English-WIKI)
 
 #### 基础显示
 * 点、线、几何图形等的实现<br>
