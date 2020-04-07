@@ -5,7 +5,7 @@ It supports a variety of display ICs and touch ICs. Users can use GDL to drive a
 GDL is designed to make your project more colorful by making it easier and faster to get started and learn.
 
 ## GDL Software
-GDL integrates a number of functional components contained in the wiki<br>
+GDL integrates a number of functional components contained in the wiki.<br>
 
 #### GDL WIKI
 * [点击此处查看中文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/中文-WIKI)<br>
@@ -17,12 +17,14 @@ GDL integrates a number of functional components contained in the wiki<br>
 ![Round](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Circle.jpg)
 ![Rectangular](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Rect.jpg)
 * Show graphics<br>
-    * 支持16位、24位BMP格式的图片
-    * 支持32位BMP格式的图片,但是32位无法设置背景色,透明的地方是黑的
-    * 支持jpg格式的图片
-    * 我们也提供了一些图标，可点击[此处](https://github.com/DFRobot/DFRobot_Icon)下载和查看
+    * Supports display of 16-bit, 24-bit BMP images.
+    * Supports display of 32-bit BMP-format pictures, but because 32-bit.
+    * cannot set the background color, the transparent part is black.
+    * Support for displaying pictures in jpg format.
+    * There are some icons available for your reference, please [click here](https://github.com/DFRobot/DFRobot_Icon) to download and
+    * check.
 
-* 内置字库<br>
+* Built-in Font<br>
 &nbsp;下面是内置可使用的字体列表<br>
     * FreeMono9pt7b
     * FreeMono12pt7b
