@@ -6,16 +6,17 @@ GDL is designed to make your project more colorful by making it easier and faste
 
 ## GDL Software
 GDL integrates a number of functional components contained in the wiki<br>
-#### GDL WIKI
-* 点击此处查看中文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/中文-WIKI)<br>
-* Click here to check its wiki[此处查看英文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/English-WIKI)
 
-#### 基础显示
-* 点、线、几何图形等的实现<br>
-![三角形](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Triangle.jpg)
-![圆](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Circle.jpg)
-![矩形](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Rect.jpg)
-* 图形显示<br>
+#### GDL WIKI
+* [点击此处查看中文wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/中文-WIKI)<br>
+* [Click here to check its wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/English-WIKI)
+
+#### Basic Display
+* Display graphics: dots, lines, geometry, etc.<br>
+![Triangle](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Triangle.jpg)
+![Round](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Circle.jpg)
+![Rectangular](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Rect.jpg)
+* Show graphics<br>
     * 支持16位、24位BMP格式的图片
     * 支持32位BMP格式的图片,但是32位无法设置背景色,透明的地方是黑的
     * 支持jpg格式的图片
