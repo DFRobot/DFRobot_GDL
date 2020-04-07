@@ -12,20 +12,20 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * [Click here to check its wiki](https://github.com/DFRobot/DFRobot_GDL/wiki/English-WIKI)
 
 #### Basic Display
-* Display graphics: dots, lines, geometry, etc.<br>
+* Display graphics: lines, dots, geometry, etc.<br>
 ![Triangle](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Triangle.jpg)
 ![Round](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Circle.jpg)
 ![Rectangular](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/Rect.jpg)
 * Show graphics<br>
     * Supports display of 16-bit, 24-bit BMP images.
-    * Supports display of 32-bit BMP-format pictures, but because 32-bit.
+    * Supports display of 32-bit BMP-format pictures, but because 32-bit
     * cannot set the background color, the transparent part is black.
     * Support for displaying pictures in jpg format.
     * There are some icons available for your reference, please [click here](https://github.com/DFRobot/DFRobot_Icon) to download and
     * check.
 
 * Built-in Font<br>
-&nbsp;下面是内置可使用的字体列表<br>
+&nbsp;Below is a list of built-in fonts that can be used<br>
     * FreeMono9pt7b
     * FreeMono12pt7b
     * FreeMono18pt7b
@@ -49,17 +49,19 @@ GDL integrates a number of functional components contained in the wiki.<br>
     * SIMKAIFont48pt
     * SIMKAIFont72pt
 
-* ttf字体<br>
-    * 用户可以自定义字体;其生成和学习文件存放在DFRobot_GDL\src\Fonts\FontCustomScript中。
-    * 学习其使用方法，请点击[此处](https://github.com/DFRobot/DFRobot_GDL/blob/master/src/Fonts/FontCustomScript/README.md)。
+* ttf font<br>
+    * Users can customize fonts by themselves;Its generation and learning files are stored in the
+    * DFRobot_GDL\src\Fonts\FontCustomScript.
+    * [Please click here] to learn how to use it.
+    * (https://github.com/DFRobot/DFRobot_GDL/blob/master/src/Fonts/FontCustomScript/README.md)
 
 
-#### 触摸功能
-* 单击/双击<br>
+#### Touch
+* Click/double-click<br>
 
-* 长按/滑动<br>
+* Press/swipe<br>
 
-* 手势操作<br>
+* Gesture operation<br>
     * 单点手势(电阻屏和电容屏支持)
         * 单指上、下、左、右滑动
     * 多点手势(多点触控电容屏支持)
@@ -184,12 +186,12 @@ GDL能满足不同软件开发水平的人使用。对于初学者，您不需�
 - [ ]支持屏幕的链接
 
 
-## 联系
-GDL团队的电子邮件地址<br>
-* 阿贾克斯 Ajax.zhong@dfrobot.com
-* 艾薇 Ivey.lu@dfrobot.com
-* 冯立 li.feng@dfrobot.com
+## Contacts
+Please contact us via e-mail addresses as below<br>
+* Ajax.zhong@dfrobot.com
+* Ivey.lu@dfrobot.com
+* li.feng@dfrobot.com
 
-## 感谢
+## Thanks
 * 内部集成了Adafruit的GFX库，[GFX](https://learn.adafruit.com/adafruit-gfx-graphics-library)库地址
 * 字体部分参考了u8g2的编码格式，[u8g2](https://github.com/olikraus/u8g2)库地址
