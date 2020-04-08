@@ -73,7 +73,7 @@ void setup()
   /**
    * @brief 设置触摸的手势识别区域
    */
-  ui.setGestureArea(/*x=*/screen.width()/2-100,/*y=*/200,/*width=*/150,/*height=*/200);
+  ui.setGestureArea(/*x=*/screen.width()/2-75,/*y=*/200,/*width=*/150,/*height=*/200);
   while(true){
      //刷新
     ui.refresh();

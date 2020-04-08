@@ -107,7 +107,7 @@ void setup()
   /**用户自定义进度条参数*/
   bar2.setStyle(DFRobot_UI::CIRCULAR);
   bar2.setCallback(barCallback2);
-  ui.draw(&bar2,/*x=*/120,/*y=*/screen.height()/5*2);
+  ui.draw(&bar2,/*x=*/screen.width()/2,/*y=*/screen.height()/5*2);
 
   DFRobot_UI::sBar_t &bar3 = ui.creatBar();
   /**用户自定义进度条参数*/

@@ -118,7 +118,7 @@ void setup()
   bar3.fgColor = COLOR_RGB565_BLUE;
   bar3.setStyle(DFRobot_UI::BAR);
   bar3.setCallback(barCallback3);
-  ui.draw(&bar3,/*x=*/(screen.width()-bar3.width)/2,/*y=*/screen.height()/5*1);
+  ui.draw(&bar3,/*x=*/(screen.width()-bar3.width)/2,/*y=*/screen.height()/5*0.5);
 }
 
 
