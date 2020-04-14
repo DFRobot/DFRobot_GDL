@@ -108,19 +108,19 @@ text box      |      √       |       √       |      √        |       √  
 keys         |      √       |       √       |      √        |       √       |       √        | 
 table view     |      √       |       √       |      √        |       √       |       √       |     
 
-#### 显示IC
-GDL目前支持多种的显示驱动IC和分辨率，我们支持DFRobot系列屏幕和Adafruit系列屏幕，下表查看目前可用的驱动。<br>
+#### Display IC
+This GDL supports a wide range of display-driven ICs and resolutions, and supports the DFRobot series screens and Adafruit series screens, the available drivers are  shown in the following table.<br>
 
-产品名称     |      产品图片    |  购买链接
+Product Name    |      Product Pictures    |  Link
 ----------  | :-------------: | --------
 1.54"       |                 |  [购买链接]()
 
  
 
-#### 触摸<br>
-GDL支持多种触摸IC，下图查看目前支持的触摸驱动：<br>
+#### Touch<br>
+The GDL supports a variety of touch ICs, and the touch drivers supported are as follows:<br>
 
-GDL：触摸IC       |  XPT2046     |    GT911     |   GT5688
+GDL：Touch IC       |  XPT2046     |    GT911     |   GT5688
 ---------------- | :----------: | :----------: |------------
 
 
