@@ -95,18 +95,18 @@ The GDL can support a variety of MCUs, and the following table allows you to vie
 GDL          |     Uno      |   Leonardo    |     ESP32     |    ESP8266    |     m0         |     BK7251      
 -----------  | :----------: |  :----------: |  :----------: |  :----------: | :------------: |   ------------
 geometric figure     |      √       |       √       |      √        |       √       |       √        |  
-BMP图形解码  |      √       |       √       |      √        |       √       |       √        |
-读取SD      |      √       |               |               |       √       |       √        |    
-内置字库     |      √       |       √       |      √        |       √       |       √        |
-ttf字库      |      √       |       √       |      √        |       √       |       √        |
-单点触摸     |      √       |       √       |      √        |       √       |       √        |
-多点触摸     |              |               |               |               |                |
-手势操作     |      √       |       √       |      √        |       √       |       √        |
-滑条         |      √       |       √       |      √        |       √       |       √        |
-进度条       |      √       |       √       |      √        |       √       |       √        | 
-文本框       |      √       |       √       |      √        |       √       |       √        | 
-按键         |      √       |       √       |      √        |       √       |       √        | 
-表格视图     |      √       |       √       |      √        |       √       |       √       |     
+BMP image decode  |      √       |       √       |      √        |       √       |       √        |
+read SD      |      √       |               |               |       √       |       √        |    
+built-in fonts   |      √       |       √       |      √        |       √       |       √        |
+ttf fonts    |      √       |       √       |      √        |       √       |       √        |
+single point touch     |      √       |       √       |      √        |       √       |       √        |
+multiple point touch    |              |               |               |               |                |
+gesture operation     |      √       |       √       |      √        |       √       |       √        |
+slider         |      √       |       √       |      √        |       √       |       √        |
+progress bar          |      √       |       √       |      √        |       √       |       √        | 
+text box      |      √       |       √       |      √        |       √       |       √        | 
+keys         |      √       |       √       |      √        |       √       |       √        | 
+table view     |      √       |       √       |      √        |       √       |       √       |     
 
 #### 显示IC
 GDL目前支持多种的显示驱动IC和分辨率，我们支持DFRobot系列屏幕和Adafruit系列屏幕，下表查看目前可用的驱动。<br>
