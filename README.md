@@ -19,7 +19,7 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * Show graphics<br>
     * Supports display of 16-bit, 24-bit BMP images.
     * Supports display of 32-bit BMP-format pictures, but because 32-bit
-    * cannot set the background color, the transparent part is black.
+    * cannot set the background color, the transparent part is black. 
     * Support for displaying pictures in jpg format.
     * There are some icons available for your reference, please [click here](https://github.com/DFRobot/DFRobot_Icon) to download and
     * check.
@@ -62,17 +62,17 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * Press/swipe<br>
 
 * Gesture operation<br>
-    * 单点手势(电阻屏和电容屏支持)
-        * 单指上、下、左、右滑动
-    * 多点手势(多点触控电容屏支持)
-        * 双指上、下、左、右滑动
-        * 双指放大或者缩小字体
-        * 双指旋转字体
-        * 双指旋转图片
+    * Single point gestures (supported by resistance display and capacitive screens)
+        * Slide to top, bottom, left and right by one finger 
+    * Multi-point gestures (supported by multi-touch capacitive screen)
+        * Slide to top, bottom, left and right by two fingers
+        * Magnify or minify fonts by two fingers
+        * Rotate fonts by two fingers
+        * Rotate images by two fingers
 
 
 
-#### UI功能
+#### UI
 * 滑条<br>
 ![滑条](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/1.jpg)
 * 进度条<br>
@@ -87,14 +87,14 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * 坐标系控件(该功能暂未发布）<br>
 
 
-## GDL兼容性
+## GDL Compatibility
 
-#### 支持MCU
-GDL可以支持多种MCU，下表可以查看支持的MCU型号。
+#### Support MCU
+The GDL can support a variety of MCUs, and the following table allows you to view the supported MCU models.
 
 GDL          |     Uno      |   Leonardo    |     ESP32     |    ESP8266    |     m0         |     BK7251      
 -----------  | :----------: |  :----------: |  :----------: |  :----------: | :------------: |   ------------
-几何图形     |      √       |       √       |      √        |       √       |       √        |  
+geometric figure     |      √       |       √       |      √        |       √       |       √        |  
 BMP图形解码  |      √       |       √       |      √        |       √       |       √        |
 读取SD      |      √       |               |               |       √       |       √        |    
 内置字库     |      √       |       √       |      √        |       √       |       √        |
