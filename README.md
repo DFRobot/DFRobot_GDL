@@ -172,13 +172,13 @@ This is a 120-minute instructional video designed to help beginners quickyly get
 
 ## FAQ
 
-1.问：为什么有的示例程序在Arduino UNO/Leonardo上运行不了<br>
-&nbsp;&nbsp; 答：因为Arduino UNO/Leonardo内存大小，无法存储下整个程序；您可以换一个内存较大的主控，如Firebettle-ESP32等。我们再每一个ino的头文件都有对应的说明，大家可以详细阅读。
+1.Q: why some examples cannot run in Arduino UNO/Leonardo? <br>
+&nbsp;&nbsp; A: For the lack of store memory, Arduino UNO/Leonardo cannot store the full program. You can try it with other boards with bigger storage memory such as Firebettle-ESP32 and so on. There are introductions in each head fil ino for your reference.
 
-## 关于分支
-**master分支** 是最新的稳定版本
+## About Branchs
+**Branch: master ** is the latest stable version.
 
-**其他分支** 是开发版本，用于存放未经完全测试的实验版本，使用者可以试用并通过issues提出改进意见或反馈bug
+**Other branches** are development versions to store experimental versions that have not been fully tested.  
 
 ## 待办事项清单
 - [ ]坐标系控件
@@ -187,11 +187,11 @@ This is a 120-minute instructional video designed to help beginners quickyly get
 
 
 ## Contacts
-Please contact us via e-mail addresses as below<br>
+Please contact us via e-mail addresses as below:<br>
 * Ajax.zhong@dfrobot.com
 * Ivey.lu@dfrobot.com
 * li.feng@dfrobot.com
 
 ## Thanks
-* 内部集成了Adafruit的GFX库，[GFX](https://learn.adafruit.com/adafruit-gfx-graphics-library)库地址
-* 字体部分参考了u8g2的编码格式，[u8g2](https://github.com/olikraus/u8g2)库地址
+* Internally integrated Adafruit's [GFX](https://learn.adafruit.com/adafruit-gfx-graphics-library) library.
+* The font section refers to the encoding format of [u8g2](https://github.com/olikraus/u8g2)
