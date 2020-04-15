@@ -79,7 +79,7 @@
 #define BI_RLE4 		2  //4-bit RLE compression for each pixel, the compression format consists of 2 bytes
 #define BI_BITFIELDS 	3  //The bit of each pixel is determined by the specified mask.
  
-//BMP信息头  BMP information header
+//BMP information header
 typedef  struct
 {
   uint32_t biSize ;       //The number of words required by the BITMAPINFOHEADER structure.
