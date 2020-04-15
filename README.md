@@ -62,13 +62,13 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * Press/swipe<br>
 
 * Gesture operation<br>
-    * 单点手势(电阻屏和电容屏支持)
-        * 单指上、下、左、右滑动
-    * 多点手势(多点触控电容屏支持)
-        * 双指上、下、左、右滑动
-        * 双指放大或者缩小字体
-        * 双指旋转字体
-        * 双指旋转图片
+    * Single point gestures (supported by resistance display and capacitive screens)
+        * Slide to top, bottom, left and right by one finger
+    * Multi-point gestures (supported by multi-touch capacitive screen)
+        * Slide to top, bottom, left and right by two fingers
+        * Magnify or minify fonts by two fingers
+        * Rotate fonts by two fingers
+        * Rotate images by two fingers
 
 
 
@@ -87,40 +87,40 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * 坐标系控件(该功能暂未发布）<br>
 
 
-## GDL兼容性
+## GDL Compatibility
 
-#### 支持MCU
-GDL可以支持多种MCU，下表可以查看支持的MCU型号。
+#### Support MCU
+The GDL can support a variety of MCUs, and the following table allows you to view the supported MCU models.
 
 GDL          |     Uno      |   Leonardo    |     ESP32     |    ESP8266    |     m0         |     BK7251      
 -----------  | :----------: |  :----------: |  :----------: |  :----------: | :------------: |   ------------
-几何图形     |      √       |       √       |      √        |       √       |       √        |  
-BMP图形解码  |      √       |       √       |      √        |       √       |       √        |
-读取SD      |      √       |               |               |       √       |       √        |    
-内置字库     |      √       |       √       |      √        |       √       |       √        |
-ttf字库      |      √       |       √       |      √        |       √       |       √        |
-单点触摸     |      √       |       √       |      √        |       √       |       √        |
-多点触摸     |              |               |               |               |                |
-手势操作     |      √       |       √       |      √        |       √       |       √        |
-滑条         |      √       |       √       |      √        |       √       |       √        |
-进度条       |      √       |       √       |      √        |       √       |       √        | 
-文本框       |      √       |       √       |      √        |       √       |       √        | 
-按键         |      √       |       √       |      √        |       √       |       √        | 
-表格视图     |      √       |       √       |      √        |       √       |       √       |     
+Geometric Figure      |      √       |       √       |      √        |       √       |       √        |  
+BMP Image Decode  |      √       |       √       |      √        |       √       |       √        |
+Read SD      |      √       |               |               |       √       |       √        |    
+Built-in Fonts      |      √       |       √       |      √        |       √       |       √        |
+ttf Fonts      |      √       |       √       |      √        |       √       |       √        |
+Single-point Touch     |      √       |       √       |      √        |       √       |       √        |
+Multiple-point Touch      |              |               |               |               |                |
+Gesture Operation      |      √       |       √       |      √        |       √       |       √        |
+Slider          |      √       |       √       |      √        |       √       |       √        |
+Progress Bar        |      √       |       √       |      √        |       √       |       √        | 
+Text Box      |      √       |       √       |      √        |       √       |       √        | 
+Keys         |      √       |       √       |      √        |       √       |       √        | 
+Table View     |      √       |       √       |      √        |       √       |       √       |     
 
-#### 显示IC
-GDL目前支持多种的显示驱动IC和分辨率，我们支持DFRobot系列屏幕和Adafruit系列屏幕，下表查看目前可用的驱动。<br>
+#### Display IC
+This GDL supports a wide range of display-driven ICs and resolutions, and supports the DFRobot series screens and Adafruit series screens, the available drivers are  shown in the following table.<br>
 
-产品名称     |      产品图片    |  购买链接
+Product Name     |      Product Pictures    |  Link
 ----------  | :-------------: | --------
 1.54"       |                 |  [购买链接]()
 
  
 
-#### 触摸<br>
-GDL支持多种触摸IC，下图查看目前支持的触摸驱动：<br>
+#### Touch <br>
+The GDL supports a variety of touch ICs, and the touch drivers supported are as follows:<br>
 
-GDL：触摸IC       |  XPT2046     |    GT911     |   GT5688
+GDL: Touch IC       |  XPT2046     |    GT911     |   GT5688
 ---------------- | :----------: | :----------: |------------
 
 
