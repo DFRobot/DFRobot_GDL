@@ -34,12 +34,7 @@
  * @param cs  SPI chip select pin
  * @param rst  Screen reset pin
  */
-/**
- * @brief Constructor Constructor of hardware SPI communication
- * @param dc Command / data line pin for SPI communication
- * @param cs Chip select pin for SPI communication
- * @param rst reset pin of the screen
- */
+
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
