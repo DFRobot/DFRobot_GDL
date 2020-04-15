@@ -9,7 +9,17 @@
  * @date  2019-12-23
  * @https://github.com/DFRobot/DFRobot_GDL
  */
-
+/*!
+ * @file DFRobot_LCD.cpp
+ * @brief defines the subclass of DFRobot_GDL display library, the realization of the screen
+ *
+ * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+ * @licence The MIT License (MIT)
+ * @author [Arya] (xue.peng@dfrobot.com)
+ * @version V1.0
+ * @date 2019-12-23
+ * @https: //github.com/DFRobot/DFRobot_GDL
+ */
 #include "Arduino.h"
 #include "DFRobot_Type.h"
 #include "DFRobot_GDL.h"

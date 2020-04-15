@@ -9,7 +9,17 @@
  * @date  2019-12-23
  * @https://github.com/DFRobot/DFRobot_GDL
  */
-
+/*!
+ * @file DFRobot_Font.cpp
+ * @brief defines DFRobot_GDL display library, font display details implementation
+ *
+ * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+ * @licence The MIT License (MIT)
+ * @author [Arya] (xue.peng@dfrobot.com)
+ * @version V1.0
+ * @date 2019-12-23
+ * @https: //github.com/DFRobot/DFRobot_GDL
+ */
 #include "DFRobot_GDL.h"
 #include "gdlFontDef.h"
 #ifndef pgm_read_byte
@@ -25,7 +35,7 @@
 #define FONT_MAX_OFFSET  0xFFFFFFFF
 
 void DFRobot_GDL::setFont(const void *font){
-  uint8_t basline, xMaxAdavanceNew, yMaxAdavance, lastFlag = 0;//lastFlag非0代表内置字体，GFXfont生效，0代表自定义字体，gdl_Font_t生效
+  uint8_t basline, xMaxAdavanceNew, yMaxAdavance, lastFlag = 0;//LastFlag non-zero represents the built-in font, GFXfont takes effect, 0 represents the custom font, gdl_Font_t takes effect
   font ? lastFlag = (uint8_t)pgm_read_byte(&((gdl_Font_t *)font)->last) : lastFlag = 1;
   if(lastFlag && _fontType == FONT_TYPE_BUILTIN){
       Adafruit_GFX::setFont((const GFXfont *)font);
@@ -50,22 +60,45 @@ void DFRobot_GDL::setFont(const void *font){
       }
       if(cursor_x && yMaxAdavance*textsize_y > (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)))
           cursor_y += (yMaxAdavance*textsize_y - (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)));
-  }else if(!lastFlag && _fontType == FONT_TYPE_CUSTOM){
-      if(cursor_x + pgm_read_byte(&((gdl_Glyph_t *)pgm_read_dword(&((gdl_Font_t *)font)->glyph))->xAdvance)){
-          cursor_x = 0;
-          cursor_y += pgm_read_byte(&_gdlFont->yAdvance);
-      }
-      if(cursor_x && pgm_read_byte(&_gdlFont->yAdvance) > (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)))
-          cursor_y += (pgm_read_byte(&_gdlFont->yAdvance) - (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)));
+  }else if(!lastFlag && _fontType == FONT_TYPE_CUSTOM ){
+      if(((gdl_Font_t*)font)->type != FONT_TYPE_CUSTOM ){
+        if(cursor_x + pgm_read_byte(&((gdl_Glyph_t *)pgm_read_dword(&((gdl_Font_t *)font)->glyph))->xAdvance)){
+            cursor_x = 0;
+            cursor_y += pgm_read_byte(&_gdlFont->yAdvance);
+        }
+        if(cursor_x && pgm_read_byte(&_gdlFont->yAdvance) > (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)))
+            cursor_y += (pgm_read_byte(&_gdlFont->yAdvance) - (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)));
+	  }
   }
+#ifdef ARDUINO_SAM_ZERO
+  else if(!lastFlag && _fontType == FONT_TYPE_FLASH){
+      if(((gdl_Font_t*)font)->type  != FONT_TYPE_FLASH){
+        if(cursor_x + pgm_read_byte(&((gdl_Glyph_t *)pgm_read_dword(&((gdl_Font_t *)font)->glyph))->xAdvance)){
+            cursor_x = 0;
+            cursor_y += pgm_read_byte(&_gdlFont->yAdvance);
+        }
+        if(cursor_x && pgm_read_byte(&_gdlFont->yAdvance) > (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)))
+            cursor_y += (pgm_read_byte(&_gdlFont->yAdvance) - (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)));  
+	  }
+
+  }
+#endif
   if(lastFlag){
       _fontType = FONT_TYPE_BUILTIN;
   }else{
-      _fontType = FONT_TYPE_CUSTOM;
-      _gdlFont = (gdl_Font_t *)font;
+      if(((gdl_Font_t*)font)->type == FONT_TYPE_CUSTOM){
+		_fontType = FONT_TYPE_CUSTOM;
+	  }
+#ifdef ARDUINO_SAM_ZERO
+	  
+       else{                                                                                                                                                                                                                                                                                               
+	    _fontType = FONT_TYPE_FLASH;
+       }
+#endif
+        _gdlFont = (gdl_Font_t *)font;
   }
 }
-size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){//默认为uft8，这里不处理gbk
+size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){  //The default is uft8, gbk is not processed here
   size_t n = 0;
   uint8_t c = 0;
   uint8_t num = 0;
@@ -80,7 +113,7 @@ size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){//默认为uft8，
           c = *buffer++;
           gdl_Font_t gdlFont;
           gdlFont.bitmap = (uint8_t *)pgm_read_dword(&_gdlFont->bitmap);
-          gdlFont.glyph = (gdl_Glyph_t *)pgm_read_dword(&_gdlFont->glyph);//取出glyph的地址
+          gdlFont.glyph = (gdl_Glyph_t *)pgm_read_dword(&_gdlFont->glyph); //Take out the address of glyph
           gdlFont.glyph += 1;
           gdlFont.yAdvance = pgm_read_byte(&_gdlFont->yAdvance);
           if(c == '\n'){
@@ -104,7 +137,7 @@ size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){//默认为uft8，
                       cursor_x += pgm_read_byte(&(gdlFont.glyph->xAdvance));
                       break;
                   }
-                  if(length + pgm_read_word(&(gdlFont.glyph->length)) > FONT_MAX_OFFSET){//当字的偏移超过FONT_MAX_OFFSET时
+                  if(length + pgm_read_word(&(gdlFont.glyph->length)) > FONT_MAX_OFFSET){ //When the offset of the word exceeds FONT_MAX_OFFSET
                       gdlFont.bitmap += length;
                       length = 0;
                   }
@@ -120,6 +153,63 @@ size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){//默认为uft8，
           }
       }
   }
+#ifdef ARDUINO_SAM_ZERO
+  else if(_fontType == FONT_TYPE_FLASH && _gdlFont){
+    DFRobot_Flash_Font _font;
+    _font.begin();
+    String str((char*)buffer) ;
+    _font.cache(str); 
+	
+    while(_font.avaible()){
+	  _font.readUni();          
+      _font.getFont();          
+
+      if(wrap && ((cursor_x + (uint16_t)pgm_read_byte(&(_gdlFont->glyph->xAdvance))) > _width)){
+          cursor_x = 0;
+          cursor_y += _gdlFont->yAdvance;
+      }
+	  
+      if(_font.charData.ucode == 10){
+          cursor_x  = 0;
+          cursor_y += _font.charData.lenth;
+      }else if(_font.charData.ucode == 13){
+         //continue; 
+      }else{
+        int count = 0;
+        int w = 0;
+        uint16_t posx = cursor_x;
+        uint16_t posy = cursor_y;
+        for (int i = 0; i < _font.charData.lenth; i++) {
+          uint8_t mask = _font.charData.charBufer[i];
+          
+          int k = 8;
+          if ((w + 8) > _font.charData.width)
+            k =_font.charData.width - w;
+          for (int p = 0; p < k; p++) {
+            
+            if (mask & 0x80) {drawPixel(posx,posy,textcolor);
+            }
+            else {
+				//drawPixel(posx,posy,0xf800);
+            }
+            posx += 1;
+            mask <<= 1;
+          }
+          w += 8;
+          count++;
+          if (count == _font.charData.bytePerLine) {
+            count = 0;
+            w = 0;
+            posx = cursor_x;
+            posy +=1;
+          }
+        }
+        cursor_x += _font.charData.width+1;
+		n = n+1;
+    }
+  }
+  }
+#endif
   return n;
 }
 
@@ -136,13 +226,13 @@ void DFRobot_GDL::drawCharBitmaps(uint16_t x, uint16_t y, gdl_Font_t *gdlFont, u
   x = x_pos;
   y = y_pos;
   uint8_t w = 0;
-  uint8_t total = 0;//记录每行的总宽度
+  uint8_t total = 0;//Record the total width of each line
   for(uint16_t i = 0; i < length; i++){
       for(uint8_t j = 0; j < 2; j++){
           uint8_t val = (pgm_read_byte(&gdlFont->bitmap[i]))>>(4*(1-j));
           w = val&0x07;
           total += w;
-          while(total > width){//代表一行结束,y的值增加
+          while(total > width){//Represents the end of a line, the value of y increases
               uint8_t c = width - (total - w);
               if(c != 0){
                   if(val & 0x08){
@@ -169,7 +259,7 @@ uint32_t DFRobot_GDL::utf8ToUnicode(uint8_t num, uint8_t *buf){
   uint8_t Byte[num];
   memset(Byte, 0, sizeof(Byte));
   DBG(buf[0]);
-  if(num > 1 && num < 7){//大概率为uft-8编码
+  if(num > 1 && num < 7){//The approximate rate is UTF-8 encoding-8编码
       for(uint8_t i = 0; i < num; i++){
           Byte[0] |= 1 <<(7-i);
           if (i > 0){

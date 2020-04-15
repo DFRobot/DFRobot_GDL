@@ -15,6 +15,24 @@
  * @date  2019-12-23
  * @https://github.com/DFRobot/DFRobot_GDL
  */
+ 
+ /*!
+  * @file DFRobot_Touch.h
+  * @brief Declaration the basic structure of class DFRobot_Touch
+  * @n touch frame, you can directly add touch of SPI and IIC interface
+  * @n supports capacitive touch IC: GT911 / GT5588
+  * @n Supported resistive touch IC: XPT2046
+  * @n supports reading data from rom / ram
+  * @n supports SPI / IIC / SPI_DMA read and write
+  * @n Set communication interface frequency
+  *
+  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+  * @licence The MIT License (MIT)
+  * @author [Arya] (xue.peng@dfrobot.com)
+  * @version V1.0
+  * @date 2019-12-23
+  * @https: //github.com/DFRobot/DFRobot_GDL
+  */
 #ifndef __DFROBOT_TOUCH_H
 #define __DFROBOT_TOUCH_H
 #include "Arduino.h"
@@ -32,28 +50,28 @@
 #define XPT2046_YFAC_240x320      894 //894
 #define XPT2046_YOFFSET_240x320   (-30) 
 
-/*不同触摸IC，触摸设备*/
+/*不同触摸IC，触摸设备*/ /* Different touch ICs, touch devices */
 extern sGdlIFDev_t gdl_Dev_GTXXX_TOUCH_HW_IIC;
 extern sGdlIFDev_t gdl_Dev_XPT2046_TOUCH_HW_SPI;
 
 class DFRobot_Touch: public DFRobot_IF{
 public:
   typedef struct{
-      uint8_t id; /**<触摸点的id，即第几个触摸点*/
-      uint16_t x; /**<触摸点的x坐标*/
-      uint16_t y; /**<触摸点的y坐标*/
-      uint8_t wSize;/**<触摸点尺寸：宽度*/
-      uint8_t hSize;/**<触摸点尺寸：高度*/
+      uint8_t id; /**<触摸点的id，即第几个触摸点*/ /**<id of touch point, which is the number of touch points */
+      uint16_t x; /**<触摸点的x坐标*/ /**<X coordinate of touch point*/
+      uint16_t y; /**<触摸点的y坐标*/ /**<Y coordinate of touch point*/
+      uint8_t wSize;/**<触摸点尺寸：宽度*/ /**<Touch point size: width*/
+      uint8_t hSize;/**<触摸点尺寸：高度*/ /**<Touch point size: height*/
   }sPoints_t;
   
   typedef struct{
-      uint16_t xw;/**<触摸板的尺寸：宽度*/
-      uint16_t yh;/**<触摸板的尺寸：高度*/
+      uint16_t xw;/**<触摸板的尺寸：宽度*/ /**<Touchpad size: width*/
+      uint16_t yh;/**<触摸板的尺寸：高度*/ /**<Touchpad size: height*/
   }sResolution_t;
   
-  sResolution_t _size;/**<触摸板尺寸结构体，用于存储触摸板的分辨率：宽x高*/
-  String _points;/**<字符串，用于存储触摸点的信息：ID,XY坐标，点尺寸，且点的信息以","隔开，点与点之间用空格隔开*/
-  sPoints_t _point;/**一个点的数据*/
+  sResolution_t _size;/**<触摸板尺寸结构体，用于存储触摸板的分辨率：宽x高*/ /**<Touchpad size structure for storing the resolution of the touchpad: width x height*/
+  String _points;/**<字符串，用于存储触摸点的信息：ID,XY坐标，点尺寸，且点的信息以","隔开，点与点之间用空格隔开*/ /**<A character string used to store the information of the touched point: ID, XY coordinates, point size, and the point information is separated by ",", and the points are separated by spaces*/
+  sPoints_t _point;/**一个点的数据*/ /**<One point of data*/
   uint8_t _pNum;
   /**
    * @brief Constructor  当触摸采用硬件IIC通信时，可以调用此构造函数
@@ -62,6 +80,13 @@ public:
    * @param rst  复位信号
    * @param irq  中断信号
    */
+  /**
+    * @brief Constructor When the touch uses hardware IIC communication, this constructor can be called
+    * @param dev pointer of the communication interface structure, which saves the screen's communication interface type, communication frequency, and related IO pins. On different masters, the maximum number of bytes processed in one communication and the screen initialization array and Interface function pointer
+    * @param addr IIC communication address
+    * @param rst reset signal
+    * @param irq interrupt signal
+    */
   DFRobot_Touch(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t irq);
   /**
    * @brief Constructor  当触摸采用硬件SPI通信时，可以调用此构造函数
@@ -71,22 +96,41 @@ public:
    * @param irq  中断信号
    * @param dc  无效值，写在这是为了区分IIC和SPI，为GDL_PIN_NC
    */
+  /**
+    * @brief Constructor When the touch uses hardware SPI communication, you can call this constructor
+    * @param dev pointer of the communication interface structure, which saves the screen's communication interface type, communication frequency, and related IO pins. On different masters, the maximum number of bytes processed in one communication and the screen initialization array and Interface function pointer
+    * @param cs SPI chip select signal
+    * @param rst reset signal
+    * @param irq interrupt signal
+    * @param dc Invalid value, written here to distinguish between IIC and SPI, GDL_PIN_NC
+    */
   DFRobot_Touch(sGdlIFDev_t *dev, uint8_t cs, uint8_t rst, uint8_t irq, uint8_t dc);
   ~DFRobot_Touch();
   /**
    * @brief 触摸初始化，包括接口初始化和配置初始化
    */
+  /**
+    * @brief touch initialization, including interface initialization and configuration initialization
+    */
   void initTouch();
   virtual void begin(uint32_t freq = 0)=0;
   /**
    * @brief 触摸配置函数
    * @param addr 配置数组
    */
+  /**
+    * @brief touch configuration function
+    * @param addr configuration array
+    */
   void touchConfig(uint8_t *addr);
   /**
    * @brief 纯虚函数，扫描触摸点的函数，该函数要在子类中实现
    * @return String类型，存储了所有触摸点的id，坐标，尺寸等信息
    */
+  /**
+    * @brief Pure virtual function, the function of scanning touch points, this function should be implemented in subclasses
+    * @return String type, stores the id, coordinates, size and other information of all touch points
+    */
   virtual String scan() = 0;
 };
 
@@ -109,7 +153,7 @@ private:
       uint8_t reserve;
   }sGtPoints_t;
   sGtPoints_t _p[5];
-  String id;//GT911和GT5688都有id
+  String id;
 };
 
 class DFRobot_Touch_XPT2046:public DFRobot_Touch{

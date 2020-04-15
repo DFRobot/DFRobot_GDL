@@ -13,7 +13,7 @@
 #define SSD1306_ENDPAGE 0X07
 
 static const uint8_t PROGMEM DFRobot_SSD1306_initCmd[] = {
-  //cmd delayFlag/argsNum argsValue 延时（超过255）延时/255
+  //cmd delayFlag/argsNum argsValue Delay (over 255) Delay / 255
 /*0x01, 0xAE, 0,   //display off
 0x01, 0x20, 0,//Set Memory Addressing Mode	
 0x01, 0x10, 0,//00,Horizontal Addressing Mode;01,Vertical Addressing Mode;10,Page Addressing Mode (RESET);11,Invalid

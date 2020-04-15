@@ -35,10 +35,10 @@ uint8_t DFRobot_DMA::allocateChannel(){
   for(uint8_t i = 0; i < DF_DMA_NUM_CHANNELS; i++){
 	  if((_channelMask &(1 << i)) == 0){
 		  _channelMask |= (1 << i);
-		  memset((void*)&_descriptors[i], 0x00, sizeof(_descriptors[i]));//将通道里的所有数据清0
-		  DMAC->CHID.bit.ID = i;//记录通道ID
+		  memset((void*)&_descriptors[i], 0x00, sizeof(_descriptors[i]));//Clear all data in the channel to 0
+		  DMAC->CHID.bit.ID = i;//Record channel ID
           DMAC->CHCTRLA.bit.ENABLE = 0;
-          DMAC->CHCTRLA.bit.SWRST = 1;//通道复位
+          DMAC->CHCTRLA.bit.SWRST = 1;//Channel reset
 		  channel = i;
 		  break;
 	  }
@@ -156,14 +156,14 @@ void DFRobot_DMA::end(){
 
 void DFRobot_DMA_SPI::begin(){
   DFRobot_DMA::begin();
-  _channel = allocateChannel();//分配通道
+  _channel = allocateChannel();//Distribution channel
   if(_channel == DMA_CHANNEL_NONE)
 	  return;
-  setPorityLevel(_channel, 0);//将通道优先级设置为最高
+  setPorityLevel(_channel, 0);//Set channel priority to highest
   setTriggerSource(_channel, 0x0A);
   setDataTransWidthAndSize(_channel, 0, 1);
   setDstAddr(_channel, (uint32_t *)0x42001828);
-  setIncMode(_channel, DF_DMA_SRCINC);//设置增量模式
+  setIncMode(_channel, DF_DMA_SRCINC);//Set incremental mode
   SPI.begin();
   sercom4.disableSPI();
   while(SERCOM4->SPI.SYNCBUSY.bit.ENABLE);

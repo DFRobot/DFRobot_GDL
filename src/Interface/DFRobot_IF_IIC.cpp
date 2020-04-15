@@ -1,7 +1,7 @@
 #include "DFRobot_IF.h"
 #include <DFRobot_Type.h>
 
-#define DEFAULT_IIC_FREQ  100000L//除了ESP32，AVR ESP8266 M0都是1khz
+#define DEFAULT_IIC_FREQ  100000L//除了ESP32，AVR ESP8266 M0都是1khz Except ESP32, AVR ESP8266 M0 is 1khz
 
 uint8_t interfaceComHardwareIIC(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len)
 {
@@ -15,6 +15,7 @@ uint8_t interfaceComHardwareIIC(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
           p->pro.iic = &Wire;
           p->pro.iic->begin();
           /*当频率为0时，默认使用板载频率，并将频率赋值给p->freq*/
+          /* When the frequency is 0, the onboard frequency is used by default, and the frequency is assigned to p-> freq */
           if(p->freq != 0) {
               p->pro.iic->setClock(p->freq);
           }else{

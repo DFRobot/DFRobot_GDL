@@ -34,11 +34,17 @@
  * @param cs  SPI通信的片选引脚
  * @param rst  屏的复位引脚
  */
+/**
+ * @brief Constructor Constructor of hardware SPI communication
+ * @param dc Command / data line pin for SPI communication
+ * @param cs Chip select pin for SPI communication
+ * @param rst reset pin of the screen
+ */
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/
+/*M0主板下DMA传输*/  /* M0 motherboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -46,7 +52,7 @@
 
 
 /*
- *可供用户选择的宏定义颜色
+ *可供用户选择的宏定义颜色  User-selectable macro definition color
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 
  *COLOR_RGB565_MAROON  COLOR_RGB565_PURPLE  COLOR_RGB565_OLIVE    COLOR_RGB565_LGRAY     
  *COLOR_RGB565_DGRAY   COLOR_RGB565_BLUE    COLOR_RGB565_GREEN    COLOR_RGB565_CYAN  
@@ -67,12 +73,16 @@ void setup() {
      *@brief 清屏
      *@param c 屏幕颜色
      */
+    /*
+     * @ brief clear screen
+     * @ param c screen color
+     */
     screen.fillScreen(COLOR_RGB565_BLACK);
-    //画实心圆形1
+    //Painted solid circle 1
     screen.fillCircle(xx0,yy0,10,color1);
-    //画实心圆形2
+    //Painted solid circle 2
     screen.fillCircle(xx1,yy1,10,color2);
-    //画实心圆形3
+    //Painted solid circle 3
     screen.fillCircle(xx2,yy2,10,color3);
 }
 

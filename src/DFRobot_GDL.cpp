@@ -9,6 +9,18 @@
  * @date  2019-12-23
  * @https://github.com/DFRobot/DFRobot_GDL
  */
+/*!
+ * @file DFRobot_GDL.cpp
+ * @brief defines the abstract class of the DFRobot_GDL display library and defines the screen subclass
+ *
+ * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+ * @licence The MIT License (MIT)
+ * @author [Arya] (xue.peng@dfrobot.com)
+ * @version V1.0
+ * @date 2019-12-23
+ * @https: //github.com/DFRobot/DFRobot_GDL
+ */
+
 #include "DFRobot_GDL.h"
 #include "DFRobot_Type.h"
 
@@ -145,32 +157,32 @@ void DFRobot_GDL::getColorFormat(uint8_t *pBuf, uint8_t &len, uint8_t &pixel, ui
            else
                pBuf[0] = 0;
            len = 1;
-           pixel = 8;//一个字节代表8个像素点
+           pixel = 8;//One byte represents 8 pixels
            break;
-      case COLOR_MODE_RGB111://一个字节代表2个像素点
+      case COLOR_MODE_RGB111://One byte represents 2 pixels
            pBuf[0] =((color & 0x07) << 3) | ((color & 0x07));
            len = 1;
-           pixel = 2;//一个字节代表2个像素点
+           pixel = 2;//One byte represents 2 pixels
            break;
       case COLOR_MODE_RGB565:
            pBuf[0] = color >> 8;
            pBuf[1] = color;
            len = 2;
-           pixel = 1;//两个字节代表1个像素点
+           pixel = 1;//One byte represents 1 pixels
            break;
       case COLOR_MODE_RGB666:
            pBuf[0] = (color >> 8)&0xF8;
            pBuf[1] = (color >> 3)&0xFC;
            pBuf[2] = color << 3;
            len = 3;
-           pixel = 1;//3个字节代表1个像素点
+           pixel = 1;//3 bytes represent 1 pixel
            break;
       case COLOR_MODE_RGB888:
            pBuf[0] = (color >> 8)&0xF8;
            pBuf[1] = (color >> 3)&0xFC;
            pBuf[2] = color << 3;
            len = 3;
-           pixel = 1;//3个字节代表1个像素点
+           pixel = 1;//3 bytes represent 1 pixel
            break;
   }
 }
@@ -183,7 +195,7 @@ uint8_t DFRobot_GDL::rgb565ToRGB666(uint8_t *rgb666, uint16_t color){
   b = (b << 1) | (b & 0x01);
   *(rgb666 + 0) = r << 2;
   *(rgb666 + 1) = g << 2;
-  *(rgb666 + 2) = b << 2;/*三个字节的前18位为*/
+  *(rgb666 + 2) = b << 2;/*The first 18 bits of the three bytes are*/
   return 3;
 }
 void DFRobot_GDL::rgb565ToRGB888(uint8_t *r, uint8_t *g, uint8_t *b, uint16_t color){

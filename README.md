@@ -19,7 +19,7 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * Show graphics<br>
     * Supports display of 16-bit, 24-bit BMP images.
     * Supports display of 32-bit BMP-format pictures, but because 32-bit
-    * cannot set the background color, the transparent part is black. 
+    * cannot set the background color, the transparent part is black.
     * Support for displaying pictures in jpg format.
     * There are some icons available for your reference, please [click here](https://github.com/DFRobot/DFRobot_Icon) to download and
     * check.
@@ -62,17 +62,17 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * Press/swipe<br>
 
 * Gesture operation<br>
-    * Single point gestures (supported by resistance display and capacitive screens)
-        * Slide to top, bottom, left and right by one finger 
-    * Multi-point gestures (supported by multi-touch capacitive screen)
-        * Slide to top, bottom, left and right by two fingers
-        * Magnify or minify fonts by two fingers
-        * Rotate fonts by two fingers
-        * Rotate images by two fingers
+    * 单点手势(电阻屏和电容屏支持)
+        * 单指上、下、左、右滑动
+    * 多点手势(多点触控电容屏支持)
+        * 双指上、下、左、右滑动
+        * 双指放大或者缩小字体
+        * 双指旋转字体
+        * 双指旋转图片
 
 
 
-#### UI
+#### UI功能
 * 滑条<br>
 ![滑条](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/1.jpg)
 * 进度条<br>
@@ -87,46 +87,47 @@ GDL integrates a number of functional components contained in the wiki.<br>
 * 坐标系控件(该功能暂未发布）<br>
 
 
-## GDL Compatibility
+## GDL兼容性
 
-#### Support MCU
-The GDL can support a variety of MCUs, and the following table allows you to view the supported MCU models.
+#### 支持MCU
+GDL可以支持多种MCU，下表可以查看支持的MCU型号。
 
 GDL          |     Uno      |   Leonardo    |     ESP32     |    ESP8266    |     m0         |     BK7251      
 -----------  | :----------: |  :----------: |  :----------: |  :----------: | :------------: |   ------------
-geometric figure     |      √       |       √       |      √        |       √       |       √        |  
-BMP image decode  |      √       |       √       |      √        |       √       |       √        |
-read SD      |      √       |               |               |       √       |       √        |    
-built-in fonts   |      √       |       √       |      √        |       √       |       √        |
-ttf fonts    |      √       |       √       |      √        |       √       |       √        |
-single point touch     |      √       |       √       |      √        |       √       |       √        |
-multiple point touch    |              |               |               |               |                |
-gesture operation     |      √       |       √       |      √        |       √       |       √        |
-slider         |      √       |       √       |      √        |       √       |       √        |
-progress bar          |      √       |       √       |      √        |       √       |       √        | 
-text box      |      √       |       √       |      √        |       √       |       √        | 
-keys         |      √       |       √       |      √        |       √       |       √        | 
-table view     |      √       |       √       |      √        |       √       |       √       |     
+几何图形     |      √       |       √       |      √        |       √       |       √        |  
+BMP图形解码  |      √       |       √       |      √        |       √       |       √        |
+读取SD      |      √       |               |               |       √       |       √        |    
+内置字库     |      √       |       √       |      √        |       √       |       √        |
+ttf字库      |      √       |       √       |      √        |       √       |       √        |
+单点触摸     |      √       |       √       |      √        |       √       |       √        |
+多点触摸     |              |               |               |               |                |
+手势操作     |      √       |       √       |      √        |       √       |       √        |
+滑条         |      √       |       √       |      √        |       √       |       √        |
+进度条       |      √       |       √       |      √        |       √       |       √        | 
+文本框       |      √       |       √       |      √        |       √       |       √        | 
+按键         |      √       |       √       |      √        |       √       |       √        | 
+表格视图     |      √       |       √       |      √        |       √       |       √       |     
 
-#### Display IC
-This GDL supports a wide range of display-driven ICs and resolutions, and supports the DFRobot series screens and Adafruit series screens, the available drivers are  shown in the following table.<br>
+#### 显示IC
+GDL目前支持多种的显示驱动IC和分辨率，我们支持DFRobot系列屏幕和Adafruit系列屏幕，下表查看目前可用的驱动。<br>
 
-Product Name    |      Product Pictures    |  Link
+产品名称     |      产品图片    |  购买链接
 ----------  | :-------------: | --------
 1.54"       |                 |  [购买链接]()
 
  
 
-#### Touch<br>
-The GDL supports a variety of touch ICs, and the touch drivers supported are as follows:<br>
+#### 触摸<br>
+GDL支持多种触摸IC，下图查看目前支持的触摸驱动：<br>
 
-GDL：Touch IC       |  XPT2046     |    GT911     |   GT5688
+GDL：触摸IC       |  XPT2046     |    GT911     |   GT5688
 ---------------- | :----------: | :----------: |------------
 
 
 
-## Install GDL firmware
-GDL meets the needs of people at different levels of software development. With the GDL library, even users don't have a lot of Arduino or software development experience, they also can achieve cool display.
+## 安装GDL固件
+GDL能满足不同软件开发水平的人使用。对于初学者，您不需要很高的Arduino或软件开发经验。
+就可以实现炫酷的显示效果。随时在公共实验室或github上的Wiki页面上发布您的软件问题。
 
 1. 下载Arduino IDE
 1. 从[github](https://github.com/dfrobot/DFRobot_GDL)下载GDL代码

@@ -14,6 +14,21 @@
  * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
 */
 
+/*!
+ * @file UI_button.ino
+ * @brief creates a button control on the screen, the user can customize the parameters of the button
+ * The @n example creates three buttons on, off, and clr. Pressing the on and off buttons will display in the text box. Pressing the clr button will delete a character in the text box.
+ * @n When the text box needs to be displayed, you need to click the text box to move the cursor into the text box
+ * @n The motherboards supported by this example are Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ *
+ * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+ * @licence The MIT License (MIT)
+ * @author [fengli] (li.feng@dfrobot.com)
+ * @version V1.0
+ * @date 2019-12-6
+ * @get from https://www.dfrobot.com
+ * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
+*/
 #include "DFRobot_UI.h"
 #include "Arduino.h"
 #include "DFRobot_GDL.h"
@@ -31,7 +46,7 @@
 #define TFT_CS  D4
 #define TFT_RST D5
 #define TOUCH_CS D6
-/*AVR系列主板*/
+/*AVR系列主板*/ /* AVR series motherboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
@@ -44,7 +59,13 @@
  * @param rst  复位信号
  * @param irq  中断信号
  */
-DFRobot_Touch_XPT2046 touch(TOUCH_CS);
+/**
+ * @brief Constructor When the touch uses XPT2046 chip, you can call this constructor
+ * @param cs SPI chip select signal
+ * @param rst reset signal
+ * @param irq interrupt signal
+ */
+DFRobot_Touch_XPT2046 touch(/*cs=*/TOUCH_CS);
  
 /**
  * @brief Constructor  当屏采用硬件SPI通信，驱动IC是ILI9341，屏幕分辨率是240x320时，可以调用此构造函数
@@ -52,21 +73,29 @@ DFRobot_Touch_XPT2046 touch(TOUCH_CS);
  * @param cs  SPI通信的片选引脚
  * @param rst  屏的复位引脚
  */
- 
+/**
+ * @brief Constructor When the screen uses hardware SPI communication, the driver IC is ILI9341, and the screen resolution is 240x320, this constructor can be called
+ * @param dc Command / data line pin for SPI communication
+ * @param cs Chip select pin for SPI communication
+ * @param rst reset pin of the screen
+ */
 DFRobot_ILI9341_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/
+/*M0主板下DMA传输*/  /* M0 motherboard DMA transfer */
 //DFRobot_ILI9341_240x320_DMA_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-
 
 /**
  * @brief 构造函数
  * @param gdl 屏幕对象
  * @param touch 触摸对象
- * @param width 屏幕的宽度.
- * @param height 屏幕的高度.
+ */
+/**
+ * @brief constructor
+ * @param gdl screen object
+ * @param touch touch object
  */
 DFRobot_UI ui(&screen, &touch);
-//三个按钮的回调函数
+
+//三个按钮的回调函数 Callback function for three buttons
 void btnCallback(DFRobot_UI::sButton_t &btn,DFRobot_UI::sTextBox_t &obj) {
    String text((char *)btn.text);
    if(text == "ON"){
@@ -85,21 +114,21 @@ void setup()
 {
 
   Serial.begin(9600);
-  //UI初始化
+  //UI initialization
   ui.begin();
-  // 设置UI的主题，有两种主题可供选择 1.CLASSIC ，2.MODERN。
-  ui.setTheme(DFRobot_UI::MODERN);
-  //创建一个文本框控件
+  // 设置UI的主题，有两种主题可供选择 1.CLASSIC ，2.MODERN。  Set the theme of the UI, there are two themes to choose from 1.CLASSIC, 2.MODERN.
+  ui.setTheme(DFRobot_UI::MODERN); 
+  //创建一个文本框控件  Create a text box control
   DFRobot_UI::sTextBox_t & tb = ui.creatText();
   tb.bgColor = 0xe6B6;
   ui.draw(&tb,/**x=*/5,/**y=*/5,/*width*/screen.width()-10,/*height*/screen.height()/5);
-  //在屏幕上创建一个按钮控件
+  //在屏幕上创建一个按钮控件  Create a button control on the screen
   DFRobot_UI::sButton_t & btn1 = ui.creatButton();
-  //设置按钮的名字
+  //设置按钮的名字  Set the name of the button
   btn1.setText("ON");
   btn1.bgColor = COLOR_RGB565_RED;
   btn1.setCallback(btnCallback);
-  //每个按钮都有一个文本框的参数，需要自己设定
+  //每个按钮都有一个文本框的参数，需要自己设定  Each button has a text box parameter, you need to set it yourself
   btn1.setOutput(&tb);
   ui.draw(&btn1,/**x=*/screen.width()/10,/**y=*/screen.height()/2,/*width*/screen.width()/10*2,/*height*/screen.width()/10*2);
   
@@ -107,7 +136,7 @@ void setup()
   btn2.setText("OFF");
   btn2.bgColor = COLOR_RGB565_GREEN;
   btn2.setCallback(btnCallback);
-  //每个按钮都有一个文本框的参数，需要自己设定
+  //每个按钮都有一个文本框的参数，需要自己设定  Each button has a text box parameter, you need to set it yourself
   btn2.setOutput(&tb);
   ui.draw(&btn2,/**x=*/(screen.width()/10)*4,/**y=*/screen.height()/2,/*width*/screen.width()/10*2,/*height*/screen.width()/10*2);
  
@@ -115,15 +144,15 @@ void setup()
   btn3.bgColor = COLOR_RGB565_BLUE;
   btn3.setText("clr");
 
-  //设置按钮的回调函数
+  //设置按钮的回调函数  Set the callback function of the button
   btn3.setCallback(btnCallback);
-  //每个按钮都有一个文本框的参数，需要自己设定
+  //每个按钮都有一个文本框的参数，需要自己设定 Each button has a text box parameter, you need to set it yourself
   
   btn3.setOutput(&tb);
   ui.draw(&btn3,/**x=*/(screen.width()/10)*7,/**y=*/screen.height()/2,/*width*/screen.width()/10*2,/*height*/screen.width()/10*2);
 }
 void loop()
 {
-  //刷新所有控件
+  //Refresh all controls
   ui.refresh();
 }

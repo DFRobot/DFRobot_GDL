@@ -61,7 +61,7 @@ DFRobot_Touch_GT911::~DFRobot_Touch_GT911(){
 }
 void DFRobot_Touch_GT911::begin(uint32_t freq){
   initTouch();
-  char temp[4]={0};//获取芯片id
+  char temp[4]={0};//Get chip id
   uint16_t sizeReg = 0;
   readReg(0x8140,temp,4);
   id += temp;

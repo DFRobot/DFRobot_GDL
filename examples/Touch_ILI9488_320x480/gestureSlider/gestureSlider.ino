@@ -11,8 +11,19 @@
  * @get from https://www.dfrobot.com
  * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
 */
-
-
+/*!
+ * @file gestureSlider.ino
+ * @brief gesture recognition example, make the following gestures on the screen and the screen will draw the graphics of the corresponding gestures: one finger slides up, down, left and right,
+ * @n Two fingers slide up and down, left and right, three fingers slide up and down, left and right, and right.
+ * @n The motherboards supported by this example are arduino uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+ * @licence The MIT License (MIT)
+ * @author [fengli] (li.feng@dfrobot.com)
+ * @version V1.0
+ * @date 2019-12-6
+ * @get from https://www.dfrobot.com
+ * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
+*/
 #include "DFRobot_UI.h"
 #include "Arduino.h"
 #include "DFRobot_GDL.h"
@@ -27,7 +38,7 @@
 #define TFT_DC  D3
 #define TFT_CS  D4
 #define TFT_RST D5
-/*AVR系列主板*/
+/*AVR系列主板*/  /* AVR series motherboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
@@ -35,27 +46,36 @@
 #endif
 
 /**
-   @brief Constructor  构造函数
-   @param cs  SPI片选信号
-   @param rst  复位信号
-   @param irq  中断信号
+   @brief Constructor  当触摸采用gt系列芯片时，可以调用此构造函数 When the touch uses the gt series chip, you can call this constructor
 */
 DFRobot_Touch_GT911 touch;
 
 /**
-   @brief Constructor  构造函数
+   @brief Constructor  当屏采用硬件SPI通信，驱动IC是st7789，屏幕分辨率是240x320时，可以调用此构造函数
    @param dc  SPI通信的命令/数据线引脚
    @param cs  SPI通信的片选引脚
    @param rst  屏的复位引脚
 */
-
+/**
+   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x320, this constructor can be called
+   @param dc Command / data line pin for SPI communication
+   @param cs Chip select pin for SPI communication
+   @param rst Reset pin of the screen
+*/
 DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/
+/*M0主板下DMA传输*/ /* M0 motherboard DMA transfer */
 //DFRobot_ILI9488_320x480_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+
+
 /**
    @brief 构造函数
    @param gdl 屏幕对象
    @param touch 触摸对象
+*/
+/**
+   @brief constructor
+   @param gdl screen object
+   @param touch touch object
 */
 DFRobot_UI ui(&screen, &touch);
 
@@ -65,23 +85,23 @@ void setup()
 {
 
   Serial.begin(9600);
-  //UI初始化
+  //UI initialization
   ui.begin();
-  //绘制字符串
+  //Draw string
   ui.drawString((screen.width()-strlen(font)*2*6)/2, (screen.height()-8)/2, font, COLOR_RGB565_LGRAY,  ui.bgColor, 2, 1);
 }
 
 
 void loop()
 {
-//刷新屏幕
+//refresh
   refresh();
 }
 
 
 
-void   refresh() {
-  //屏幕手势检测的函数，返回触摸屏检测到的手势
+void  refresh() {
+  //屏幕手势检测的函数，返回触摸屏检测到的手势  Screen gesture detection function returns the gesture detected by the touch screen
   DFRobot_UI:: eGesture_t gesture = ui.getGestures();
   
   switch (gesture) {
@@ -91,7 +111,12 @@ void   refresh() {
         * @param dir 手势的方向
         * @param obj pointnum中手指的个数
         */
-        drawT(/*手势的方向=*/0, /*手势中手指的个数=*/2);
+       /**
+        * @brief gesture drawing function
+        * @param dir gesture direction
+        * The number of fingers in @param obj pointnum
+        */
+        drawT(/*Gesture direction=*/0, /*The number of fingers in the gesture=*/2);
       } break;
     case ui.DRIGHTGLIDE : {
         drawT(1, 2);
@@ -145,6 +170,11 @@ void   refresh() {
  * @brief 手势图案绘制函数
  * @param dir 手势的方向
  * @param obj pointnum中手指的个数
+ */
+/**
+ * @brief gesture drawing function
+ * @param dir gesture direction
+ * The number of fingers in @param obj pointnum
  */
 void drawT(uint8_t dir , uint8_t pointnum) {
   if (dir == 0 && pointnum == 1) {

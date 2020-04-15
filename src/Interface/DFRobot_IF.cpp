@@ -15,7 +15,23 @@
  * @date  2019-12-23
  * @https://github.com/DFRobot/DFRobot_GDL
  */
-
+/*!
+ * @file DFRobot_IF.cpp
+ * @brief Declaration the basic structure of class DFRobot_IF, compatible with reading and writing of different interfaces
+ * @n supports hardware IIC
+ * @n supports hardware SPI
+ * @n supports DMA of M0
+ * @n supports reading data from rom / ram
+ * @n supports SPI / IIC / SPI_DMA read and write
+ * @n Set communication interface frequency
+ *
+ * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
+ * @licence The MIT License (MIT)
+ * @author [Arya] (xue.peng@dfrobot.com)
+ * @version V1.0
+ * @date 2019-12-23
+ * @https: //github.com/DFRobot/DFRobot_GDL
+ */
 #include "DFRobot_IF.h"
 #include "DFRobot_Type.h"
 #include "Arduino.h"
@@ -139,9 +155,9 @@ void DFRobot_IF::readReg(uint16_t reg, void *pBuf, uint32_t len, bool flag)
   buf[0] = reg >> 8;
   buf[1] = reg;
   if(flag)
-      readBuf(buf, 2, pBuf, len, false, 2);//16位寄存器，16位数据
-  else
-      readBuf(buf, 2, pBuf, len, false, 1);//16位寄存器，8位数据
+      readBuf(buf, 2, pBuf, len, false, 2);//16位寄存器，16位数据  16-bit register, 16-bit data
+  else 
+      readBuf(buf, 2, pBuf, len, false, 1);//16位寄存器，8位数据 16-bit register, 8-bit data
 }
 void DFRobot_IF::readCommand(uint8_t cmd, void *pBuf, uint32_t len){
   readBuf(&cmd, 1, pBuf, len, true);
@@ -154,7 +170,7 @@ bool DFRobot_IF::readBuf(void *reg, uint8_t regBytes, void *pBuf, uint32_t len, 
   memcpy(bufPre+1, reg,regBytes);
   uint32_t left = len;
   len = 0;
-  if(regIscmd){//代表reg不是寄存器，是命令
+  if(regIscmd){//代表reg不是寄存器，是命令  Reg is not a register, but a command
       while(left){
           left > _if.length ? len = _if.length : len = left;
           uint8_t buf[sizeof(bufPre)+len];

@@ -5,3 +5,4 @@
 #include "Fonts/SIMKAIFont48pt.h"
 #include "Fonts/SIMKAIFont72pt.h"
 #include "Fonts/malgunFont24pt.h"
+#include "Fonts/flashFont.h"

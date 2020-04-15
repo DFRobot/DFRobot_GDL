@@ -1,7 +1,7 @@
 /*!
- * @file font.ino
- * @brief 演示不同自带英文字库效果 
- * @n 本示例支持的主板有Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @file flashFont.ino
+ * @brief 演示MO UD中的自建字库 
+ * @n 本示例支持的主板有FireBeetle-M0
  * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [LuoYufeng](yufeng.luo@dfrobot.com)
@@ -10,9 +10,9 @@
  * @url https://github.com/DFRobot/DFRobot_GDL
  */
 /*!
- * @file font.ino
- * @brief demonstrates the effects of different English fonts
- * @n The motherboards supported by this example are Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @file flashFont.ino
+ * @brief demonstrates the self-built character library in MO UD
+ * @n The motherboard supported by this example has FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [LuoYufeng] (yufeng.luo@dfrobot.com)
@@ -31,7 +31,7 @@
 #define TFT_DC  D3
 #define TFT_CS  D4
 #define TFT_RST D5
-/*AVR系列主板*/
+/*AVR系列主板*/  /* AVR series motherboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
@@ -63,7 +63,7 @@
 
 
 /*
- *可供用户选择的宏定义颜色  User-selectable macro definition color
+ *可供用户选择的宏定义颜色
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 
  *COLOR_RGB565_MAROON  COLOR_RGB565_PURPLE  COLOR_RGB565_OLIVE    COLOR_RGB565_LGRAY     
  *COLOR_RGB565_DGRAY   COLOR_RGB565_BLUE    COLOR_RGB565_GREEN    COLOR_RGB565_CYAN  
@@ -75,22 +75,14 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   screen.begin();
+  /*设置屏幕颜色*/  /* Set screen color */
+  screen.fillScreen(0xf800);
 }
 
 void loop() {
   //设置字体字号为4 字号范围1-4   Set the font size to 4 Font size range 1-4
   screen.setTextSize(2);
-  /*设置屏幕颜色*/  /* Set screen color */
-  screen.fillScreen(COLOR_RGB565_BLACK);
-  /*
-   *当前可使用的字体如下，可在gfxfont.h中添加其他字体文件(字体文件存放在src/Frame/Fonts文件夹中) The currently available fonts are as follows, you can add other font files in gfxfont.h (font files are stored in the src / Frame / Fonts folder)
-   *FreeMono9pt7b, FreeMono12pt7b, FreeMonoBold12pt7b,
-   *FreeMonoBoldOblique12pt7b, FreeMonoOblique12pt7b,
-   *FreeSans12pt7b,FreeSansBold12pt7b, FreeSansBoldOblique12pt7b,
-   *FreeSansOblique12pt7b, FreeSerif12pt7b, FreeSerifBold12pt7b,
-   *FreeSerifBoldItalic12pt7b, FreeSerifItalic12pt7b, FreeMono24pt7b
-   */
-  screen.setFont(&FreeMono12pt7b);//设置字体为FreeMono12pt7b  Set the font to FreeMono12pt7b
+  screen.setFont(&flashFont);//设置字体从spi flash中读取  Set font to read from spi flash
   
   /*
    *@brief 设置文本位置
@@ -102,41 +94,20 @@ void loop() {
    * @ param x horizontal coordinate of the first word of the text
    * @ param y the first word vertical coordinate
    */
-  screen.setCursor(/*x=*/10,/*y=*/120);
-   // Set the text color
+  screen.setCursor(/*x=*/20,/*y=*/20);
+// Set the text color
    // The optional color list is the same as the color list used in the fillScreen function
   screen.setTextColor(COLOR_RGB565_LGRAY);
-  //设置文本自动换行模式  Set text wrapping mode
-  //true=文本自动换行，false=不自动换行  true = Text word wrap, false = No word wraps
   screen.setTextWrap(true);
-  // 输出文本  Output text
-  screen.print("DFRobot");
-  delay(500);
+  // Output text
+  screen.print("DFRobot是上海智位机器人股份有限公司旗下注册商标，商标注册号\
+  为19098139，国际分类号为42。DFRobot于2010年2月在上海成立，2013年网站正式上线。\
+  致力于为青少年和创客爱好者提供开源硬件产品,机器人及零配件产品，拥有知识型创客社区、造物记、\
+  蘑菇云创客空间，为专业和入门级创客提供全方位的软硬件支持。DFRobot总部位于上海浦东，是一家国际领先的从事开源硬件、\
+  机器人产品、STEM教育、创客教育和人工智能教育的高科技企业。自成立以来，DFRobot推出自主研发产品上千件，并向世界各地\
+  的教育和培训机构提供创客教育产品和解决方案，目前已进入全球8000多所学校.");
   
-  //使用FreeMonoBold12pt7b字体  Use FreeMonoBold12pt7b font
-  screen.fillScreen(COLOR_RGB565_BLACK);
-  screen.setFont(&FreeMonoBold12pt7b);
-  screen.setCursor(10,120);
-  screen.setTextColor(COLOR_RGB565_GREEN);
-  screen.setTextWrap(true);
-  screen.print("GDL");
-  delay(500);
-   
-  //使用FreeMonoBoldOblique12pt7b字体  Use FreeMonoBoldOblique12pt7b font
-  screen.fillScreen(COLOR_RGB565_BLACK);
-  screen.setFont(&FreeMonoBoldOblique12pt7b);
-  screen.setCursor(10,160);
-  screen.setTextColor(COLOR_RGB565_RED);
-  screen.setTextWrap(true);
-  screen.print("fonts test");
-  delay(500);
+  delay(5000);
   
-  //使用FreeMonoOblique12pt7b字体  //Use FreeMonoOblique12pt7b font
-  screen.fillScreen(COLOR_RGB565_BLACK);
-  screen.setFont(&FreeMonoOblique12pt7b);
-  screen.setCursor(80,160);
-  screen.setTextColor(COLOR_RGB565_BLUE);
-  screen.setTextWrap(true);
-  screen.print("hello,world!");
-  delay(500);
+
 }
