@@ -125,16 +125,15 @@ GDL: Touch IC       |  XPT2046     |    GT911     |   GT5688
 
 
 
-## 安装GDL固件
-GDL能满足不同软件开发水平的人使用。对于初学者，您不需要很高的Arduino或软件开发经验。
-就可以实现炫酷的显示效果。随时在公共实验室或github上的Wiki页面上发布您的软件问题。
+## Install GDL firmware
+GDL meets the needs of people at different levels of software development. With the GDL library, even users don't have a lot of Arduino or software development experience, they also can achieve cool display.
 
-1. 下载Arduino IDE
-1. 从[github](https://github.com/dfrobot/DFRobot_GDL)下载GDL代码
-1. 使用`Arduino IDE`从下载的文件中打开“basicTest.ino”
-1. 连接您的`Arduino Uno`开发板
-1. 选择工具>板子：`Arduino Uno`和工具>端口：选择你的Arduino开发板
-1. 单击“验证”，然后将软件“上传”到您的开发板上
+1. Download Arduino IDE
+1. Download GDL code from [github](https://github.com/dfrobot/DFRobot_GDL)
+1. Open “basicTest.ino” from files downloaded from `Arduino IDE`.
+1. Connect `Arduino Uno`
+1. Select Tools>boards:`Arduino Uno` and Tools>Ports: Arduino Uno or other boards
+1. Click "Verify/Compile" and "Upload"the code to the board.
 
 ## 教学
 这是一个有120分钟的教学视频；旨在让初学者快速入门。
