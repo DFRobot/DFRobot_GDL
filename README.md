@@ -73,18 +73,18 @@ GDL integrates a number of functional components contained in the wiki.<br>
 
 
 #### UI功能
-* 滑条<br>
+* Slider<br>
 ![滑条](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/1.jpg)
-* 进度条<br>
+* Progress Bar<br>
 ![进度条](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/2.jpg)
-* 文本框<br>
+* Text Box<br>
 ![文本框](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/3.jpg)
-* 按键<br>
+* Keys<br>
 ![按键1](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/4.jpg)
 ![按键2](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/5.jpg)
-* 表格视图<br>
+* Table View<br>
 ![表格视图](https://github.com/DFRobot/DFRobot_GDL/raw/master/image/6.jpg)
-* 坐标系控件(该功能暂未发布）<br>
+* XYZ Control(Not released yet）<br>
 
 
 ## GDL Compatibility
