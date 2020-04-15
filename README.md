@@ -193,5 +193,5 @@ Please contact us via e-mail addresses as below:<br>
 * li.feng@dfrobot.com
 
 ## Thanks
-* Internally integrated Adafruit's [GFX](https://learn.adafruit.com/adafruit-gfx-graphics-library) library.
+* Internally integrated Adafruit's [GFX](https://learn.adafruit.com/adafruit-gfx-graphics-library) library. 
 * The font section refers to the encoding format of [u8g2](https://github.com/olikraus/u8g2)
