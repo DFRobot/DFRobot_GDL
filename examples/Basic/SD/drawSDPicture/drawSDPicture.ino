@@ -70,7 +70,7 @@ void setup()
   }
   //Initialize screen
   screen.begin();
-  //初始化SD卡，直到初始化成功  Initialize the SD card until the initialization is successful
+  //Initialize the SD card, wait until the initialization is successful
   while(1)
   {
     if (SD.begin(/*sdcs=*/TFT_SD))
@@ -89,22 +89,14 @@ void loop()
   /* Set the screen color to white */
   screen.fillScreen(COLOR_RGB565_WHITE);
 
-  /**
-   * @brief 解码函数，通过调用画点函数显示sd卡上的bmp图片，FireBeetle-M0，ESP32和ESP8266可以显示jpg图片
-   * @param filename 要打开的SD卡文件名及路径（由于SD.open的限制，名称不能太长）
-   * @param sx 开始显示的x坐标
-   * @param sy 开始显示的y坐标
-   * @param ex 结束显示的x坐标
-   * @param ey 结束显示的y坐标
-   * @param screenDrawPixel 画点函数名
-   */
+ 
   /**
    * @brief decoding function, call point-drawing function to display bmp pictures in sd card. jpg pictures can be displayed via FireBeetle-M0, ESP32 and ESP8266. 
    * @param filename The file name and path of the SD card to be opened (the name cannot be too long due to the limitation of SD.open).
-   * @param sx start to display the x coordinate
-   * @param sy the y coordinate to start displaying
-   * @param ex End the displayed x coordinate
-   * @param ey End the displayed y coordinate
+   * @param sx The x coordinate to start displaying
+   * @param sy The y coordinate to start displaying
+   * @param ex The x coordinate to end displaying
+   * @param ey The y coordinate to end displaying
    * @param screenDrawPixel point-drawing function name
    */
   drawSDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
