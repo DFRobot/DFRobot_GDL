@@ -7,28 +7,28 @@ File picfile;
 
 int32_t screenWidth = 0, screenHeight = 0;
 uint8_t jpg_buffer[JD_SZBUF];
-//图像信息  Image information
+//Image information
 typedef struct
 {
-  uint32_t ImgWidth; //图像的实际宽度和高度  The actual width and height of the image
+  uint32_t ImgWidth; //The actual width and height of the image
   uint32_t ImgHeight;
 
-  uint32_t Div_Fac;  //缩放系数 (扩大了10000倍的)  Zoom factor (expanded by 10,000 times)
+  uint32_t Div_Fac;  //Zoom factor (expanded by 10,000 times)
 
-  uint32_t S_Height; //设定的高度和宽度  Set height and width
+  uint32_t S_Height; //Set height and width
   uint32_t S_Width;
 
-  uint32_t S_XOFF;   //x轴和y轴的偏移量  x-axis and y-axis offset
+  uint32_t S_XOFF;   //x-axis and y-axis offset
   uint32_t S_YOFF;
 
-  uint32_t staticx;  //当前显示到的ｘｙ坐标  The currently displayed xy coordinates
+  uint32_t staticx;  //The currently displayed xy coordinates
   uint32_t staticy;
 } PIC_POS;
-PIC_POS PICINFO;//图像位置信息  Image location information
+PIC_POS PICINFO;//Image location information
 
  
-//BMP/JPG共用的函数    BMP / JPG shared functions
-//初始化智能画图  Initialize intelligent drawing
+//BMP/JPG shared functions
+//Initialize intelligent drawing
 void AI_Drow_Init(void)
 {
   float temp, temp1;
@@ -219,7 +219,7 @@ bool bmpDecode(uint8_t* filename, void (*screenDrawPixel)(int16_t,int16_t,uint16
   }
 }
 
-/*M0, ESP32 and ESP8266 can support jpg decoding*/
+/*M0, ESP32 and ESP8266 supports jpg decoding*/
 #if defined ARDUINO_SAM_ZERO || defined(ESP32) || defined(ESP8266)
 int16_t     SampRate_Y_H, SampRate_Y_V;
 int16_t     SampRate_U_H, SampRate_U_V;
