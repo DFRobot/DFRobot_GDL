@@ -135,41 +135,42 @@ GDL meets the needs of people at different levels of software development. With 
 1. Select Tools>boards:`Arduino Uno` and Tools>Ports: Arduino Uno or other boards
 1. Click "Verify/Compile" and "Upload"the code to the board.
 
-## 教学
-这是一个有120分钟的教学视频；旨在让初学者快速入门。
+## Tutorial Video
+This is a 120-minute instructional video designed to help beginners quickyly get started.
 
-1. GDL简介--5分钟
 
-1. GDL下载安装及基础使用--5分钟
+1. GDL Introduction - 5 minutes
 
-1. GDL图形显示--20分钟
+2. How to donwload and install GDL and basic use - 5 minutes
 
-1. GDL文字显示--10分钟
+3. How to use GDL show figures - 20 minutes
 
-1. GDL图片显示--5分钟
+4. How to use GDL show words - 10 minutes
 
-1. GDL使用ttf字库--10分钟
+5. How to use GDL show pictures - 5 minutes
 
-1. GDL Touch简介--5分钟
+6. How to use ttf fonts in GDL - 10 minutes
 
-1. GDL-Touch基本操作--5分钟
+7. GDL Touch Introduction - 5 minutes
 
-1. GDL-Touch手势操作--10分钟
+8. GDL-Touch basic operation - 5 minutes
 
-1. GDL UI简介--5分钟
+9. GDL-Touch gesture operation - 10 minutes
 
-1. GDL-UI-Text控件--5分钟
+10. GDL UI Introduction - 5 minutes
 
-1. GDL-UI-滑条/进度条控件--5分钟
+11. GDL-UI-Text control - 5 minutes
 
-1. GDL-UI-Button控件--5分钟
+12. GDL-UI-slider/progressbar control  - 5 minutes
 
-1. GDL-UI-Tableview控件--5分钟
+13. GDL-UI-button control - 5 minutes
 
-1. GDL-UI-直角坐标系控件--5分钟
- 
+14. GDL-UI-Tableview control - 5 minutes
 
-## 常见问题
+15. GDL-UI-XYZ system control - 5 minutes
+
+
+## FAQ
 
 1.问：为什么有的示例程序在Arduino UNO/Leonardo上运行不了<br>
 &nbsp;&nbsp; 答：因为Arduino UNO/Leonardo内存大小，无法存储下整个程序；您可以换一个内存较大的主控，如Firebettle-ESP32等。我们再每一个ino的头文件都有对应的说明，大家可以详细阅读。
