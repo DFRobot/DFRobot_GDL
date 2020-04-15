@@ -1,7 +1,7 @@
 /*!
  * @file SD.ino
  * @brief Read pictures in bmp / jpg / jpeg format from the SD card and display them on the screen. bmp supports 16-bit / 24-bit / 32-bit.
- * @n jpg only supports JFIF format, you can open with windows drawing and save it as this format .
+ * @n jpg only supports JFIF format, you can open with windows drawing and save it as this format.
  * @n The pictures of this demo are stored under example-> SD-> picture; just copy the picture folder to the SD card
  * @n This demo supports mainboard ESP8266, FireBeetle-M0, MAGE2560, and UNO.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
