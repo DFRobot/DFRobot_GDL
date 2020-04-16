@@ -295,16 +295,6 @@ void testTriangles(uint16_t color){
 
   color = COLOR_RGB565_RED;
   for (int16_t i=0; i <=screen.width(); i+=24)
-    /*
-     *@brief 画填充三角形
-     *@param x0 起始顶点横坐标
-     *@param y0 起始顶点纵坐标
-     *@param x1 第二个顶点横坐标
-     *@param y1 第二个顶点纵坐标
-     *@param x2 第三个顶点横坐标
-     *@param y2 第三个顶点纵坐标
-     *@param color 填充颜色，565结构的RGB色
-     */
      /*
       * @ brief Draw a filled triangle
       * @ param x0 The x-coordinate of the start vertex
