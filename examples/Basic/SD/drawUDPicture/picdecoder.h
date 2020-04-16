@@ -135,6 +135,6 @@ void Initialize_Fast_IDCT(void);
 void Fast_IDCT(int32_t * block); 
 void idctrow(int32_t * blk);
 void idctcol(int32_t * blk);
-bool drawUDPicture(const char* filename,uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey, void (*screenDrawPixel)(int16_t,int16_t,uint16_t));//智能显示图片
+bool drawUDPicture(const char* filename,uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey, void (*screenDrawPixel)(int16_t,int16_t,uint16_t));//Smart display pictures
 uint8_t pictype(uint8_t* filename); 
 #endif
