@@ -64,102 +64,58 @@ void loop() {
    */
   screen.fillScreen(COLOR_RGB565_WHITE );
   /**
-   * @brief 画位顺序不同的单色图
-   * @param x      0 设置画图起点是屏幕左上方，靠左
-   * @param y      0 靠上
-   * @param bitmap gImage_XBitmap 头文件XBitmap中的数组，数组元素是单字节
-   * @param w      240 图片宽度
-   * @param h      240 图片高度
-   * @param color  0x0000 黑色图片部分设置为黑色
-   */
-  /**
-   * @brief Monochrome pictures with different drawing orders
-   * @param x 0 Set the starting point of drawing to be at the upper left of the screen, close to the left
-   * @param y 0 up
+   * @brief Draw monochrome pictures with different drawing orders
+   * @param x 0 Set the starting point to be at the upper left of the screen, near the left side
+   * @param y 0 Near the upper side 
    * @param bitmap gImage_XBitmap The array in the header file XBitmap, the array elements are single bytes
-   * @param w 240 picture width
+   * @param w 240 Picture width
    * @param h 240 Picture height
    * @param color 0x0000 The black picture part is set to black
    */
   screen.drawXBitmap(/*x=*/(screen.width()-240)/2,/*y=*/(screen.height()-240)/2,/*bitmap gImage_Bitmap=*/gImage_XBitmap,/*w=*/240,/*h=*/240,/*color=*/0x0000);
   screen.fillScreen(COLOR_RGB565_WHITE);
   /**
-   * @brief 画彩色图
-   * @param x      0 设置画图起点是屏幕左上方，靠左
-   * @param y      0 靠上
-   * @param bitmap gImage_RGBBitmap 头文件RGBBitmap的数组，数组元素是单字节，这里强制转换为2字节
-   * @param w      240 图片宽度
-   * @param h      240 图片高度
-   */
-  /**
-   * @brief draw color picture
-   * @param x 0 Set the starting point of drawing to be at the upper left of the screen, close to the left
-   * @param y 0 up
-   * @param bitmap gImage_RGBBitmap The array of RGBBitmap header files, the array elements are single bytes, here forced conversion to 2 bytes
+   * @brief Draw colorful picture
+   * @param x 0 Set the starting point to be at the upper left of the screen, near the left side
+   * @param y 0 Near the upper side
+   * @param bitmap gImage_RGBBitmap The array of RGBBitmap header files, the array elements are single bytes, here forced to convert to 2 bytes
    * @param w 240 picture width
    * @param h 240 Picture height
    */
   screen.drawRGBBitmap(/*x=*/(screen.width()-240)/2,/*y=*/(screen.height()-240)/2,/*bitmap gImage_Bitmap=*/(const unsigned uint16_t*)gImage_RGBBitmap,/*w=*/240,/*h=*/240);
   /**
-   * @brief 用掩码作为单色图，画单色图
-   * @param x      0 设置画图起点是屏幕左上方，靠左
-   * @param y      0 靠上
-   * @param bitmap gImage_mask 头文件mask中的数组，数组元素是单字节
-   * @param w      240 图片宽度
-   * @param h      240 图片高度
-   * @param color  0x0000 黑色图片部分设置为黑色
-   */
-  /**
    * @brief Use the mask as a monochrome picture to draw a monochrome picture
-   * @param x 0 Set the starting point of drawing to be at the upper left of the screen, close to the left
-   * @param y 0 up
+   * @param x 0 Set the starting point to be at the upper left of the screen, near the left side
+   * @param y 0 Near the upper side
    * @param bitmap gImage_mask The array in the header mask, the array elements are single bytes
-   * @param w 240 picture width
+   * @param w 240 Picture width
    * @param h 240 Picture height
    * @param color 0x0000 The black picture part is set to black
    */
   screen.drawBitmap(/*x=*/(screen.width()-240)/2,/*y=*/(screen.height()-240)/2,/*bitmap gImage_Bitmap=*/gImage_mask,/*w=*/240,/*h=*/240,/*color=*/0x0000);
   /**
-   * @brief 画彩色图，掩码白色部分不画
-   * @param x      0 设置画图起点是屏幕左上方，靠左
-   * @param y      0 靠上
-   * @param bitmap gImage_RGBBitmap 头文件RGBBitmap的数组，数组元素是单字节，这里强制转换为2字节
-   * @param mask   gImage_mask 头文件mask中的数组，数组元素是单字节
-   * @param w      240 图片宽度
-   * @param h      240 图片高度
-   */
-  /**
-    * @brief draws a color picture, the white part of the mask is not painted
-    * @param x 0 Set the starting point of drawing to be at the upper left of the screen, close to the left
-    * @param y 0 up
-    * @param bitmap gImage_RGBBitmap The array of RGBBitmap header files, the array elements are single bytes, here forced conversion to 2 bytes
+    * @brief Draw a colorful picture, the white part of the mask is not painted
+    * @param x 0 Set the starting point to be at the upper left of the screen, near the left side
+    * @param y 0 Near the upper side
+    * @param bitmap gImage_RGBBitmap The array of RGBBitmap header files, the array elements are single bytes, here forced to convert to 2 bytes
     * @param mask gImage_mask The array in the header mask, the array elements are single bytes
-    * @param w 240 picture width
+    * @param w 240 Picture width
     * @param h 240 Picture height
     */
   screen.drawRGBBitmap(/*x=*/(screen.width()-240)/2,/*y=*/(screen.height()-240)/2,/*bitmap gImage_Bitmap=*/(const unsigned uint16_t*)gImage_RGBBitmap,/*mask=*/gImage_mask,/*w=*/240,/*h=*/240);
   screen.fillScreen(COLOR_RGB565_BLACK);
   /**
-   * @brief 循环画无背景的单色图，颜色不断变化
-   * @param x      0 设置画图起点是屏幕左上方，靠左
-   * @param y      0 靠上
-   * @param bitmap gImage_Bitmap 头文件Bitmap中的数组，数组元素是单字节
-   * @param w      240 图片宽度
-   * @param h      240 图片高度
-   * @param color  i 黑色图片部分设置为偏蓝可变色
-   */
-  /**
-   * @brief cyclically draw a monochrome picture without a background, the color is constantly changing
-   * @param x 0 Set the starting point of drawing to be at the upper left of the screen, close to the left
-   * @param y 0 up
+   * @brief Draw a monochrome picture without background circularly, and the color is changing constantly.
+   * @param x 0 Set the starting point to be at the upper left of the screen, near the left side
+   * @param y 0 Near the upper side
    * @param bitmap gImage_Bitmap The array in the header file Bitmap, the array elements are single bytes
-   * @param w 240 picture width
+   * @param w 240 Picture width
    * @param h 240 Picture height
-   * @param color i The black image part is set to bluish color
+   * @param color i Set the black image part to bluish color
    */
   for (int16_t i = 0x00ff; ; i+=0x3300) {
     screen.drawBitmap(/*x=*/(screen.width()-240)/2,/*y=*/(screen.height()-240)/2,/*bitmap gImage_Bitmap=*/gImage_Bitmap,/*w=*/240,/*h=*/240,/*color=*/i);
   }
-  //screen.drawGrayscaleBitmap(0,0,gImage_GrayscaleBitmap,240,240);//画灰度图，此屏幕不支持  Draw grayscale image, this screen does not support
-  //screen.drawGrayscaleBitmap(0,0,gImage_GrayscaleBitmap,gImage_mask,240,240);//画灰度图,带掩码，此屏幕不支持  Draw grayscale image with mask, this screen is not supported
+  //screen.drawGrayscaleBitmap(0,0,gImage_GrayscaleBitmap,240,240);//Draw grayscale image, not supported by this screen
+  //screen.drawGrayscaleBitmap(0,0,gImage_GrayscaleBitmap,gImage_mask,240,240);//Draw grayscale image with mask, not supported by this screen
 }
