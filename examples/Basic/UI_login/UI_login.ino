@@ -84,7 +84,7 @@ void setup()
   //Set the numeric keyboard mode: NOCHOICE-bring the text box itself; CHOICE-the text box needed to be defined externally.
   kp.setMode(DFRobot_UI::CHOICE);
   ui.draw(&kp);
-  ui.drawString(/*x=*/30, /*y=*/10, "login interface", COLOR_RGB565_CYAN, ui.bgColor,/*字体大小=*/ 2, /*反显*/0);
+  ui.drawString(/*x=*/30, /*y=*/10, "login interface", COLOR_RGB565_CYAN, ui.bgColor,/*Font size=*/ 2, /*Reversely display*/0);
 }
 
 
