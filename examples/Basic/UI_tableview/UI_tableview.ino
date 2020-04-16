@@ -1,8 +1,8 @@
 /*!
  * @file UI_tableview.ino
- * @brief Create a tableview activex on the screen, which means users can create  a tableview activex on the screen.
- * @n Users can select different pages to display different content.
- * @n The example supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @brief Create a tableview activex on the screen, which means users can create a tableview activex on the screen.
+ * @n Users can select different pages to display different contents.
+ * @n The example supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  * 
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -46,7 +46,7 @@
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/  /* M0 motherboard DMA transfer */
+/* M0 mainboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -64,7 +64,7 @@ void tbCallback(void * highLightPage){
   uint8_t * hl = (uint8_t *)highLightPage;
   switch (*hl) {
      case 1:{
-    //在屏幕上显示字符串 Display a string on the screen
+    //Display a string on the screen
        ui.drawString(10, 200, "this is tab1", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
        }
     case 2: {
@@ -85,13 +85,13 @@ void setup()
  Serial.begin(9600);
 
  ui.begin();
-  // 设置UI的主题，有两种主题可供选择 1.CLASSIC ，2.MODERN。 Set the theme of the UI, there are two themes to choose from 1.CLASSIC, 2.MODERN.
+  //Set the theme of the UI, there are two themes to choose from 1.CLASSIC, 2.MODERN.
  ui.setTheme(DFRobot_UI::MODERN);
- //创建一个tableview控件  Create a tableview control
+ //Create a tableview control
  DFRobot_UI::sTableview_t &tv = ui.creatTableview();
- //设置tableview的个数 和名字 最大页数为4 Set the number and name of tableview, the maximum number of pages is 4
+ //Set the number and name of tableview, at most 4 pages.
  tv.setName(/*page=*/4,/*page1 name=*/"tab1",/*page2 name=*/"tab2",/*page3 name=*/"tab3",/*page4 name=*/"tab4");
- //设置回调函数   Set callback function
+ //Set callback function
  tv.setCallback(tbCallback);
  ui.draw(&tv);
  while(true){
