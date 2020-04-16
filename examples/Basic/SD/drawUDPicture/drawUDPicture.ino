@@ -128,7 +128,7 @@ quit:
 }
 
 
-//For decoding function call, the function of this function is to draw a pixel on the screen
+//For decoding function calling, this function is used to draw a pixel on the screen
 void screenDrawPixel(int16_t x, int16_t y, uint16_t color)
 {
   //Draw a point on the screen
