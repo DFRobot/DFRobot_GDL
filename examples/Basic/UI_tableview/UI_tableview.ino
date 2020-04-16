@@ -85,7 +85,7 @@ void setup()
  Serial.begin(9600);
 
  ui.begin();
-  //Set the theme of the UI, there are two themes to choose from 1.CLASSIC, 2.MODERN.
+  //Set the theme of the UI, there are two themes to choose from: CLASSIC, MODERN.
  ui.setTheme(DFRobot_UI::MODERN);
  //Create a tableview control
  DFRobot_UI::sTableview_t &tv = ui.creatTableview();
