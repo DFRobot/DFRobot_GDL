@@ -1,6 +1,6 @@
 /*!
  * @file UI_keypad.ino
- * @brief Create a numeric keyboard control on the screen
+ * @brief Create a numeric keyboard control on the screen.
  * @n Users can click number on the keyboard and then the output will be displayed in the text box.
  * @n Click the text box to move the cursor into it when we need a text box to display.
  * @n The demo supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
@@ -52,13 +52,13 @@ DFRobot_Touch_XPT2046 touch(/*cs=*/TOUCH_CS);
  * @param rst Reset pin of the screen
  */
 DFRobot_ILI9341_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/  /* M0 motherboard DMA transfer */
+ /* M0 mainboard DMA transfer */
 //DFRobot_ILI9341_240x320_DMA_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 
 /**
  * @brief Constructor
  * @param gdl Screen object
- * @param touch Touch object
+ * @param Touch Touch object
  */
 DFRobot_UI ui(&screen, &touch);
 
