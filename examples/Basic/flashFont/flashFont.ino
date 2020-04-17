@@ -1,18 +1,7 @@
 /*!
  * @file flashFont.ino
- * @brief 演示MO UD中的自建字库 
- * @n 本示例支持的主板有FireBeetle-M0
- * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [LuoYufeng](yufeng.luo@dfrobot.com)
- * @version  V0.1
- * @date  2020-01-07
- * @url https://github.com/DFRobot/DFRobot_GDL
- */
-/*!
- * @file flashFont.ino
- * @brief demonstrates the self-built character library in MO UD
- * @n The motherboard supported by this example has FireBeetle-M0
+ * @brief Demonstrate the built-in font library in MO UD
+ * @n The demo supports mainboard FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [LuoYufeng] (yufeng.luo@dfrobot.com)
@@ -31,7 +20,7 @@
 #define TFT_DC  D3
 #define TFT_CS  D4
 #define TFT_RST D5
-/*AVR系列主板*/  /* AVR series motherboard */
+/* AVR series mainboard*/
 #else
 #define TFT_DC  2
 #define TFT_CS  3
@@ -39,22 +28,16 @@
 #endif
 
 /**
- * @brief Constructor  硬件SPI通信的构造函数
- * @param dc  SPI通信的命令/数据线引脚
- * @param cs  SPI通信的片选引脚
- * @param rst  屏的复位引脚
- */
-/**
  * @brief Constructor Constructor of hardware SPI communication
- * @param dc Command / data line pin for SPI communication
+ * @param dc Command/data line pin for SPI communication
  * @param cs Chip select pin for SPI communication
- * @param rst reset pin of the screen
+ * @param rst Reset pin of the screen
  */
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/  /* M0 motherboard DMA transfer */
+/* M0 mainboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -63,7 +46,7 @@
 
 
 /*
- *可供用户选择的宏定义颜色
+ *User-selectable macro-defined color
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 
  *COLOR_RGB565_MAROON  COLOR_RGB565_PURPLE  COLOR_RGB565_OLIVE    COLOR_RGB565_LGRAY     
  *COLOR_RGB565_DGRAY   COLOR_RGB565_BLUE    COLOR_RGB565_GREEN    COLOR_RGB565_CYAN  
@@ -75,24 +58,19 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   screen.begin();
-  /*设置屏幕颜色*/  /* Set screen color */
+  /* Set screen color */
   screen.fillScreen(0xf800);
 }
 
 void loop() {
-  //设置字体字号为4 字号范围1-4   Set the font size to 4 Font size range 1-4
+  //Set the font size to 4, font size range 1-4
   screen.setTextSize(2);
-  screen.setFont(&flashFont);//设置字体从spi flash中读取  Set font to read from spi flash
+  screen.setFont(&flashFont);//Read font from spi flash
   
   /*
-   *@brief 设置文本位置
-   *@param x 文本第一个字横坐标
-   *@param y 文本第一个字纵坐标
-   */
-  /*
    * @ brief Set text position
-   * @ param x horizontal coordinate of the first word of the text
-   * @ param y the first word vertical coordinate
+   * @ param x The x-coordinate of the first word of the text
+   * @ param y The y-coordinate of the first word of the text 
    */
   screen.setCursor(/*x=*/20,/*y=*/20);
 // Set the text color
