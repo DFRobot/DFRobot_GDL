@@ -1,8 +1,8 @@
 /*!
  * @file UI_bar.ino
- * @brief Create a progress bar control on the screen that allows the user to customize the parameters of the progress bar,
- * @n or they can use the default parameters.
- * @n The user can control the value of the progress bar through the callback function of the progress bar.
+ * @brief Create a progress bar control on the screen.
+ * @n Users can customize the parameters of the progress bar or use the default parameters.
+ * @n Users can control the value of the progress bar through the callback function of the progress bar.
  * @n The example supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
