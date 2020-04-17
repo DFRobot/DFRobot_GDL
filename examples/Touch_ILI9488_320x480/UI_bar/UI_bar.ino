@@ -86,7 +86,7 @@ void setup()
 {
   
   Serial.begin(9600);
-  //ui初始化 UI initialization
+  //Initialize UI
   ui.begin();
   ui.setTheme(DFRobot_UI::MODERN);
 
@@ -101,7 +101,7 @@ void setup()
   ui.draw(&bar1,/*x=*/33,/*y=*/screen.height()/5*3);
   
   DFRobot_UI::sBar_t &bar2 = ui.creatBar();
-  /**=User-defined progress bar parameters */
+  /** User-defined progress bar parameters */
   bar2.setStyle(DFRobot_UI::CIRCULAR);
   bar2.setCallback(barCallback2);
   ui.draw(&bar2,/*x=*/screen.width()/2,/*y=*/screen.height()/5*2);
