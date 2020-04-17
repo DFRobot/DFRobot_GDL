@@ -1,6 +1,6 @@
 /*!
  * @file UI_tableview.ino
- * @brief Create a tableview activex on the screen, which means users can create a tableview activex on the screen.
+ * @brief Create a tableview control on the screen, and the control parameters can be defined by users.
  * @n Users can select different pages to display different contents.
  * @n The example supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  * 
@@ -37,7 +37,7 @@
 
 /**
  * @brief Constructor  Constructors for hardware SPI communication
- * @param dc  Command pin or data line pin of SPI communication
+ * @param dc  Command/data line pin of SPI communication
  * @param cs  Chip select pin for SPI communication
  * @param rst  Reset pin of the screen
  * @param bl  Screen backlight pin
@@ -54,7 +54,7 @@
 
 
 /**
- * @brief Construct a function
+ * @brief Constructor
  * @param gdl Screen object
  * @param touch Touch object
  */
