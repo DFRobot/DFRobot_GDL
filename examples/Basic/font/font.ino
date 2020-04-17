@@ -1,18 +1,7 @@
 /*!
  * @file font.ino
- * @brief 演示不同自带英文字库效果 
- * @n 本示例支持的主板有Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
- * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [LuoYufeng](yufeng.luo@dfrobot.com)
- * @version  V0.1
- * @date  2020-01-07
- * @url https://github.com/DFRobot/DFRobot_GDL
- */
-/*!
- * @file font.ino
- * @brief demonstrates the effects of different English fonts
- * @n The motherboards supported by this example are Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @brief Demonstrate different English fonts
+ * @n The demo supports mainboard Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [LuoYufeng] (yufeng.luo@dfrobot.com)
@@ -31,7 +20,7 @@
 #define TFT_DC  D3
 #define TFT_CS  D4
 #define TFT_RST D5
-/*AVR系列主板*/
+/*AVR Series Board*/
 #else
 #define TFT_DC  2
 #define TFT_CS  3
@@ -39,22 +28,16 @@
 #endif
 
 /**
- * @brief Constructor  硬件SPI通信的构造函数
- * @param dc  SPI通信的命令/数据线引脚
- * @param cs  SPI通信的片选引脚
- * @param rst  屏的复位引脚
- */
-/**
  * @brief Constructor Constructor of hardware SPI communication
- * @param dc Command / data line pin for SPI communication
+ * @param dc Command/data line pin for SPI communication
  * @param cs Chip select pin for SPI communication
- * @param rst reset pin of the screen
+ * @param rst Reset pin of the screen
  */
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/  /* M0 motherboard DMA transfer */
+/* M0 mainboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -63,7 +46,7 @@
 
 
 /*
- *可供用户选择的宏定义颜色  User-selectable macro definition color
+ *User-selectable macro-defined color
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 
  *COLOR_RGB565_MAROON  COLOR_RGB565_PURPLE  COLOR_RGB565_OLIVE    COLOR_RGB565_LGRAY     
  *COLOR_RGB565_DGRAY   COLOR_RGB565_BLUE    COLOR_RGB565_GREEN    COLOR_RGB565_CYAN  
@@ -78,42 +61,37 @@ void setup() {
 }
 
 void loop() {
-  //设置字体字号为4 字号范围1-4   Set the font size to 4 Font size range 1-4
+  //Set the font size to 4, font size range 1-4
   screen.setTextSize(2);
-  /*设置屏幕颜色*/  /* Set screen color */
+  /* Set screen color */
   screen.fillScreen(COLOR_RGB565_BLACK);
   /*
-   *当前可使用的字体如下，可在gfxfont.h中添加其他字体文件(字体文件存放在src/Frame/Fonts文件夹中) The currently available fonts are as follows, you can add other font files in gfxfont.h (font files are stored in the src / Frame / Fonts folder)
+   *The currently available fonts are as follows, you can add other font files in gfxfont.h (font files are stored in the src/Frame/Fonts folder)
    *FreeMono9pt7b, FreeMono12pt7b, FreeMonoBold12pt7b,
    *FreeMonoBoldOblique12pt7b, FreeMonoOblique12pt7b,
    *FreeSans12pt7b,FreeSansBold12pt7b, FreeSansBoldOblique12pt7b,
    *FreeSansOblique12pt7b, FreeSerif12pt7b, FreeSerifBold12pt7b,
    *FreeSerifBoldItalic12pt7b, FreeSerifItalic12pt7b, FreeMono24pt7b
    */
-  screen.setFont(&FreeMono12pt7b);//设置字体为FreeMono12pt7b  Set the font to FreeMono12pt7b
+  screen.setFont(&FreeMono12pt7b);//Set the font to FreeMono12pt7b
   
   /*
-   *@brief 设置文本位置
-   *@param x 文本第一个字横坐标
-   *@param y 文本第一个字纵坐标
-   */
-  /*
    * @ brief Set text position
-   * @ param x horizontal coordinate of the first word of the text
-   * @ param y the first word vertical coordinate
+   * @ param x The x-coordinate of the first word of the text
+   * @ param y The y-coordinate of the first word of the text 
    */
   screen.setCursor(/*x=*/10,/*y=*/120);
    // Set the text color
    // The optional color list is the same as the color list used in the fillScreen function
   screen.setTextColor(COLOR_RGB565_LGRAY);
-  //设置文本自动换行模式  Set text wrapping mode
-  //true=文本自动换行，false=不自动换行  true = Text word wrap, false = No word wraps
+  //Set to text auto-wrapping mode
+  //true = Auto-wrap, false =No auto-warp
   screen.setTextWrap(true);
-  // 输出文本  Output text
+  //Output text
   screen.print("DFRobot");
   delay(500);
   
-  //使用FreeMonoBold12pt7b字体  Use FreeMonoBold12pt7b font
+  //Use FreeMonoBold12pt7b font
   screen.fillScreen(COLOR_RGB565_BLACK);
   screen.setFont(&FreeMonoBold12pt7b);
   screen.setCursor(10,120);
@@ -122,7 +100,7 @@ void loop() {
   screen.print("GDL");
   delay(500);
    
-  //使用FreeMonoBoldOblique12pt7b字体  Use FreeMonoBoldOblique12pt7b font
+  //Use FreeMonoBoldOblique12pt7b font
   screen.fillScreen(COLOR_RGB565_BLACK);
   screen.setFont(&FreeMonoBoldOblique12pt7b);
   screen.setCursor(10,160);
@@ -131,7 +109,7 @@ void loop() {
   screen.print("fonts test");
   delay(500);
   
-  //使用FreeMonoOblique12pt7b字体  //Use FreeMonoOblique12pt7b font
+  //Use FreeMonoOblique12pt7b font
   screen.fillScreen(COLOR_RGB565_BLACK);
   screen.setFont(&FreeMonoOblique12pt7b);
   screen.setCursor(80,160);
