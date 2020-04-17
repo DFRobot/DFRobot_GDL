@@ -1,19 +1,7 @@
 /*!
  * @file rotate.ino
- * @brief 两根手指左旋转或右旋转 改变显示的方向
- * @n 本示例支持的主板有Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
- * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-6
- * @get from https://www.dfrobot.com
- * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
-*/
-/*!
- * @file rotate.ino
- * @brief two fingers rotate left or right to change the display direction
- * @n The motherboards supported by this example are Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @brief Two fingers rotate left or right to change the display direction
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
@@ -45,36 +33,26 @@
 #endif
 
 /**
-   @brief Constructor  当触摸采用gt系列芯片时，可以调用此构造函数 When the touch uses the gt series chip, you can call this constructor
+   @brief Constructor   When the touch uses the gt series chip, you can call this constructor
 */
 DFRobot_Touch_GT911 touch;
 
 /**
-   @brief Constructor  当屏采用硬件SPI通信，驱动IC是st7789，屏幕分辨率是240x320时，可以调用此构造函数
-   @param dc  SPI通信的命令/数据线引脚
-   @param cs  SPI通信的片选引脚
-   @param rst  屏的复位引脚
-*/
-/**
    @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x320, this constructor can be called
-   @param dc Command / data line pin for SPI communication
+   @param dc Command/data line pin for SPI communication
    @param cs Chip select pin for SPI communication
    @param rst Reset pin of the screen
 */
 DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/*M0主板下DMA传输*/ /* M0 motherboard DMA transfer */
+/* M0 mainboard DMA transfer */
 //DFRobot_ILI9488_320x480_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 
 
+
 /**
-   @brief 构造函数
-   @param gdl 屏幕对象
-   @param touch 触摸对象
-*/
-/**
-   @brief constructor
-   @param gdl screen object
-   @param touch touch object
+   @brief Constructor
+   @param gdl Screen object
+   @param touch Touch object
 */
 DFRobot_UI ui(&screen, &touch);
 int8_t rotate =0;
@@ -92,20 +70,20 @@ void setup()
 void loop()
 {
 
-    //getGestures()：识别手势  Recognize gestures
+    //getGestures()：Recognize gestures
     DFRobot_UI:: eGesture_t gesture = ui.getGestures();
 	
    switch (gesture) {
-	//顺时针旋转 clockwise rotation
+	//Clockwise rotation
     case ui.DWROTATE : { 
       rotate++;
       if(rotate>3) rotate=0;
-	  //设置屏幕显示方向  Set screen orientation
+	  //Set screen display orientation
        screen.setRotation(rotate);
        screen.drawRGBBitmap(/*x=*/(screen.width()-100)/2,/*y=*/(screen.height()-100)/2,/*bitmap gImage_Bitmap=*/(const unsigned uint16_t*)gImage_GrayscaleBitmap,/*w=*/100,/*h=*/100);
 
       } break; 
-    //逆时针旋转  Anticlockwise rotation
+    //Anticlockwise rotation
     case ui.DCWROTATE : {
       if(rotate<0) {rotate=3;}
       else{
