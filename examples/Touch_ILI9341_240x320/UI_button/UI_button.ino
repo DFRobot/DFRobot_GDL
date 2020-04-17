@@ -1,6 +1,6 @@
 /*!
  * @file UI_button.ino
- * @brief Create a button control on the screen, and the user can customize the parameters of the button
+ * @brief Create a button control on the screen, and users can customize the parameters of the button.
  * @n There are three buttons created in this demo: on, off, and clr. Press button on and off, the character "ON" and "OFF" will be 
  * @n displayed in the text box. Press the clr button to delete a character in the text box.
  * @n Click the text box to move the cursor into it when we need a text box to display characters.
@@ -95,7 +95,7 @@ void setup()
   btn1.setText("ON");
   btn1.bgColor = COLOR_RGB565_RED;
   btn1.setCallback(btnCallback);
-  //Each button has a text box parameter, you need to set it yourself
+  //Each button has a text box, its parameter needs to be set by yourself.
   btn1.setOutput(&tb);
   ui.draw(&btn1,/**x=*/screen.width()/10,/**y=*/screen.height()/2,/*width*/screen.width()/10*2,/*height*/screen.width()/10*2);
   
@@ -103,7 +103,7 @@ void setup()
   btn2.setText("OFF");
   btn2.bgColor = COLOR_RGB565_GREEN;
   btn2.setCallback(btnCallback);
-  //Each button has a text box parameter, you need to set it yourself
+  //Each button has a text box, its parameter needs to be set by yourself.
   btn2.setOutput(&tb);
   ui.draw(&btn2,/**x=*/(screen.width()/10)*4,/**y=*/screen.height()/2,/*width*/screen.width()/10*2,/*height*/screen.width()/10*2);
  
@@ -113,7 +113,7 @@ void setup()
 
   //Set the callback function of the button
   btn3.setCallback(btnCallback);
-  //Each button has a text box parameter, you need to set it yourself
+  //Each button has a text box, its parameter needs to be set by yourself.
   
   btn3.setOutput(&tb);
   ui.draw(&btn3,/**x=*/(screen.width()/10)*7,/**y=*/screen.height()/2,/*width*/screen.width()/10*2,/*height*/screen.width()/10*2);
