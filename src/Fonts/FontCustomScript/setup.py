@@ -109,7 +109,7 @@ def parseFont(dstfilename, filename, lis, size = 12, angle = 0):
   for s in lis:
     s = s.replace('\n','')
     for c in s:
-      dict1["unicode"] = getUnicode(c)[0]#hex会将整数变为字符串
+      dict1["unicode"] = getUnicode(c)[0]#hex will convert integer into string 
       if dict1["unicode"] in unicodeList:
         continue
       unicodeList.append(dict1["unicode"])
@@ -137,9 +137,9 @@ def parseFont(dstfilename, filename, lis, size = 12, angle = 0):
           baseline = dict1["top"]
       
       bitmap = getBitmap(bitmap1.buffer)
-      dict1["length"] = len(bitmap)#像素的数据个数
+      dict1["length"] = len(bitmap)#the number of the pixel data 
       if dict1["length"]:
-          writeFileArray(dstfilename, bitmap)#将像素的数据写进去
+          writeFileArray(dstfilename, bitmap)#Write in the pixel data
       TotalList.append(copy.deepcopy(dict1))
       Font_totallen +=1
   glyphDitct['lengthH'] = Font_totallen >> 0xFFFF
@@ -174,7 +174,7 @@ def parseFont(dstfilename, filename, lis, size = 12, angle = 0):
   L.append(Font_totallen)
   return L
 
-def listToString(List,c = ''):#将列表转化为字符串,c表示是否加逗号
+def listToString(List,c = ''):#Convert list to string, c indicates whether there is a comma added
   s = str(List).replace('[',']').strip(']').replace("'",'') + c
   return s
 def getUnicode(text):#return a List
@@ -197,7 +197,7 @@ def getBitmap(bitmap):
   halfByte = 0
   for i in range(len(bitmap)):
       n = n + 1
-      if i + 1 == len(bitmap):#最后一个有效数据
+      if i + 1 == len(bitmap):# the last effective data 
           if bool(bitmap[i]):
               halfByte = 8
           else:
@@ -227,7 +227,7 @@ def getBitmap(bitmap):
               L.append(hex(oneByte))
               n = 0
   return L
-def loadList(List, num,remains, fix = 0):#将数据加载到list中，并返回列表最后一个字节数据的无效长度
+def loadList(List, num,remains, fix = 0):#Load data into list, and return the invalid length of the last byte of data in list 
   s = str(bin(num)).lstrip('0').strip('b')
   if fix != 0:
       lis = [0]*(fix-(s))
@@ -252,7 +252,7 @@ def loadList(List, num,remains, fix = 0):#将数据加载到list中，并返回�
       s = s[tail:]
   
   return remains
-def ModifySuffixName(filename, suffix):#修改文件后缀名
+def ModifySuffixName(filename, suffix):# Revise the file name suffix
   portion = os.path.splitext(filename)
   if portion[1] != suffix:
       newname = portion[0]+suffix
@@ -266,7 +266,7 @@ def writeFile(filename, text):
   fp.close()
 
 
-def writeFileArray(filename, List):#每排10个数据
+def writeFileArray(filename, List):#10 numbers in each row 
   #writeFile(filename, listToString(List[0:5], ',\n'))
   num = (len(List))//10;
   m = (len(List))%10
