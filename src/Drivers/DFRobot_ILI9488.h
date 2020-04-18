@@ -13,7 +13,7 @@
 
 /*static const uint8_t PROGMEM DFRobot_ILI9488_initCmd[] */
 static const uint8_t PROGMEM DFRobot_ILI9488_initCmd[]= {
-//flag cmd 最高位为1表示后2位是延时，低7位表示参数的个数 The highest digit is 1 means the last 2 digits are delay, the lower 7 digits indicate the number of parameters
+//flag cmd If the highest digit is 1, it means that the last 2 digits are delay, the lower 7 digits indicate the number of parameters
 0x01, 0XF7, 4, 0xA9, 0x51, 0x2C, 0x82,
 0x01, 0xC0, 2, 0x11, 0x09,
 0x01, 0xC1, 1, 0x41,
