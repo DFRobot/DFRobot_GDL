@@ -1,17 +1,6 @@
 /*!
  * @file DFRobot_Font.cpp
- * @brief 定义DFRobot_GDL显示库, 字体显示细节实现
- *
- * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [Arya](xue.peng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-23
- * @https://github.com/DFRobot/DFRobot_GDL
- */
-/*!
- * @file DFRobot_Font.cpp
- * @brief defines DFRobot_GDL display library, font display details implementation
+ * @brief Define DFRobot_GDL display library, and relize the detialed font display
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
@@ -259,7 +248,7 @@ uint32_t DFRobot_GDL::utf8ToUnicode(uint8_t num, uint8_t *buf){
   uint8_t Byte[num];
   memset(Byte, 0, sizeof(Byte));
   DBG(buf[0]);
-  if(num > 1 && num < 7){//The approximate rate is UTF-8 encoding-8编码
+  if(num > 1 && num < 7){//The approximate rate is UTF-8 encoding-8 code
       for(uint8_t i = 0; i < num; i++){
           Byte[0] |= 1 <<(7-i);
           if (i > 0){
