@@ -1,7 +1,7 @@
-# Custom Font 
+# Generate Custom Font 
 ## Table of Contents
-* [Build Environment](#环境搭建)
-* [Create Custom Font](#生成自定义字体)
+* [Environment Building](#环境搭建)
+* [Generate Custom Font](#生成自定义字体)
 ## Environment Building
 Before we use setup.py script to create custom font, the preparation below needs to be completed first:
 - **Log in the website https://www.python.org/downloads/ to download python3.6 and above.**<br>
@@ -10,7 +10,7 @@ Before we use setup.py script to create custom font, the preparation below needs
     - pip install freetype-py 
     - pip install chardet
 
-## Create custom font
+## Generate custom font
 - **Store the TTF font file into ttf folder, for example, SIMKAI.TTF(Simplified Regular script)**
 - **Input any character you want into text.txt file, such as: Hello, world!**
 - **Open config.txt file, configure the name prefix and font size of the created font file:**
