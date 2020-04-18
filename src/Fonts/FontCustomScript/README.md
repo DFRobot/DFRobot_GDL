@@ -20,7 +20,7 @@ Before we use setup.py script to create custom font, the preparation below needs
         - Example 1：If **FontFileNamePre = default**<br>
              **FontSizeList = [12]**<br>
     Generate a file named **SIMKAIFont12pt.h**<br>
-        - Example 2：If**FontFileNamePre = English**<br>
+        - Example 2：If **FontFileNamePre = English**<br>
              **FontSizeList = [12]**<br>
    Generate a file named **EnglishSIMKAIFont12pt.h**<br>
         - Example 3：If FontFileNamePre = English<br>
