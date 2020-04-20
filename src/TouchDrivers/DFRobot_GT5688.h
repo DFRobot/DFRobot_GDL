@@ -1,33 +1,22 @@
 #ifndef __DFROBOT_GT5688_H
 #define __DFROBOT_GT5688_H
-//GT5688配置数组表
-//x坐标输出最大值0x0320=800
-//y坐标输出最大值0x01E0=480
-//0x8050~0x813B  236个寄存器
-//0x813C  0x813D校验和
-//0x813E  配置更新标记
-//数组组织方式
-//1.寄存器起始地址0x8050
-//2.数据个数
-//0寄存器位数 1每个寄存器存的数据的位数 16bit-reg 8bit-data
-//前5个数据为控制数据：寄存器位数，寄存器值位数、起始寄存器、配置数据个数
 
 // GT5688 configuration array table
-// Maximum x coordinate output 0x0320 = 800
-// y coordinate output maximum value 0x01E0 = 480
+// Maximum x-coordinate output 0x0320 = 800
+// Maximum y-coordinate output 0x01E0 = 480
 // 0x8050 ~ 0x813B 236 registers
 // 0x813C 0x813D checksum
 // 0x813E configuration update flag
 // Array organization
 // 1. Register start address 0x8050
 // 2. Number of data
-// 0 register digits 1 digits of data stored in each register 16bit-reg 8bit-data
+// 0 register digit, 1 the digits of data stored in each register 16bit-reg 8bit-data
 // The first 5 data are control data: register digits, register value digits, start register, configuration data number
 static const uint8_t PROGMEM touchGt5688ConfigTable[] = {
-2,//1->寄存器为8位，2寄存器为16为，4寄存器为32位   0  1-> The register is 8 bits, the 2 register is 16 bits, the 4 register is 32 bits 0
-1,//1->寄存器值为8位，2寄存器值为16为，4寄存器值为32位  1  1-> The register value is 8 bits, the 2 register value is 16 and the 4 register value is 32
-0x80, 0x50,//寄存器起始地址0x8050 2 3  Register start address 0x8050 2 3
-0x00, 0xEF,//配置数据的个数 total = 0x00EF  4 5  Number of configuration data total = 0x00EF 4 5
+2,// 1-> The register is 8 bits, the 2 register is 16 bits, the 4 register is 32 bits    0
+1,// 1-> The register value is 8 bits, the 2 register value is 16 and the 4 register value is 32   1
+0x80, 0x50,//Register start address 0x8050 2 3
+0x00, 0xEF,//Number of configuration data total = 0x00EF 4 5
 0x42,0x20,0x03,0xE0,0x01,0x05,0x3D,0x10,0x01,0x00,
 	0x08,0x08,0x50,0x3C,0x53,0x11,0x00,0x00,0x00,0x00,
 	0x14,0x14,0x14,0x22,0x08,0x04,0x00,0x00,0x00,0x00,
