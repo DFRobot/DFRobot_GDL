@@ -122,7 +122,7 @@ uint8_t interfaceComHardwareSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
                PIN_HIGH(p->pinList[IF_PIN_DC]);
       }
            break;
-      case IF_COM_WRITE_FLASH_FIXED:   //只能一次处理4个字节  Can only process 4 bytes at a time
+      case IF_COM_WRITE_FLASH_FIXED:   //Can only process 4 bytes at a time
       {
            //Serial.println("IF_COM_WRITE_FLASH_FIXED");
            uint8_t num = pgm_read_byte(&pBuf[0]);
