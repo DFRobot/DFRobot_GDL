@@ -119,7 +119,7 @@ typedef uint8_t(*devInterfaceFunctionPtr)(sGdlIF_t *gdl, uint8_t step, uint8_t *
 typedef struct{
   uint8_t devName; /**<Record the device type, DEV_TYPE_TOUCH represents touch, DEV_TYPE_SCREEN represents screen*/
   uint8_t *addr;  /**<Record the device's initialization array*/
-  devInterfaceFunctionPtr talk;/**<注册屏的通信接口函数，指向函数的指针*/  /**<Communication interface function of the registration screen, pointer to the function*/
+  devInterfaceFunctionPtr talk;/**<Register communication interface function of the screen, pointer to the function*/
 }sGdlIFDev_t;
 
 typedef union{
@@ -136,9 +136,9 @@ struct sGdlIF{
   uint32_t freq;/**<Communication frequency*/
   uProtocol_t pro;/**<Communication protocol: IIC, parallel port, SPI, DMA, etc.*/
   bool  isBegin;/**<Determine whether the initialization is successful*/
-  uint8_t *pinList;/**<保存通信接口的引脚数据，它的长度由某种通信接口的最大引脚数决定*/  /**<Save the pin data of the communication interface, its length is determined by the maximum number of pins of a certain communication interface*/
-  uint16_t length;/**<Maximum number of bytes for communication, default 0xFFFF*/
-  sGdlIFDev_t *dev;/**<记录设备（屏或触摸）的初始化数组和通信接口*/  /**<Initialization array and communication interface of recording device (screen or touch)*/
+  uint8_t *pinList;/**<Save the pin data of the communication interface, its length is determined by the maximum number of pins of the related communication interface*/
+  uint16_t length;/**<Maximum number of bytes for communication, default to 0xFFFF*/
+  sGdlIFDev_t *dev;/**<Record initialization array and communication interface of device (screen or touch)*/
 }__attribute__ ((packed));
 
 
@@ -159,32 +159,20 @@ class DFRobot_IF{
 public:
   sGdlIF_t _if;/*interface*/
   /**
-   * @brief Constructor  获取IIC接口的信息
-   * @param dev  通信接口结构体指针，该结构体保存了屏的通信接口类型、通信频率、相关IO引脚，在不同的主控上，一次通信处理的最大字节数，及屏初始化数组和接口函数指针
-   * @param addr  IIC通信地址
-   * @param rst  复位信号
-   * @param irq  中断信号
-   */
-  /**
    * @brief Constructor Get the information of I2C interface
-   * @param dev Pointer of the communication interface structure, which holds the screen's communication interface type, 
-   * @n communication frequency, and related IO pins. On different main-controllers, the maximum number of bytes processed in one communication and the screen initialization array and Interface function pointer
+   * @param dev Pointer to communication interface structure. The sctruct holds the screen's communication interface type, 
+   * @n communication frequency and related IO pins. On different main-controllers, the maximum number of bytes processed in
+   * @n one communication and the screen initialization array and Interface function pointer are different.
    * @param addr IIC communication address
    * @param rst Reset signal
    * @param irq Interrupt signal
    */
   DFRobot_IF(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t bl/*irq*/);
   /**
-   * @brief Constructor  获取SPI接口的信息
-   * @param dev  通信接口结构体指针，该结构体保存了屏的通信接口类型、通信频率、相关IO引脚，在不同的主控上，一次通信处理的最大字节数，及屏初始化数组和接口函数指针
-   * @param dc   有些设备通过DC来区分数据和命令2种数据
-   * @param cs   SPI片选信号
-   * @param rst  复位信号
-   * @param bl   背光或中断信号
-   */
-  /**
    * @brief Constructor Get the information of SPI interface
-   * @param dev pointer of the communication interface structure, which saves the screen's communication interface type, communication frequency, and related IO pins. On different masters, the maximum number of bytes processed in one communication and the screen initialization array and Interface function pointer
+   * @param dev Pointer to communication interface structure. The struct holds the screen's communication interface type,
+   * @n communication frequency, and related IO pins. On different main-controllers, the maximum number of bytes processed in
+   * @n one communication and the screen initialization array and Interface function pointer are different.
    * @param dc Some devices use DC to distinguish between data and commands.
    * @param cs SPI chip select signal
    * @param rst Reset signal
@@ -208,17 +196,10 @@ protected:
   void writeData32(uint32_t data, bool isRamData);
   void writeBuf(uint16_t reg, void *pBuf, uint32_t len, bool flag = false);//flag represents whether the data match with the register
   /**
-   * @brief 读寄存器数据
-   * @param reg  可以是寄存器
-   * @param pBuf  接收数组
-   * @param len  读取的字节数
-   * @param flag  当reg代表寄存器时，flag为false，代表16位寄存器对应一个8位的数据，true代表对应16位数据
-   */
-  /**
    * @brief Read register data
    * @param reg can be a register
    * @param pBuf Receive array
-   * @param len the number of bytes read
+   * @param len The number of bytes read
    * @param flag When reg represents a register, the flag is false, representing that the 16-bit register 
    * @n corresponds to an 8-bit data, and true represents that it corresponds to 16-bit data
    */
