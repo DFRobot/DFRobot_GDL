@@ -59,7 +59,7 @@ void setup() {
   Serial.begin(115200);
   screen.begin();
   /* Set screen color */
-  screen.fillScreen(0xf800);
+  screen.fillScreen(COLOR_RGB565_WHITE);
 }
 
 void loop() {

@@ -3,7 +3,7 @@
  * @brief Gesture recognition example. Make the following gestures on the screen and the graphics of the 
  * @n corresponding gestures will be drawn on the screen: one finger slides up, down, left and right; two fingers slide up and down, 
  * @n left and right; three fingers slide up and down, left and right, and right. 
- * @n The demo supports Arduino uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)

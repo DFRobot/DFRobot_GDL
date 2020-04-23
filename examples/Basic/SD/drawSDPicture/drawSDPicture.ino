@@ -64,10 +64,6 @@ void setup()
 {
   //Initialize the serial port
   Serial.begin(115200);
-  while (!Serial)
-  {
-    ; //Wait for serial connection
-  }
   //Initialize screen
   screen.begin();
   //Initialize the SD card, wait until the initialization is successful

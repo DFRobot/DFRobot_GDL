@@ -27,7 +27,7 @@
 #define TFT_DC  D3
 #define TFT_CS  D4
 #define TFT_RST D5
-/ * AVR series mainboard * /
+/*AVR series mainboard*/
 #else
 #define TFT_DC  2
 #define TFT_CS  3

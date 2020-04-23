@@ -50,14 +50,14 @@ void DFRobot_GDL::setFont(const void *font){
       if(cursor_x && yMaxAdavance*textsize_y > (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)))
           cursor_y += (yMaxAdavance*textsize_y - (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)));
   }else if(!lastFlag && _fontType == FONT_TYPE_CUSTOM ){
-      if(((gdl_Font_t*)font)->type != FONT_TYPE_CUSTOM ){
+
         if(cursor_x + pgm_read_byte(&((gdl_Glyph_t *)pgm_read_dword(&((gdl_Font_t *)font)->glyph))->xAdvance)){
             cursor_x = 0;
             cursor_y += pgm_read_byte(&_gdlFont->yAdvance);
         }
         if(cursor_x && pgm_read_byte(&_gdlFont->yAdvance) > (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)))
             cursor_y += (pgm_read_byte(&_gdlFont->yAdvance) - (uint8_t)pgm_read_byte(&(((gdl_Font_t *)font)->yAdvance)));
-	  }
+	  
   }
 #ifdef ARDUINO_SAM_ZERO
   else if(!lastFlag && _fontType == FONT_TYPE_FLASH){
@@ -75,16 +75,17 @@ void DFRobot_GDL::setFont(const void *font){
   if(lastFlag){
       _fontType = FONT_TYPE_BUILTIN;
   }else{
+#ifdef ARDUINO_SAM_ZERO
       if(((gdl_Font_t*)font)->type == FONT_TYPE_CUSTOM){
 		_fontType = FONT_TYPE_CUSTOM;
 	  }
-#ifdef ARDUINO_SAM_ZERO
-	  
        else{                                                                                                                                                                                                                                                                                               
 	    _fontType = FONT_TYPE_FLASH;
        }
+#else
+      _fontType = FONT_TYPE_CUSTOM;
 #endif
-        _gdlFont = (gdl_Font_t *)font;
+      _gdlFont = (gdl_Font_t *)font;
   }
 }
 size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){  //The default is uft8, gbk is not processed here
@@ -152,7 +153,7 @@ size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){  //The default is
     while(_font.avaible()){
 	  _font.readUni();          
       _font.getFont();          
-
+      //Serial.println(str);
       if(wrap && ((cursor_x + (uint16_t)pgm_read_byte(&(_gdlFont->glyph->xAdvance))) > _width)){
           cursor_x = 0;
           cursor_y += _gdlFont->yAdvance;

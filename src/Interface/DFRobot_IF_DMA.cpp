@@ -51,6 +51,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
               uint32_t n = 0;
               (len > DMA_BUFFER_SIZE) ? n = DMA_BUFFER_SIZE : n = len;
               len -= n;
+			  delayMicroseconds(20);
               p->pro.dma->transfer(pBuf, n);
               pBuf += n;
           }while(len);
@@ -70,6 +71,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
                 len -= n;
                 for(uint8_t i = 0; i < n; i++){
                     uint8_t b = pgm_read_byte(pBuf+i);
+					delayMicroseconds(600);
                     p->pro.dma->transfer(&b, 1);
                 }
                 pBuf += n;
@@ -83,6 +85,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
            if(!(p->isBegin)) return 0;
            PIN_LOW(p->pinList[IF_PIN_CS]);
            do{
+			   if(len == 0) break;
                p->pro.dma->transfer(pBuf+1, pBuf[0]);
                len--;
            }while(len);
@@ -96,6 +99,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
            if(!(p->isBegin)) return 0;
            PIN_LOW(p->pinList[IF_PIN_CS]);
            do{
+			   if(len == 0) break;
                uint32_t n = 0;
                (len > DMA_BUFFER_SIZE) ? n = DMA_BUFFER_SIZE : n = len;
                 len -= n;

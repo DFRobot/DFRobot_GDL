@@ -1,6 +1,17 @@
 /*!
  * @file DFRobot_GDL.cpp
- * @brief Define the abstract class of the DFRobot_GDL display library, and define the screen subclass
+ * @brief 定义DFRobot_GDL显示库抽象类，并定义屏子类
+ *
+ * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @licence     The MIT License (MIT)
+ * @author [Arya](xue.peng@dfrobot.com)
+ * @version  V1.0
+ * @date  2019-12-23
+ * @https://github.com/DFRobot/DFRobot_GDL
+ */
+/*!
+ * @file DFRobot_GDL.cpp
+ * @brief defines the abstract class of the DFRobot_GDL display library and defines the screen subclass
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)

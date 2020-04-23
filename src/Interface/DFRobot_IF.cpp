@@ -69,8 +69,8 @@ void DFRobot_IF::initHWIIC(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t 
   for(uint8_t i = 0; i < _if.interface; i++){
       if(_if.pinList[i] == GDL_PIN_NC)
           continue;
-      pinMode(_if.pinList[i], OUTPUT);
-      digitalWrite(_if.pinList[i], HIGH);
+          //pinMode(_if.pinList[i], OUTPUT);
+          //digitalWrite(_if.pinList[i], HIGH);
   }
   _if.length = I2C_BUFFER_LENGTH;
   _if.dev = dev;

@@ -945,7 +945,7 @@ void DFRobot_UI::sBar_t::setValue(uint8_t value){
 }
 void DFRobot_UI::barEvent(void *obj) {
   sBar_t *bar = (sBar_t *)obj;
-  //Serial.println(position[0].x);
+  Serial.println("s");
   double pi = 3.1415926;
   double rad1, rad2, cosa, sina, x, y;
   bar->sliderPos = (bar->width * bar->value) / 100 + bar->posx ;
