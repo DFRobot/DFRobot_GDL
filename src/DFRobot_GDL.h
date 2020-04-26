@@ -1,28 +1,11 @@
 /*!
  * @file DFRobot_GDL.h
- * @brief 声明DFRobot_GDL类，并为其声明多个屏子类
- * @n DFRobot_GDL显示框架继承自Adafruit的GFX框架，链接:https://github.com/adafruit/Adafruit-GFX-Library
- * @n 支持UNO、Mega2560、Leonardo、ESP32、ESP8266、M0等主控
- * @n 支持硬件IIC、SPI、SPI_DMA接口
- * @n 支持彩屏和黑白屏
- * @n 不同屏之间参考u8glib的命名方式，通过驱动IC/分辨率/通信接口来区分
- *
- * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [Arya](xue.peng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-23
- * @https://github.com/DFRobot/DFRobot_GDL
- */
- 
-/*!
- * @file DFRobot_GDL.h
- * @brief declares the DFRobot_GDL class and declares multiple screen subclasses for it
- * @n DFRobot_GDL display framework inherits from Adafruit's GFX framework, link: https://github.com/adafruit/Adafruit-GFX-Library
- * @n supports UNO, Mega2560, Leonardo, ESP32, ESP8266, M0 and other master controls
- * @n supports hardware IIC, SPI, SPI_DMA interface
- * @n supports color screen and black and white screen
- * @n Refer to the naming method of u8glib between different screens, and distinguish by driver IC / resolution / communication interface
+ * @brief Declare the DFRobot_GDL class and declare multiple screen subclasses
+ * @n DFRobot_GDL Display framework inherited from Adafruit's GFX framework, link: https://github.com/adafruit/Adafruit-GFX-Library
+ * @n Support UNO, Mega2560, Leonardo, ESP32, ESP8266, M0 and other master controls
+ * @n Support hardware I2C, SPI, SPI_DMA interface
+ * @n Support color screen and black-and-white screen
+ * @n Refer to the naming method of u8glib to name screens, and distinguish different screens by driver IC/resolution/communication interface
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
@@ -52,7 +35,7 @@
 #define COLOR_MODE_RGB888  4
 
 #if 0
-#ifdef ARDUINO_SAM_ZERO//M0板子的串口与其他串口使用方式有区别  //The serial port of M0 board is different from other serial ports
+#ifdef ARDUINO_SAM_ZERO//The serial port of M0 board is different from other serial ports
 #define DBG(...) {SerialUSB.print("["); SerialUSB.print(__FUNCTION__); SerialUSB.print("(): "); SerialUSB.print(__LINE__); SerialUSB.print(" ] "); SerialUSB.println(__VA_ARGS__);}
 #else
 #define DBG(...) {Serial.print("["); Serial.print(__FUNCTION__); Serial.print("(): "); Serial.print(__LINE__); Serial.print(" ] "); Serial.println(__VA_ARGS__);}
@@ -63,13 +46,13 @@
 
 
 /*
- 0x36 寄存器的MADCTL：MADCTL of 0x36 register:
+ MADCTL of 0x36 register:
    * -------------------------------------------------------------------------
    * |   D7   |   D6   |   D5   |   D4   |   D3   |   D2   |   D1   |   D0   |
    * -------------------------------------------------------------------------
    * |   MY   |   MX   |   MV   |   ML   |   RGB  |   MH   |      reserve    |
    * -------------------------------------------------------------------------
-   *默认值0x00,显示方式从上到下，从左到右，RGB顺序   The default value is 0x00, the display mode is from top to bottom, from left to right, RGB order
+   *Default value:0x00, display mode: top to bottom, left to right, RGB order
 */
 typedef union{
   struct{
@@ -81,149 +64,94 @@ typedef union{
       uint8_t mx: 1;   /**< Column Address Order */
       uint8_t my: 1;   /**< Page Address Order */
   };
-  uint8_t value; /**<寄存器MADCTL的值*/  /**<The value of the register MADCTL*/
+  uint8_t value; /**<The value of the register MADCTL*/
 }uMadctlArgs_t;
 
 typedef struct{
-  uint8_t madctl; /**<寄存器的MADCTL命令*//**<Register MADCTL command*/
-  uMadctlArgs_t args; /**<寄存器MADCTL的值*//**<The value of the register MADCTL*/
+  uint8_t madctl; /**<Register MADCTL command*/
+  uMadctlArgs_t args; /**<The value of the register MADCTL*/
 }sMadctlCmd_t;
 
 typedef struct{
-  uint8_t rotation;/**<旋转角度 0：不旋转，1：旋转90°，2：旋转180°，3：旋转270°*//**<Rotation angle 0: No rotation, 1: 90 ° rotation, 2: 180 ° rotation, 3: 270 ° rotation*/
-  uint8_t cMode; /**<屏的颜色格式，如RGB565，RGB666，RGB888*//**<Screen color format, such as RGB565, RGB666, RGB888*/
-  uint8_t *buffer;/**<一般用在黑白或灰阶等显示，及一个字节控制几个像素点或一个像素点由非整数个字节控制，且无法支持读模式*//**<Generally used in black and white or gray scale display, and one byte controls several pixels or one pixel is controlled by non-integer bytes, and cannot support read mode*/
+  uint8_t rotation;/**<Rotation angle: 0, No rotation; 1, 90 ° rotation; 2, 180 ° rotation; 3, 270 ° rotation*/
+  uint8_t cMode; /**<Screen color format, such as RGB565, RGB666, RGB888*/
+  uint8_t *buffer;/**<Generally used in black/white or grayscale display, and one byte controls several pixels or one pixel is controlled by non-integer bytes, and cannot support read mode*/
 }sGdlLcdDev_t;
 
 class DFRobot_GDL : public Adafruit_GFX, public DFRobot_IF{
 public:
   /**
-   * @brief Constructor  当屏采用硬件SPI通信时，可以调用此构造函数
-   * @param dev  通信接口结构体指针，该结构体保存了屏的通信接口类型、通信频率、相关IO引脚，在不同的主控上，一次通信处理的最大字节数，及屏初始化数组和接口函数指针
-   * @param w  屏的宽分辨率
-   * @param h  屏的高分辨率
-   * @param dc  SPI通信的命令/数据线引脚
-   * @param cs  SPI通信的片选引脚
-   * @param rst  屏的复位引脚
-   * @param bl  屏的背光控制引脚
-   */
-  /**
-    * @brief Constructor When the screen uses hardware SPI communication, you can call this constructor
-    * @param dev pointer of the communication interface structure, which saves the screen's communication interface type, communication frequency, and related IO pins. On different masters, the maximum number of bytes processed in one communication and the screen initialization array and Interface function pointer
-    * @param w wide resolution of the screen
-    * High resolution of @param h screen
-    * @param dc Command / data line pin for SPI communication
+    * @brief Constructor When the screen uses hardware SPI communication, call this constructor
+    * @param dev Pointer to communication interface structure. The struct holds the screen's communication interface type,
+    * @n communication frequency, and related IO pins. For different main-controllers, the maximum number of bytes processed in
+    * @n one communication and the screen initialization array and Interface function pointer are different.
+    * @param w Wide resolution of the screen
+    * @param h High resolution of the screen
+    * @param dc Command/data line pin for SPI communication
     * @param cs Chip select pin for SPI communication
-    * @param rst reset pin of the screen
-    * @param bl backlight control pin of the screen
+    * @param rst Reset pin of the screen
+    * @param bl Backlight control pin of the screen
     */
   DFRobot_GDL(sGdlIFDev_t *dev, int16_t w, int16_t h, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl);
   /**
-   * @brief Constructor  当屏采用硬件IIC通信时，可以调用此构造函数
-   * @param dev  通信接口结构体指针，该结构体保存了屏的通信接口类型、通信频率、相关IO引脚，在不同的主控上，一次通信处理的最大字节数，及屏初始化数组和接口函数指针
-   * @param w  屏的宽分辨率
-   * @param h  屏的高分辨率
-   * @param addr  IIC通信地址
-   * @param rst  屏的复位引脚
-   * @param bl  屏的背光控制引脚
-   */
-  /**
-    * @brief Constructor When the screen uses hardware IIC communication, you can call this constructor
-    * @param dev pointer of the communication interface structure, which saves the screen's communication interface type, communication frequency, and related IO pins. On different masters, the maximum number of bytes processed in one communication and the screen initialization array and Interface function pointer
-    * @param w wide resolution of the screen
-    * High resolution of @param h screen
+    * @brief Constructor When the screen uses hardware IIC communication, call this constructor
+    * @param dev Pointer to communication interface structure. The scruct holds the screen's communication interface type, communication
+    * @n frequency, and related IO pins. For different masters, the maximum number of bytes processed in one communication and the screen
+    * @n initialization array and Interface function pointer are different.
+    * @param w Wide resolution of the screen
+    * @param h High resolution of the screen
     * @param addr IIC communication address
-    * @param rst reset pin of the screen
-    * @param bl backlight control pin of the screen
+    * @param rst Reset pin of the screen
+    * @param bl Backlight control pin of the screen
     */
   DFRobot_GDL(sGdlIFDev_t *dev, int16_t w, int16_t h, uint8_t addr, uint8_t rst, uint8_t bl);
   ~DFRobot_GDL();
   virtual void begin(uint32_t freq = 0){};
   /**
-   * @brief 画像素点函数
-   * @param x  像素点的x坐标位置
-   * @param y  像素点的y坐标位置
-   * @param color  像素点的颜色，该颜色为RGB565格式
-   */
-  /**
-    * @brief draw pixel function
-    * @param x the x coordinate position of the pixel
-    * @param y y coordinate position of the pixel
-    * @param color The color of pixels, the color is RGB565 format
+    * @brief Function to draw a pixel 
+    * @param x X-coordinate position of the pixel
+    * @param y Y-coordinate position of the pixel
+    * @param color The color of pixels, RGB565 format
     */
   void drawPixel(int16_t x, int16_t y, uint16_t color);
   /**
-   * @brief 刷屏函数
-   * @param color  屏幕填充颜色，默认为RGB565格式
-   */
-  /**
-    * @brief refresh function
-    * @param color screen fill color, default is RGB565 format
+    * @brief Function to refresh screen
+    * @param color color to fill screen, RGB565 format
     */
   void fillScreen(uint16_t color);
   /**
-   * @brief 快速垂直画线
-   * @param x  垂直线的起始点的x坐标位置
-   * @param y  垂直线的起始点的y坐标位置
-   * @param h  垂直线的高度
-   * @param color  垂直线的颜色，该颜色为RGB565格式
-   */
-  /**
-    * @brief quick vertical line drawing
-    * @param x The x coordinate position of the starting point of the vertical line
-    * @param y the y coordinate position of the starting point of the vertical line
-    * @param h the height of the vertical line
-    * @param color The color of the vertical line, the color is RGB565 format
+    * @brief Draw vertical line fast
+    * @param x X-coordinate position of the starting point of the vertical line
+    * @param y Y-coordinate position of the starting point of the vertical line
+    * @param h Height of the vertical line
+    * @param color The color of the vertical line, RGB565 format
     */
   void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
   /**
-   * @brief 快速水平画线
-   * @param x  水平线的起始点的x坐标位置
-   * @param y  水平线的起始点的y坐标位置
-   * @param w  水平线的长度
-   * @param color  垂直线的颜色，该颜色为RGB565格式
-   */
-  /**
-    * @brief quick horizontal line drawing
-    * @param x the x coordinate position of the starting point of the horizontal line
-    * @param y the y coordinate position of the starting point of the horizontal line
-    * @param w length of horizontal line
-    * @param color The color of the vertical line, the color is RGB565 format
+    * @brief Draw horizontal line fast
+    * @param x X-coordinate position of the starting point of the horizontal line
+    * @param y Y-coordinate position of the starting point of the horizontal line
+    * @param w Length of horizontal line
+    * @param color The color of the vertical line, RGB565 format
     */
   void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
   /**
-   * @brief 矩形填充
-   * @param x  矩形的起始点的x坐标位置
-   * @param y  矩形的起始点的y坐标位置
-   * @param w  矩形的宽度
-   * @param h  矩形的高度
-   * @param color  矩形的颜色，该颜色为RGB565格式
-   */
-  /**
-    * @brief rectangle fill
-    * @param x the x coordinate position of the starting point of the rectangle
-    * @param y the y coordinate position of the starting point of the rectangle
-    * @param w the width of the rectangle
-    * @param h the height of the rectangle
-    * @param color The color of the rectangle, the color is RGB565 format
+    * @brief Fill rectangle 
+    * @param x X-coordinate position of the starting point of the rectangle
+    * @param y Y-coordinate position of the starting point of the rectangle
+    * @param w Width of the rectangle
+    * @param h Height of the rectangle
+    * @param color The color of the rectangle, RGB565 format
     */
   void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
   /**
-   * @brief 设置字体
-   * @param font  字体结构体指针，指向GFXfont或gdl_Font_t
-   */
-  /**
-    * @brief set font
-    * @param font font structure pointer, point to GFXfont or gdl_Font_t
+    * @brief Set font
+    * @param font Font structure pointer, point to GFXfont or gdl_Font_t
     */
   void setFont(const void *font = NULL);
   /**
-   * @brief 设置旋转方式
-   * @param r  旋转方式 0,1,2,3有效
-   */
-  /**
-    * @brief Set the rotation method
-    * @param r rotation mode 0,1,2,3 is effective
+    * @brief Set the rotation mode
+    * @param r Effective rotation mode 0, 1, 2, 3  
     */
   void setRotation(uint8_t r);
   
