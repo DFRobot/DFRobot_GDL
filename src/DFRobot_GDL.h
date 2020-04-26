@@ -205,44 +205,25 @@ public:
     */
   uint8_t getUtf_8Bytes(uint8_t b);
   /**
-   * @brief 自定义字体的画位图方式
-   * @param x  字符在屏上显示的x起始坐标
-   * @param y  字符在屏上显示的y起始坐标
-   * @param gdlFont 自定义字体结构体指针，存放字符的数据信息
-   * @param fg  前景色，文本颜色
-   * @param bg  背景色，文本底色
-   */
-  /**
-    * @brief custom font drawing bitmap method
-    * @param x The x coordinate of the character displayed on the screen
-    * @param y The y starting coordinate of the character displayed on the screen
+    * @brief  Drawing bitmap method of custom font
+    * @param x X-coordinate of the character displayed on the screen
+    * @param y Y-starting coordinate of the character displayed on the screen
     * @param gdlFont custom font structure pointer, store character data information
-    * @param fg foreground color, text color
-    * @param bg background color, text background color
+    * @param fg Foreground color, text color
+    * @param bg Background color, text background color
     */
   void drawCharBitmaps(uint16_t x, uint16_t y, gdl_Font_t *gdlFont, uint16_t fg, uint16_t bg);
   /**
-   * @brief 使用oled屏时，操作完成后，必须调用update函数才会生效
-   */
-  /**
-    * @brief When using the OLED screen, after the operation is completed, the update function must be called to take effect
+    * @brief When using the OLED screen, the update function must be called to take effect after the operation is completed
     */
   void update();
   
 protected:
   /**
-   * @brief 显示屏初始化函数,初始化完毕后，即可显示
-   * @param freq  频率
-   */
-  /**
-    * @brief display initialization function, after initialization, it can be displayed
+    * @brief Display initialization function, the screen will work after initialization done
     * @param freq frequency
     */
   void initDisplay();
-  /**
-   * @brief 显示屏初始化函数
-   * @param freq  频率
-   */
   /**
     * @brief display initialization function
     * @param freq frequency
@@ -258,7 +239,7 @@ protected:
    */
   /**
     * @brief Pure virtual function, set rectangular display area, this function has subclass instantiation
-    * @param x the position of the start line
+    * @param x the position of the start row
     * @param y the position of the starting column
     * @param w display area width
     * @param h display area height
