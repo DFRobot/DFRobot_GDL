@@ -158,80 +158,50 @@ public:
   /**
    * @brief  Invert the colors of the display (if supported by hardware).
    * @n        Self-contained, no transaction setup required.
-   * @param  i  true = inverted display, false = normal display.
+   * @param  i  true = reversed display, false = normal display.
    */
   void invertDisplay(bool i);
   /**
-   * @brief 将RGB565格式的颜色数据伸缩为RGB666格式的颜色数据
-   * @param rgb666  存放的RGB666的颜色数据指针数组
-   * @param color  原始RGB565格式颜色数据
-   */
-  uint8_t rgb565ToRGB666(uint8_t *rgb666, uint16_t color);
-  /**
-   * @brief 将RGB565格式的颜色数据伸缩为RGB888格式的颜色数据,24位真彩色
-   * @param r  RGB888的红色分量
-   * @param g  RGB888的绿色分量
-   * @param b  RGB888的蓝色分量
-   * @param color  原始RGB565格式颜色数据
-   */
-  /**
-    * @brief scales color data in RGB565 format to color data in RGB666 format
+    * @brief Covert color RGB565 data to color RGB666 data
     * @param rgb666 Array of RGB666 color data pointers
     * @param color raw RGB565 format color data
     */
+  uint8_t rgb565ToRGB666(uint8_t *rgb666, uint16_t color);
+  /**
+   * @brief Covert color RGB565 data to color RGB888 data, 24-bit true color
+   * @param r  Red component of RGB888
+   * @param g  Green component of RGB888
+   * @param b  Blue component of RGB888
+   * @param color  Raw RGB565 color data
+   */
   void rgb565ToRGB888(uint8_t *r, uint8_t *g, uint8_t *b, uint16_t color);
   /**
-   * @brief 将RGB888格式的颜色数据压缩为RGB666格式的颜色数据
-   * @param r  原始颜色数据RGB888格式的红色分量
-   * @param g  原始颜色数据RGB888格式的绿色分量
-   * @param b  原始颜色数据RGB888格式的蓝色分量
-   * @return  RGB565格式颜色数据
-   */
-  /**
-    * @brief compresses RGB888 format color data into RGB666 format color data
-    * @param r Red component of the original color data RGB888 format
-    * @param g original color data green component in RGB888 format
-    * @param b The blue component of the original color data in RGB888 format
+    * @brief Compress RGB888 format color data into color data in RGB666 format
+    * @param r Red component of original RGB888 color data
+    * @param g Green component of original RGB888 color data 
+    * @param b Blue component of original RGB888 color data
     * @return RGB565 format color data
     */
   uint16_t rgb888ToRGB565(uint8_t r, uint8_t g, uint8_t b);
   /**
-   * @brief Write  bytes into screen.
+   * @brief Write bytes into screen.
    * @n The following are the overload functions of the byte of different data type. 
-   * @param buffer  存放发送数据的buffer
-   * @param size  发送的字节数
-   * @return 返回实际写入的字节数
+   * @param buffer  Buffer for saving or transmitting data 
+   * @param size  The number of bytes to send
+   * @return Return the actual number of bytes written
    */
-  /**
-    * @brief Write bytes into screen.
-    * @n The following are the overload functions of the byte of different data type.
-    * @param buffer buffer for sending data
-    * @param size Number of bytes sent
-    * @return returns the actual number of bytes written
-    */
   virtual size_t write(const uint8_t *buffer, size_t size);
   /**
-   * @brief 将utf-8编码转为Unicode编码
-   * @param num  数据UTF-8编码的字节数
-   * @param buf  数据的UTF-8编码
-   * @return  32位的Unicode编码数据
-   */
-  /**
-    * @brief convert utf-8 encoding to Unicode encoding
-    * @param num UTF-8 encoded bytes
-    * @param buf UTF-8 encoding of data
-    * @return 32-bit Unicode encoded data
+    * @brief Convert utf-8 encoding to unicode encoding
+    * @param num The number of bytes of UTF-8 encode
+    * @param buf The encode of UTF-8 data
+    * @return 32-bit Unicode encode data
     */
   uint32_t utf8ToUnicode(uint8_t num, uint8_t *buf);
   /**
-   * @brief 获取某个数据UTF-8编码的字节数
-   * @param b  数据UTF-8编码的第一个数据
-   * @return  数据UTF-8编码的字节数
-   */
-  /**
-    * @brief Get the UTF-8 encoded bytes of a certain data
-    * @param b data UTF-8 encoded first data
-    * @return UTF-8 encoded bytes
+    * @brief Get the number of bytes of a UTF-8 encode date 
+    * @param b The first data of UTF-8 encode
+    * @return The number of bytes of UTF-8 encode data
     */
   uint8_t getUtf_8Bytes(uint8_t b);
   /**
