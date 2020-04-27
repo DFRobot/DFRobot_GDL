@@ -1,17 +1,6 @@
 /*!
  * @file DFRobot_Gesture.h
- * @brief DFRobot_Gesture 类的基础结构,通过采集触摸屏幕上手指划滑过的点来识别手势
- * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-6
- * @get from https://www.dfrobot.com
- * @url https://github.com/DFRobot/DFRobot_GDL/src
- */
-/*!
- * @file DFRobot_Gesture.h
- * @brief The basic structure of the  DFRobot_Gesture class, which recognizes gestures by collecting the points on the touch screen where the finger swipes
+ * @brief Basic structure of DFRobot_Gesture class. Recognize gestures by collecting the points on the touch screen where the finger swipes
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
@@ -29,62 +18,62 @@
 
 class DFRobot_Gesture{
 public:
-//用来存储一个点在触摸屏按下到松开的信息  //Used to store the information of a point pressed to release on the touch screen
+//Used to store the information of a point from pressed-state and released-state on the touch screen
 typedef struct{
-    uint16_t pointx[POINT]; //所有记录点的x坐标  //X-coordinates of all recorded points
-	uint16_t pointy[POINT]; //所有记录点的y坐标  //Y coordinates of all recorded points
-	uint8_t id; //触摸点的id  //Touch point id
-	uint8_t pressed; //是否被按下 //Whether it was pressed
+    uint16_t pointx[POINT]; //X-coordinates of all recorded points
+	uint16_t pointy[POINT]; //Y-coordinates of all recorded points
+	uint8_t id; //Touch point id
+	uint8_t pressed; //Whether it was pressed
 }sTouchRecord_t;
-//记录即时五个点的位置信息 // // Record the location information of five points in real time //
+//Record the location information of five points in real-time //
 typedef struct{
 	uint16_t x[5];
 	uint16_t y[5];
 	
 }sTouchMessage_t;
   /*!
-    该枚举定义了不同的手势  The enumeration defines different gestures
+    The enumeration defines different gestures
   */
   typedef enum {
-  	SCLICK,/**<单指点击>**/ /**<single finger click>**/
-  	DDOUBLECLICK,/**<单指双击>**/ /**<Double tap with one finger>**/
-  	DLONGPRESSED,/**<单指长按>**/ /**<Single finger long press>**/
-  	SLEFTGLIDE,/**<单指左滑>**/ /**<Single finger swipe left>**/
-  	SRIGHTGLIDE,/**<单指右滑>**/ /**<Single finger swipe right>**/
-  	SDOWNGLIDE,/**<单指下滑>**/ /**<One finger down>**/
-  	SUPGLIDE,/**<单指上滑>**/ /**<One finger slide up>**/
-    DUPGLIDE,/**<双指上滑>**/ /**<Two fingers slide up>**/
-    DDOWNGLIDE,/**<双指下滑>**/ /**<Two fingers down>**/
-    DLEFTGLIDE,/**<双指左滑>**/ /**<Two-finger swipe left>**/
-    DRIGHTGLIDE,/**<双指右滑>**/ /**<Swipe right with two fingers>**/
-    SHRINK,/**<双指缩小手势>**/ /**<Two fingers zoom out gesture>**/
-    MAGNIFY,/**<双指放大手势>**/ /**<Two finger zoom in gesture>**/
-  	DWROTATE,/**<双指顺时针滑动>**/ /**<Two fingers slide clockwise>**/
-  	DCWROTATE,/**<双指逆时针滑动**/ /**<Two fingers slide counterclockwise>**/
-  	DCLICK,/**<双指点击>**/ /**<Two-finger click>**/
-  	TCLICK,/**<三指点击>**/ /**<Three-finger click>**/
-  	TLEFTGLIDE,/**<三指向左滑动>**/ /**<Three-finger swipe left>**/
-  	TRIGHTGLIDE,/**<三指向右滑动>**/ /**<Three-finger swipe right>**/
-  	TDOWNGLIDE,/**<三指向下滑动>**/
-  	TUPGLIDE,/**<三指向上滑动>**/
-   	WCLICK,/**<四指点击>**/ /**<Four-finger click>**/
-	PCLICK,/**<五指点击>**/ /**<Five-finger click>**/
-    NONE,/**<未能识别手势>**/ /**<Gesture not recognized>**/
+  	SCLICK,/**<Single finger tap>**/
+  	DDOUBLECLICK,/**<Single finger double-tap>**/
+  	DLONGPRESSED,/**<Single finger long-press>**/
+  	SLEFTGLIDE,/**<One finger swipes left>**/
+  	SRIGHTGLIDE,/**<One finger swipes right>**/
+  	SDOWNGLIDE,/**<One finger swipes down>**/
+  	SUPGLIDE,/**<One finger swipes up>**/
+    DUPGLIDE,/**<Two fingers swipe up>**/
+    DDOWNGLIDE,/**<Two fingers swipe down>**/
+    DLEFTGLIDE,/**<Two fingers swipe left>**/
+    DRIGHTGLIDE,/**<Two fingers swipe right>**/
+    SHRINK,/**<Two fingers zoom out>**/
+    MAGNIFY,/**<Two fingers zoom in>**/
+  	DWROTATE,/**<Two fingers rotate clockwise>**/
+  	DCWROTATE,/**<Two fingers rotate counterclockwise>**/
+  	DCLICK,/**<Two-fingers tap>**/
+  	TCLICK,/**<Three-fingers tap>**/
+  	TLEFTGLIDE,/**<Three-fingers swipe left>**/
+  	TRIGHTGLIDE,/**<Three-fingers swipe right>**/
+  	TDOWNGLIDE,/**<Three-fingers swipe down>**/
+  	TUPGLIDE,/**<Three-fingers swipe up>**/
+   	WCLICK,/**<Four-fingers tap>**/
+	PCLICK,/**<Five-fingers tap>**/
+    NONE,/**<Gesture not recognized>**/
   }eGesture_t;
   /*!
-    该枚举定义了一个手指在屏幕上x或y轴的变化方向   The enumeration defines the direction of a finger's x or y axis change on the screen
+    The enumeration defines a finger's change of direction in X or Y axis on the screen
   */
   typedef enum{
-  	  UPL, /**<手指在y方向上的坐标减小>**/ /**<The finger's coordinate in the y direction decreases>**/
-  	  DOWNL,/**<手指在y方向上的坐标增大>**/ /**<The finger's coordinate in the y direction increases>**/
-  	  LEFTL,/**<手指在x方向上的坐标减小>**/ /**<The coordinates of the finger in the x direction decrease>**/
-  	  RIGHTL,/**<手指在x方向上的坐标增大>**/ /**<The finger's coordinates in the x direction increase>**/
-  	  NOCHANGE,/**<手指变化范围太小，定义为未改变>**/ /**<The range of finger change is too small, defined as unchanged>**/
-  	  UNIDENTIFIABLE,/**<无法识别>**/ /**<Unrecognized>**/
+  	  UPL, /**<The finger's coordinate in the y direction decreases>**/
+  	  DOWNL,/**<The finger's coordinate in the y direction increases>**/
+  	  LEFTL,/**<The finger's coordinate  in the x direction decreases>**/
+  	  RIGHTL,/**<The finger's coordinate in the x direction increases>**/
+  	  NOCHANGE,/**<The range of finger changing is too small, defined as unchanged>**/
+  	  UNIDENTIFIABLE,/**<Cannot be recognized>**/
   }eDirection_t;
 
   /*!
-    该枚举定义了单个手指在屏幕上的变化  The enumeration defines the change of a single finger on the screen
+    The enumeration defines the change of a single finger on the screen
   */  
   typedef enum{
   	  LETTUP,
@@ -105,8 +94,8 @@ typedef struct{
    */
   /**
     * @brief Get the gesture detected by the touch screen
-    * @param str string, which contains touch point information
-    * Variables of type @return eGesture_t represent different gestures
+    * @param str String, which contains touch point information
+    * @return  Variables of eGesture_t type, represent different gestures
     */
   eGesture_t gesture(String str);
   /**
