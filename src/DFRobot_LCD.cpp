@@ -1,17 +1,6 @@
 /*!
  * @file DFRobot_LCD.cpp
- * @brief 定义DFRobot_GDL显示库的子类，屏的实现
- *
- * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [Arya](xue.peng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-23
- * @https://github.com/DFRobot/DFRobot_GDL
- */
-/*!
- * @file DFRobot_LCD.cpp
- * @brief defines the subclass of DFRobot_GDL display library, the realization of the screen
+ * @brief Define the subclass of DFRobot_GDL display library, the realization of the screen
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
@@ -197,7 +186,7 @@ void DFRobot_SSD1306_128x32_HW_IIC::begin(uint32_t freq){
   gdlInit(freq);
   _lcd.buffer = (uint8_t *)malloc(128*64/8);
   memset(_lcd.buffer,0xff,128*64/8);
-  initDisplay();//显示屏初始化
+  initDisplay();//Init display
 }
 void DFRobot_SSD1306_128x32_HW_IIC::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color){
   //if((x + w ) > _width || (y + h) > _height) return;
