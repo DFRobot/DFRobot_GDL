@@ -225,70 +225,42 @@ protected:
     */
   void initDisplay();
   /**
-    * @brief display initialization function
+    * @brief Display initialization function
     * @param freq frequency
     */
   void gdlInit(uint32_t freq = 0);
   /**
-   * @brief 纯虚函数，设置矩形显示区域，该函数有子类实例化
-   * @param x  起始行的位置
-   * @param y  起始列的位置
-   * @param w  显示区域宽度
-   * @param h  显示区域高度
-   * @param color  像素点的颜色，该颜色为RGB565格式
-   */
-  /**
     * @brief Pure virtual function, set rectangular display area, this function has subclass instantiation
-    * @param x the position of the start row
-    * @param y the position of the starting column
-    * @param w display area width
-    * @param h display area height
-    * @param color The color of pixels, the color is RGB565 format
+    * @param x The position of the start row
+    * @param y The position of the start column
+    * @param w Display area width
+    * @param h Display area height
+    * @param color The color of pixels, RGB565 format
     */
   virtual void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color) = 0;
   /**
-   * @brief 写命令
-   * @param cmd  该数据是命令
-   */
-  /**
-    * @brief write command
+    * @brief Write command
     * @param cmd The data is a command
     */
   void sendCommand(uint8_t cmd);
   /**
-   * @brief 写命令和数据
-   * @param cmd  该数据是命令
-   * @param args  const指针，存放的是数据
-   * @param len  指针数据的长度
-   * @param isRamData  const指针是指向ROM还是RAM, 默认指向ROM,需用特殊的方法读取args指向的数据
-   */
+    * @brief Write command and data
+    * @param cmd The data is a command
+    * @param args const pointer to store data
+    * @param len Length of pointer data
+    * @param isRamData const pointer points to ROM or RAM, default point to ROM. A special method is required to read the data args points to 
+    */
   void sendCommand(uint8_t cmd, void *args, uint32_t len, bool isRamData = false);
   /**
-   * @brief 写一个字节数据
-   * @param data  该参数是屏的数据
-   */
-  /**
-    * @brief write commands and data
-    * @param cmd The data is a command
-    * @param args const pointer, which stores data
-    * @param len length of pointer data
-    * @param isRamData const pointer points to ROM or RAM, the default point to ROM, you need to use a special method to read the data pointed to by args
+    * @brief write one byte of data
+    * @param data The parameter is the screen data
     */
   void sendData(uint8_t data);
   /**
-   * @brief 写一个字节数据
-   * @param data  该参数是屏的数据
-   */
-  /**
-    * @brief write a byte of data
+    * @brief write 2 bytes of data
     * @param data The parameter is the screen data
     */
   void sendData16(uint16_t data);
-  /**
-   * @brief 如果屏是RGB565格式的，可以直接调用此函数
-   * @param color  RGB565格式的颜色数据
-   * @param len  要操作的像素点的个数
-   */
   /**
     * @brief If the screen is in RGB565 format, you can call this function directly
     * @param color RGB565 format color data
@@ -296,42 +268,24 @@ protected:
     */
   void sendColor(uint16_t color, uint32_t len);
   /**
-   * @brief 给像素点设置颜色
-   * @param c uint8_t指针，指向的是颜色数据，该颜色格式可能是RGB565、RGB666等，不同颜色格式的数据
-   * @param cBytes  表示一个像素点用几个字节表示
-   * @param isRamData  指针c是指向ROM还是RAM, 默认指向ROM,需用特殊的方法读取args指向的数据
-   */
-  /**
-    * @brief sets the color for pixels
-    * @param c uint8_t pointer, which points to color data, the color format may be RGB565, RGB666, etc., data in different color formats
-    * @param cBytes means a pixel is represented by several bytes
-    * @param isRamData Is the pointer c pointing to ROM or RAM, the default is pointing to ROM, you need to read the data pointed to by args in a special way
+    * @brief Set color for pixels
+    * @param c uint8_t pointer to color data, the color format could be RGB565, RGB666, etc., data in different color formats
+    * @param cBytes Means how many bytes are used to represent one pixel
+    * @param isRamData Pointer c points to ROM or RAM, default point to ROM. A special method is required to read the data args points to.
     */
   void sendColor(uint8_t *c, uint8_t cBytes, uint32_t len, bool isRamData = true);
   /**
-   * @brief 设置显示驱动IC的分辨率
-   * @param w 驱动IC的x分辨率，当rotation = 0时的分辨率
-   * @param h 驱动IC的y分辨率，当rotation = 0时的分辨率
-   */
-  /**
     * @brief Set the resolution of the display driver IC
-    * @param w x resolution of driver IC, resolution when rotation = 0
-    * @param h y resolution of driver IC, resolution when rotation = 0
+    * @param w x resolution of driver IC, when rotation = 0
+    * @param h y resolution of driver IC, when rotation = 0
     */
   void setDriverICResolution(int16_t w, int16_t h);
   /**
-   * @brief 将16位RGB565格式颜色数据，切换成其他颜色格式，如RGB888，黑白格式等
-   * @param pBuf 里面存放的是切换后的颜色数据
-   * @param len pBuf里颜色数据的长度，代表颜色数据可以用几个byte表示
-   * @param pixel pBuf里的颜色数据可控制的像素点的个数
-   * @param color 原始颜色数据，为RGB565
-   */
-  /**
-    * @brief switches 16-bit RGB565 format color data to other color formats, such as RGB888, black and white format, etc.
-    * @param pBuf stores the color data after switching
-    * The length of the color data in @param len pBuf, which means that the color data can be expressed in several bytes
-    * The number of pixels that can be controlled by the color data in @param pixel pBuf
-    * @param color original color data, RGB565
+    * @brief Switch 16-bit RGB565 color format to other color formats, such as RGB888, black and white format, etc.
+    * @param pBuf Store the switched color data
+    * @param len Length of the color data in pBuf, which means how many bytes are required to represent the color data 
+    * @param pixel The number of pixels that can be controlled by the color data in pBuf 
+    * @param color Raw color data, RGB565
     */  
   void getColorFormat(uint8_t *pBuf, uint8_t &len, uint8_t &pixel, uint16_t color);
 
@@ -352,16 +306,10 @@ private:
 };
 
 /**
- * @brief 1.54寸SPI彩屏
- * 驱动IC: ST7789
- * 分辨率: 240x240（宽x高）
- * 通信接口：硬件SPI
- */
-/**
-  * @brief 1.54 inch SPI color screen
+  * @brief 1.54 inches SPI color screen
   * Driver IC: ST7789
   * Resolution: 240x240 (width x height)
-  * Communication interface: hardware SPI
+  * Communication Interface: hardware SPI
   */
 class DFRobot_ST7789_240x240_HW_SPI: public DFRobot_GDL{
 public:
@@ -374,16 +322,10 @@ protected:
 
 
 /**
- * @brief 1.54寸SPI彩屏
- * 驱动IC: ST7789
- * 分辨率: 240x320（宽x高）
- * 通信接口：硬件SPI
- */
-/**
-  * @brief 1.54 inch SPI color screen
+  * @brief 1.54 inches SPI color screen
   * Driver IC: ST7789
   * Resolution: 240x320 (width x height)
-  * Communication interface: hardware SPI
+  * Communication Interface: hardware SPI
   */
 class DFRobot_ST7789_240x320_HW_SPI: public DFRobot_GDL{
 public:
@@ -418,18 +360,11 @@ public:
 };
 
 /**
- * @brief 0.91寸oled屏（黑白）
- * 驱动IC: SSD1306
- * 分辨率: 128x32（宽x高）
- * 通信接口：硬件IIC
- * IIC通信地址: 默认0x3C
- */
-/**
   * @brief 0.91 inch oled screen (black and white)
   * Driver IC: SSD1306
   * Resolution: 128x32 (width x height)
-  * Communication interface: hardware IIC
-  * IIC communication address: default 0x3C
+  * Communication Interface: hardware IIC
+  * IIC communication Address: default 0x3C
   */
 class DFRobot_SSD1306_128x32_HW_IIC: public DFRobot_GDL{
 public:
