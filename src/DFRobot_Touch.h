@@ -19,11 +19,12 @@
  /*!
   * @file DFRobot_Touch.h
   * @brief Declaration the basic structure of class DFRobot_Touch
-  * @n touch frame, you can directly add touch of SPI and IIC interface
-  * @n supports capacitive touch IC: GT911 / GT5588
+  * @n Touch frame, you can directly add touch of SPI and IIC interface
+  * @n Supported capacitive touch IC: GT911/GT5588
   * @n Supported resistive touch IC: XPT2046
-  * @n supports reading data from rom / ram
-  * @n supports SPI / IIC / SPI_DMA read and write
+  * @n Support reading data from rom/ram
+  * @n Support
+  SPI/IIC/SPI_DMA read and write
   * @n Set communication interface frequency
   *
   * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
