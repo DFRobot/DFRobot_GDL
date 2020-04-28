@@ -10,8 +10,8 @@
 // Array organization
 // 1. Register start address 0x8050
 // 2. Number of data
-// 0 register digit, 1 the digits of data stored in each register 16bit-reg 8bit-data
-// The first 5 data are control data: register digits, register value digits, start register, configuration data number
+// 0 register bit, 1 the bit of data stored in each register 16bit-reg 8bit-data
+// The first 5 data are control data: register bit, register value bit, start register, configuration data number
 static const uint8_t PROGMEM touchGt5688ConfigTable[] = {
 2,// 1-> The register is 8 bits, the 2 register is 16 bits, the 4 register is 32 bits    0
 1,// 1-> The register value is 8 bits, the 2 register value is 16 and the 4 register value is 32   1
