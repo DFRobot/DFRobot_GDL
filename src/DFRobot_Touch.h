@@ -78,7 +78,7 @@ public:
   DFRobot_Touch(sGdlIFDev_t *dev, uint8_t cs, uint8_t rst, uint8_t irq, uint8_t dc);
   ~DFRobot_Touch();
   /**
-    * @brief Init touch, including interface initialization and configuration initialization
+    * @brief Init touch, including interface and configuration initialization
     */
   void initTouch();
   virtual void begin(uint32_t freq = 0)=0;
