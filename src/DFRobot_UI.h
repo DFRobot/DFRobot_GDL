@@ -1,17 +1,7 @@
 /*!
  * @file DFRobot_UI.h
- * @brief DFRobot_UI 类的基础结构,可以在屏幕上创建一系列的控件，如按钮,文本框,进度条等
- * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-6
- * @get from https://www.dfrobot.com
- * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
- */
-/*!
- * @file DFRobot_UI.h
- * @brief The basic structure of  DFRobot_UI class can create a series of controls on the screen, such as buttons, text boxes, progress bars, etc.
+ * @brief The basic structure of DFRobot_UI class. 
+ * @n Create a series of controls on the screen, such as button, text boxe, progress bar, etc.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
@@ -55,7 +45,7 @@
 class DFRobot_UI : public DFRobot_Gesture
 {
 public:
-  //不完全类型，在定义之前会使用到这些类型，//Incomplete types, these types will be used before the definition,
+  //Partial types, these types will be used before defining
   struct bar;
   struct slider;
   struct button;
@@ -65,91 +55,54 @@ public:
   typedef String scanF() ;
   
   /**
-   * @brief 滑条的回调函数，当进度条的进度值发生改变时，会进入此回调函数
-   * @param value 进度条的值
-   * @n 回调函数里面发生的事件，用户需自定义
-   */
-  /**
-   * @brief The callback function of the slider, when the progress value of the progress bar changes, it will enter this callback function
+   * @brief Slider callback function, when the progress value of the progress bar changes, it will enter this callback function
    * @param value The value of the progress bar
-   * @n The event occurred in the callback function, the user needs to customize
+   * @n Users need to customize events occurred in the callback function
    */
   typedef void sliderCallback(struct slider &slider,struct textBox &obj = NULL);
   
   
   /**
-   * @brief tableview的回调函数
-   * @param highLightPage 高亮的页的页数
-   * @n 回调函数里面发生的事件，用户需自定义
-   */
-  /**
-   * @brief tableview callback function
-   * @param highLightPage Page number of highlighted pages
-   * @n The event occurred in the callback function, the user needs to customize
+   * @brief Tableview callback function
+   * @param highLightPage Page number of the highlighted page
+   * @n Users need to customize events occurred in the callback function
    */
   typedef void tableViewCallback(void *highLightPage);
   
   /**
-   * @brief 开关的回调函数，当开关的状态发生改变时，会进入此回调函数
-   * @param sw 开关对象
-   * @param obj 文本框对象
-   * @n 回调函数里面发生的事件，用户需自定义
-   */
-  /**
-   * @brief The callback function of the switch will enter this callback function when the state of the switch changes
-   * @param sw switch object
-   * @param obj text box object
-   * @n The event occurred in the callback function, the user needs to customize
+   * @brief Switch callback function, when the state of the switch changes, it will enter this callback function 
+   * @param sw Switch object
+   * @param obj Text box object
+   * @n Users need to customize events occurred in the callback function
    */
   typedef void switchCallback(struct Switch &sw,struct textBox &obj);
   
   /**
-   * @brief 按钮的回调函数，当按钮被按下，会进入此回调函数
-   * @param btn 按钮的对象
-   * @param obj 文本框对象
-   * @n 回调函数里面发生的事件，用户需自定义
-   */
-  /**
-    * @brief The callback function of  button, when the button is pressed, it will enter this callback function
-    * @param btn button object
-    * @param obj text box object
-    * @n The event occurred in the callback function, the user needs to customize
+    * @brief Button callback function, when the button is pressed, it will enter this callback function
+    * @param btn Button object
+    * @param obj Text box object
+    * @n Users need to customize events occurred in the callback function
     */
   typedef void buttonCallback(struct button &btn,struct textBox &obj );
   
   /**
-   * @brief 进度条的回调函数
-   * @param obj 进度条的对象
-   * @n 引发进度条发生改变的事件应该写在里面
-   */
-  /**
-   * @brief callback function of progress bar
+   * @brief Progress bar callback function
    * @param obj The object of the progress bar
    * @n The event that caused the progress bar to change should be written in it
    */
   typedef void barCallback(struct bar &obj);
   
   /**
-   * @brief 数字键盘回调函数类型
-   * @param kp 控件私有数据的地址
-   */
-  /**
-   * @brief numeric keyboard callback function type
+   * @brief Numeric keyboard callback function type
    * @param kp Control private data address
    */   
   typedef void keyPadCallback(void *kp);
 
   /**
-   * @brief 控件事件处理函数函数类型
-   */
-  /**
-   * @brief Control event handler function function type
+   * @brief Control event handler function type
    */
   typedef void(DFRobot_UI::*eventHanding)(void *obj);
   
-  /**
-   * @brief 控件绘制函数类型
-   */
   /**
    * @brief control drawing function type
    */
@@ -159,113 +112,113 @@ public:
      The status of the text box
    */
   struct object{
-    uint16_t posx;/**<对象在x轴的坐标>**/  /**<The coordinates of the object on the x axis>**/
-    uint16_t posy;/**<对象在y轴的坐标>**/  /**<The coordinates of the object on the y axis>**/
-    uint16_t  width;/**<对象的宽度>**/  /**<Object width>**/
-    uint16_t  height;/**<对象的高度>**/  /**<The height of the object>**/
-    uint16_t fgColor;/**<对象字体的前景的颜色>**/  /**<The foreground color of the object font>**/
-    uint16_t bgColor;/**<对象字体的背景颜色>**/  /**<The background color of the object font>**/
-    uint8_t fontSize;/**<控件字体元素的大小>**/  /**<Control the size of font elements>**/
-    drawingControl draw; /**<绘制控件的函数>**/  /**<Functions for drawing controls>**/
-    struct object * next;/**<链表下一个结构体的头指针>**/  /**<Head pointer of the next structure in the linked list>**/
-    eventHanding event;/**<控件的事件处理函数>**/  /**<Control event handler function>**/
+    uint16_t posx;/**<X-coordinate of the object>**/
+    uint16_t posy;/**<Y-coordinate of the object>**/
+    uint16_t  width;/**<Object width>**/
+    uint16_t  height;/**<Object height>**/
+    uint16_t fgColor;/**<The foreground color of the object font>**/
+    uint16_t bgColor;/**<The background color of the object font>**/
+    uint8_t fontSize;/**<The size of control font elements>**/
+    drawingControl draw; /**<Function for drawing control>**/
+    struct object * next;/**<Head pointer of the next structure in the linked list>**/
+    eventHanding event;/**<Control event handler function>**/
   };
   typedef struct object sObject_t;
   typedef enum {
-    DRAWBOX,  /**<开始绘制文本框>**/  /**<Start drawing text box>**/
-    DRAWTEXT,/**<绘制字符串.>**/  /**<Draw string>**/
-    ADDCHAR,/**<向文本框添加一个字符.>**/  /**<Add a character to the text box>**/
-    NOCHANGE,/**<无改变.>**/  /**<No change>**/
-    CLEARACHAR,/**<删除文本框内容的最后一个字符.>**/  /**<Delete the last character of the text box content>**/
+    DRAWBOX,  /**<Start drawing text box>**/
+    DRAWTEXT,/**<Draw string>**/
+    ADDCHAR,/**<Add a character to the text box>**/
+    NOCHANGE,/**<No change>**/
+    CLEARACHAR,/**<Delete the last character in the text box>**/
   } eTextState_t;
   
   /*!
-    触摸点的数据  Touch point data
+  Touch point data
   */
   typedef struct :object{
-    uint8_t id;/**<触摸点的id>**/   /**<Touch point id>**/
-    uint16_t x;/**<触摸点的x坐标>**/  /**<X coordinate of touch point>**/
-    uint16_t y;/**<触摸点的y坐标>**/  /**<The y coordinate of the touch point>**/
-    uint16_t wSize/**<触摸区域的宽度>**/;  /**<Width of touch area>**/
-    uint16_t hSize;/**<触摸区域的高度>**/  /**<Height of touch area>**/
+    uint8_t id;/**<Touch point id>**/
+    uint16_t x;/**<X coordinate of touch point>**/
+    uint16_t y;/**<Y-coordinate of touch point>**/
+    uint16_t wSize;/**<Touch area width>**/
+    uint16_t hSize;/**<Touch area height>**/
   } sPoint_t;
   
   /*!
-    开关控件的参数 sSwitch_t类型  Switch control parameters sSwitch_t type
+  Switch control parameter sSwitch_t type
   */
   struct Switch:object{
-    bool change;/**<开关是否改变的标志>**/  /**<Whether the switch has changed>**/
-    uint8_t  laststate;/**<开关的上一次的状态>**/  /**<The last state of the switch>**/
-    uint8_t  state;/**<开关的状态(on / off)>**/  /**<The state of the switch (on / off)>**/
-    switchCallback *callBack;/**<回调函数的指针>**/  /**<Pointer to callback function>**/
-	void setCallback(switchCallback *callBack);/**<设置回调函数>**/  /**<Set callback function>**/
-	void setOutput(struct textBox * obj);/**<设置开关输出的位置>**/  /**<Set the position of the switch output>**/
+    bool change;/**<Flag for for indicating Whether the switch has changed>**/
+    uint8_t  laststate;/**<The last state of the switch>**/
+    uint8_t  state;/**<Switch state: on/off>**/
+    switchCallback *callBack;/**<Pointer of callback function>**/
+	void setCallback(switchCallback *callBack);/**<Set callback function>**/
+	void setOutput(struct textBox * obj);/**<Set the output position of switch>**/
 	struct textBox *output;
   } ;
   
   typedef struct Switch sSwitch_t;
   
   /*!
-    sSlider_t类型的结构体 ,用来存储开关控件的参数  A structure of type sSlider_t, used to store the parameters of the switch control
+    Struct of sSlider_t type, used to store the parameters of the switch control
   */
   struct slider:object{
-    uint16_t sliderHeight;/**<滑块的高度>**/  /**<The height of the slider>**/
-    uint16_t sliderWidth;/**<滑块的宽度>**/  /**<The width of the slider>**/
-    uint16_t range;/**<范围>**/  /**<range>**/
-    uint16_t  lastsliderPos;/**<滑块上一次的位置(y坐标)>**/  /**<The last position of the slider (y coordinate)>**/
-    uint16_t  sliderPos;/**<滑块的位置>**/  /**<Slider position>**/
-    int8_t value;/**<滑块的值>**/  /**<Slider value>**/
-    bool change;/**<滑块值是否发生改变的标志>**/  /**<Flag indicating whether the slider value has changed>**/
-    sliderCallback *callBack;/**<滑块回调函数的指针>**/  /**<Pointer to the slider callback function>**/
-	void setCallback(sliderCallback *callBack);/**<设置回调函数>**/  /**<Set callback function>**/
-	void setOutput(struct textBox * obj);/**<设置滑条输出的位置>**/  /**<Set the position of the slider output>**/
+    uint16_t sliderHeight;/**<Slider height>**/
+    uint16_t sliderWidth;/**<Slider width>**/
+    uint16_t range;/**<Range>**/
+    uint16_t  lastsliderPos;/**<The last position of the slider (y coordinate)>**/
+    uint16_t  sliderPos;/**<Slider position>**/
+    int8_t value;/**<Slider value>**/
+    bool change;/**<Flag for indicating whether the slider value has changed>**/
+    sliderCallback *callBack;/**<Pointer to the slider callback function>**/
+	void setCallback(sliderCallback *callBack);/**<Set callback function>**/
+	void setOutput(struct textBox * obj);/**<Set the output position of the slider>**/
 	struct textBox *output;
   } ;
   typedef struct slider sSlider_t;
   typedef enum {
-    BAR ,/**<条形>**/  /**<Strip>**/
-    CIRCULAR,/**<圆形>**/  /**<Round>**/
-	COLUMN,/**<柱形>**/  /**<Columnar>**/
+    BAR ,/**<Strip>**/
+    CIRCULAR,/**<Round>**/
+	COLUMN,/**<Columnar>**/
   } eBarMode_t;
   /*!
-    结构体，用来存储进度条控件的私有参数  Structure, used to store the private parameters of the progress bar control
+   Struct, used to store the private parameters of the progress bar control
   */
   struct bar:object{
-    uint16_t sliderPos;/**<进度条的进度的x坐标>**/  /**<The x coordinate of the progress of the progress bar>**/
+    uint16_t sliderPos;/**<X-coordinate of the progress of the progress bar>**/
     uint16_t color;
-    eBarMode_t mode;  /**<可以选择不同类型的进度条>**/  /**<You can choose different types of progress bars>**/
-    barCallback *callBack;/**<进度条回调函数的函数指针>**/  /**<Function pointer of the progress bar callback function>**/
-    uint8_t lastValue;/**<进度条上一次的进度>**/  /**<Progress bar last progress>**/
-    uint8_t value;/**<进度条的进度(0~99)>**/  /**<Progress of the progress bar (0 ~ 99)>**/
-	void setCallback(barCallback *callBack);/**<设置回调函数>**/  /**<Set callback function>**/
-	void setValue(uint8_t value);/**<设置进度条的值>**/  /**<Set the value of the progress bar>**/
-	void setStyle(eBarMode_t mode);/**<设置进度条的样式>**/  /**<Style the progress bar>**/
+    eBarMode_t mode;  /**<You can choose different types of progress bars>**/
+    barCallback *callBack;/**<Function pointer of the progress bar callback function>**/
+    uint8_t lastValue;/**<Last progress of progress bar >**/
+    uint8_t value;/**<Progress of the progress bar (0 ~ 99)>**/
+	void setCallback(barCallback *callBack); /**<Set callback function>**/
+	void setValue(uint8_t value); /**<Set the value of the progress bar>**/
+	void setStyle(eBarMode_t mode);/**<Style the progress bar>**/
   }  ;
   typedef struct bar sBar_t;
   /*!
-    结构体类型，用来存储按钮控件的私有参数  Structure type, used to store the private parameters of the button control
+   Struct type, used to store the private parameters of the button control
   */
   struct button :object{
-    char  text[10] ;/**<按钮的名字>**/  /**<Button name>**/
-    bool click;/**<按钮是否被点击的标志>**/  /**<Whether the button was clicked>**/
-    buttonCallback  *callBack ;/**<按钮的回调函数的函数指针>**/  /**<Function pointer of the callback function of the button>**/
-	void setCallback(buttonCallback *callBack);/**<设置回调函数>**/  /**<Set callback function>**/
-	void setText(char * c);/**<设置按钮的名字>**/  /**<Set the name of the button>**/
-	void setOutput(struct textBox * obj);/**<设置按钮的输出文本框位置>**/  /**<Set the output text box position of the button>**/
-	struct textBox *output;/**<按钮的输出文本框位置>**/  /**<the output position of the button>**/
+    char  text[10] ;/**<Button name>**/
+    bool click;/**<Flag to indicate whether the button was clicked>**/
+    buttonCallback  *callBack ;/**<Function pointer of the button callback function>**/
+	void setCallback(buttonCallback *callBack);/**<Set callback function>**/
+	void setText(char * c);/**<Set button name>**/
+	void setOutput(struct textBox * obj);/**<Set the output text box position of the button>**/
+	struct textBox *output;/**<the output position of the button>**/
   }  ;
   typedef struct button sButton_t;
   
   /*!
-    枚举类型，用来定义不同的主题效果 Enumerated types, used to define different theme effects
+   Enumerated types, used to define different theme effects
   */
   typedef enum {
-    CLASSIC,/**<经典主题>**/  /**<Classic theme>**/
-    MODERN,/**<流行主题>**/  /**<Popular themes>**/
+    CLASSIC,/**<Classic theme>**/
+    MODERN,/**<Popular themes>**/
   } eTheme_t;
 
   /*!
-    结构体类型，用来存储文本框控件的私有参数  Structure type, used to store the private parameters of the text box control
+    Struct type, used to store the private parameters of the text box control
   */
   struct textBox : object{
     eTextState_t state;/**<文本框的状态>**/  /**<The status of the text box>**/
