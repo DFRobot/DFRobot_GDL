@@ -1,34 +1,22 @@
 #ifndef __DFROBOT_GT911_H
 #define __DFROBOT_GT911_H
 
-//GT911配置数组表
-//x坐标输出最大值0x0140=320
-//y坐标输出最大值0x01E0=480
-//0x8047~0x80FE  168个寄存器
-//0x80FF配置信息校验，0x8047~0x80FE之字节和的补码
-//0x8100  配置更新标记
-//数组组织方式
-//1.寄存器起始地址0x8047
-//2.数据个数 0x00BA
-//0寄存器位数 1每个寄存器存的数据的位数 16bit-reg 8bit-data
-//前5个数据为控制数据：寄存器位数，寄存器值位数、起始寄存器、配置数据个数
-
-// GT911 configuration array table
-// x coordinate output maximum value 0x0140 = 320
-// y coordinate output maximum value 0x01E0 = 480
-// 0x8047 ~ 0x80FE 168 registers
-// 0x80FF configuration information check, the complement of the byte sum of 0x8047 ~ 0x80FE
-// 0x8100 configuration update flag
+// GT911 Configuration Array Table
+// x-coordinate maximum output 0x0140=320
+// y-coordinate maximum output 0x01E0=480
+// 0x8047~0x80FE 168 registers
+// 0x80FF Configuration information check, the complement of the byte sum of 0x8047 ~ 0x80FE
+// 0x8100 Configuration update flag
 // Array organization
 // 1. Register start address 0x8047
 // 2. Number of data 0x00BA
-// 0 register digits 1 digits of data stored in each register 16bit-reg 8bit-data
-// The first 5 data are control data: register digits, register value digits, start register, configuration data number
+// 0, register bit; 1, data bits stored in each register, 16bit-reg 8bit-data
+// The first 5 data are control data: register bit, register value bit, start register, configuration data number
 static const uint8_t PROGMEM touchGT911ConfigTable[] = {
 2,
 1,
 0x80, 0x47, 
-0x00, 0xBA,//(寄存器起始地址0x8047,数据个数0x00BA)  (Register start address 0x8047, data number 0x00BA)
+0x00, 0xBA,//(Register start address 0x8047, the number of data 0x00BA)
 0x41, 0x40, 0x01, 0xE0, 0x01, 0x05, 0x05, 0x00, 0x01, 0x08,  
 0x28, 0x05, 0x50, 0x32, 0x03, 0x05, 0x00, 0x00, 0x00, 0x00,  
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x87, 0x28, 0x0A,  
