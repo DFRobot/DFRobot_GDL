@@ -10,8 +10,7 @@
 // Array organization
 // 1. Register start address 0x8047
 // 2. Number of data 0x00BA
-// 0, register bit; 1, data bits stored in each register, 16bit-reg 8bit-data
-// The first 5 data are control data: register bit, register value bit, start register, configuration data number
+// Init array address
 static const uint8_t PROGMEM touchGT911ConfigTable[] = {
 2,
 1,
