@@ -230,7 +230,7 @@ protected:
     */
   void gdlInit(uint32_t freq = 0);
   /**
-    * @brief Pure virtual function, set rectangular display area, this function has subclass instantiation
+    * @brief Pure virtual function, set rectangular display area, this function should be implemented in subclasses
     * @param x The position of the start row
     * @param y The position of the start column
     * @param w Display area width
