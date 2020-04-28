@@ -1,8 +1,8 @@
 /*!
  * @file DFRobot_Type.h
- * @brief DFRobot_GDL类型定义文件
- * @n 访问ROM内存的方法
- * @n 不同主控操控通过寄存器操控IO口的方式
+ * @brief Define DFRobot_GDL type file
+ * @n How to access ROM memory 
+ * @n How to control different main-controllers by controlling IO ports via register
  *
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -10,19 +10,6 @@
  * @version  V1.0
  * @date  2019-12-23
  * @https://github.com/DFRobot/DFRobot_GDL
- */
-/*!
- * @file DFRobot_Type.h
- * @brief DFRobot_GDL type definition file
- * @n How to access ROM memory
- * @n different main control methods of controlling IO port through registers
- *
- * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
- * @author [Arya] (xue.peng@dfrobot.com)
- * @version V1.0
- * @date 2019-12-23
- * @https: //github.com/DFRobot/DFRobot_GDL
  */
 #ifndef __DFROBOT_TYPE_H
 #define __DFROBOT_TYPE_H
