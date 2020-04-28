@@ -1,18 +1,6 @@
 /*!
  * @file DFRobot_UI.h
- * @brief DFRobot_UI 基础方法的实现
- * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
- * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-6
- * @get from https://www.dfrobot.com
- * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
- */
-
-/*!
- * @file DFRobot_UI.h
- * @brief DFRobot_UI implementation of basic methods
+ * @brief Implementation of DFRobot_UI basic methods
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
