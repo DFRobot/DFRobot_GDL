@@ -13,7 +13,7 @@
 
 /*static const uint8_t PROGMEM DFRobot_ILI9341_initCmd[] */
 static const uint8_t PROGMEM DFRobot_ILI9341_initCmd[]= {
-//flag cmd  If the highest digit is 1, it means that the last 2 digits are delay, the lower 7 digits indicate the number of parameters
+//flag cmd  If the highest bit is 1, it means that the last 2 bits are delay, the lower 7 bits indicate the number of parameters
 0x01,0xCF,3,0x00,0xC1,0X30,
 0x01,0xED,4,0x64,0x03,0X12,0X81,
 0x01,0xE8,3,0x85,0x00,0x78,
