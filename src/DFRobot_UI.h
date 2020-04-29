@@ -221,33 +221,33 @@ public:
     Struct type, used to store the private parameters of the text box control
   */
   struct textBox : object{
-    eTextState_t state;/**<文本框的状态>**/  /**<The status of the text box>**/
-    char cache ;/**<文本框添加一个字符的缓存>**/  /**<Add a character cache to the text box>**/
-    char  text[100] ;/**<文本框内容>**/  /**<Text box content>**/
-    uint16_t cursorx;/**<文本框光标在x轴的坐标>**/  /**<The coordinate of the text box cursor on the x axis>**/
-    uint16_t cursory;/**<文本框光标在y轴的坐标>**/  /**<The coordinate of the text box cursor on the y-axis>**/
-    bool selected;/**<文本框是否被选择>**/  /**<Whether the text box is selected>**/
-	void setText(char *text);/**<设置文本框的内容>**/  /**<Set the content of the text box>**/
+    eTextState_t state;/**<The status of the text box>**/
+    char cache ;/**<Add a char cache to the text box>**/
+    char  text[100] ;/**<Text box content>**/
+    uint16_t cursorx;/**<The X-coordinate of the text box cursor>**/
+    uint16_t cursory;/**<The Y-coordinate of the text box cursor>**/
+    bool selected;/**<Whether the text box is selected>**/
+	void setText(char *text);/**<Set the content of the text box>**/
 	void setText(String &str);
-	void addChar(char txt) ;/**<向文本框添加一个字符>**/  /**<Add a character to the text box>**/
-	void deleteChar();/**<删除文本框最后一个一个字符>**/  /**<Delete the last character of the text box>**/
-	bool getState();/**<获取文本框状态>**/   /**<Get text box status>**/
+	void addChar(char txt) ;/**<Add a character to the text box>**/
+	void deleteChar();/**<Delete the last character of the text box>**/
+	bool getState();/**<Get text box status>**/
   } ;
   typedef struct textBox sTextBox_t;
   
   /*!
-    结构体类型，用来存储tableview控件的私有参数  Structure type, used to store private parameters of the tableview control
+    Struct type, used to store private parameters of the tableview control
   */
   struct tableview:object{
-    uint16_t offset;/**<table间的间距>**/  /**<spacing between tables>**/
-    sButton_t text[4];/**<每个table相当与一个按钮>**/  /**<Each table is equivalent to a button>**/
-    uint8_t  numPage;/**<table的个数>**/  /**<number of tables>**/
+    uint16_t offset;/**<Space between tables>**/
+    sButton_t text[4];/**<Each table is equivalent to a button>**/
+    uint8_t  numPage;/**<Number of tables>**/
     uint8_t page;
-	uint8_t highLightPage;/**<高亮的table>**/  /**<Highlighted table>**/
-    tableViewCallback *callback;/**<tableview的回调函数>**/  /**<Tableview callback function>**/
-	void setCallback(tableViewCallback *callBack);/**<设置tableview的回调函数>**/  /**<Set the callback function of tableview>**/
-	void changeTableview(uint8_t page);/**<改变tableview的高亮页>**/  /**<Change the highlighted page of tableview>**/
-	void setName(uint16_t pageNum,char * c1 ,char * c2 ,char * c3,char * c4);/**<设置tableview的名字>**/  /**<Set tableview name>**/
+	uint8_t highLightPage;/**<Highlighted table>**/
+    tableViewCallback *callback;/**<Tableview callback function>**/
+	void setCallback(tableViewCallback *callBack);/**<Set the callback function of tableview>**/
+	void changeTableview(uint8_t page);/**<Change the highlighted page of tableview>**/
+	void setName(uint16_t pageNum,char * c1 ,char * c2 ,char * c3,char * c4);/**<Set tableview name>**/
 	uint8_t changeed;
   }  ;
   typedef struct tableview sTableview_t;
@@ -257,14 +257,14 @@ public:
     CHOICE,
   } eKpMode_t;
   struct keyPad:object{
-    eKpMode_t mode;/**<文数字键盘的模式0.带有文本框,1.不带文本框，数字输出的位置由自己指定>**/  /**<Mode of alphanumeric keyboard 0. With text box, 1. Without text box, the position of digital output is specified by yourself>**/
+    eKpMode_t mode;/**<Mode of alphanumeric keyboard: 0, with text box; 1, without text box. The position of number output is specified by yourself>**/
     bool text;
-    sButton_t btn[12];/**<数字键盘里面的按钮数据>**/  /**<Button data inside the numeric keypad>**/
-    keyPadCallback *callBack;/**<数字键盘的回调函数>**/  /**<Callback function of numeric keyboard>**/
+    sButton_t btn[12];/**<Button data inside the numeric keypad>**/
+    keyPadCallback *callBack;/**<Callback function of numeric keyboard>**/
 	void setCallback(keyPadCallback *callBack);
-    sTextBox_t *textBox;/**<数字盘的文本框数据>**/  /**<Text box data of digital disk>**/
-	void setMode(eKpMode_t mode);/**<设置数字键盘的模式>**/  /**<Set the mode of the numeric keypad>**/
-    void setOutput(sTextBox_t * text);/**<设置数字键盘的输出文本框>**/  /**<Set the output text box of the numeric keyboard>**/
+    sTextBox_t *textBox;/**<Text box data of numeric keyboard>**/
+	void setMode(eKpMode_t mode);/**<Set the mode of the numeric keyboard>**/
+    void setOutput(sTextBox_t * text);/**<Set the output text box of the numeric keyboard>**/
   } ;
   typedef struct keyPad sKeyPad_t;
   typedef enum {
@@ -279,236 +279,137 @@ protected:
 public:
 
   /**
-   * @brief 构造函数
-   * @param gdl 
-   * @param touch 触摸对象
-   */
-  /**
    * @brief constructor
    * @param gdl
-   * @param touch touch object
+   * @param touch Touch object
    */
   DFRobot_UI(DFRobot_GDL *gdl,DFRobot_Touch *touch);
   
   /**
-   * @brief 初始化函数,初始化UI使用到的一些参数
-   */
-  /**
-   * @brief initialization function, initialize some parameters used by UI
+   * @brief init function, parameters need to be used by UI initialization 
    */
   void begin();
   /**
-   * @brief 设置UI的主题
-   * @param the eTheme_t类型数据，包含了了两种主题，主要是颜色和按钮验收的不同
-   * @n   the 的参数 ：CLASSIC,
-                     ：MODERN,
-   */
-  /**
-   * @brief Set the theme of the UI
-   * @param the eTheme_t type data, contains two themes, mainly the difference in color and button acceptance
-   * Parameters of @n the: CLASSIC,
-                         : MODERN,
+   * @brief Set UI theme 
+   * @param the eTheme_t type data, contains two themes, mainly the different in color and button pattern 
+   * @n the Parameters: CLASSIC,
+                      : MODERN,
    */
   void setTheme(eTheme_t the);
 
   /**
-   * @brief 绘制字符串
-   * @param x 所需绘制字符串在屏幕上的x坐标
-   * @param y 所需绘制字符串在屏幕上的x坐标
-   * @param c 字符数组的指针
-   * @param color 字体的颜色
-   * @param bg 字体背景的颜色
-   * @param size 字体的大小
-   * @param mode 字体显示模式
-   * @n mode  0 ： 正常显示
-   *          1 ： 颜色反转
-   */
-  /**
-   * @brief draw string
-   * @param x The x coordinate of the string to be drawn on the screen
-   * @param y The x coordinate of the string to be drawn on the screen
-   * @param c pointer to character array
-   * @param color font color
-   * @param bg font background color
-   * @param size font size
-   * @param mode font display mode
+   * @brief Draw string
+   * @param x The x-coordinate of the string to be drawn on the screen
+   * @param y The x-coordinate of the string to be drawn on the screen
+   * @param c Pointer to character array
+   * @param color Font color
+   * @param bg Font background color
+   * @param size Font size
+   * @param mode Font display mode
    * @n mode 0: normal display
-   * 1: Color inversion
+   *         1: color inversion
    */
   void drawString(int16_t x, int16_t y, char  *c, uint16_t color, uint16_t bg, uint8_t size, boolean mode);
   
-  /**
-   * @brief 刷新屏幕
-   */
   /**
     * @brief refresh the screen
     */
   void refresh();
   
   /**
-   * @brief 使文本框停止输入
-   */
-  /**
-   * @brief makes the text box stop typing
+   * @brief Stop text box input 
    */
   void endInput();
 
   /**
-   * @brief 设置触摸的手势识别区域
-   * @param x 识别区域的开始位置的x坐标
-   * @param y 识别区域的开始位置的y坐标
-   * @param width 识别区域的宽度
-   * @param height 识别区域的高度
-   */
-  /**
    * @brief Set the touch gesture recognition area
-   * @param x The x coordinate of the start position of the recognition area
-   * @param y the y coordinate of the start position of the recognition area
-   * @param width the width of the recognition area
+   * @param x The x-coordinate of the start position of the recognition area
+   * @param y The y-coordinate of the start position of the recognition area
+   * @param width The width of the recognition area
    * @param height The height of the recognition area
    */
   void setGestureArea(uint16_t x,uint16_t y,uint16_t width,uint16_t height);
   
   /**
-   * @brief 获取手势
-   * @return sGestures_t类型的数据，代表着不同的手势
-   * @n      UPGLIDE ：向上滑动
-   * @n      DOWNGLIDE ：向下滑动
-   * @n      LEFTGLIDE ：向左滑动
-   * @n      RIGHTGLIDE ：向右滑动
-   * @n      LONGPRESSDE ：长按屏幕
-   * @n      SINGLECLICK ：单击屏幕
-   * @n      DOUBLECLICK ：双击屏幕
-   * @n      NONE ：没有手势
-   */
-  /**
-   * @brief get gesture
-   * @return sGestures_t type data, representing different gestures
+   * @brief Get gesture
+   * @return sGestures_t type data, represent different gestures
    * @n UPGLIDE: slide up
    * @n DOWNGLIDE: slide down
    * @n LEFTGLIDE: swipe left
    * @n RIGHTGLIDE: swipe right
-   * @n LONGPRESSDE: Long press the screen
-   * @n SINGLECLICK: Click on the screen
+   * @n LONGPRESSDE: long press the screen
+   * @n SINGLECLICK: click on the screen
    * @n DOUBLECLICK: double-tap the screen
    * @n NONE: no gesture
    */
   eGesture_t getGestures();
   
   /**
-   * @brief 在屏幕上创建一个数字键盘
-   * @return 数字键盘对象的地址
-   */
-  /**
-   * @brief creates a numeric keyboard on the screen
-   * @return address of numeric keyboard object
+   * @brief Create a numeric keyboard on the screen
+   * @return Address of numeric keyboard object
    */
   sKeyPad_t &creatKeyPad();
   
   /**
-   * @brief 绘制控件
-   * @param posx 控件的x坐标
-   * @param posy 控件的y坐标
-   * @param width 控件的宽度
-   * @param height 控件的高度
-   */
-  /**
-   * @brief drawing control
-   * @param posx control x coordinate
-   * @param posy control's y coordinate
+   * @brief Draw control
+   * @param posx X-coordinate of control
+   * @param posy Y-coordinate of cpntrol
    * @param width The width of the control
    * @param height The height of the control
    */
   void draw(sObject_t *obj,uint16_t posx = 0,uint16_t posy = 0,uint16_t width = 0,uint16_t height = 0);
   
   /**
-   * @brief 在屏幕上创建一个按钮控件
-   * @return 按钮对象的地址
-   */
-  /**
-   * @brief creates a button control on the screen
-   * @return button object address
+   * @brief Create a button control on the screen
+   * @return Button object address
    */
   sButton_t &creatButton();
   /**
-   * @brief 在屏幕上创建一个文本框控件
-   * @return 文本框对象的地址
-   */
-  /**
    * @brief Create a text box control on the screen
-   * @return the address of the text box object
+   * @return Address of the text box object
    */
   sTextBox_t &creatText();
   /**
-   * @brief 在屏幕上创建一个滑条控件
-   * @return 滑条对象的地址
-   */
-  /**
-   * @brief creates a slider control on the screen
+   * @brief Create a slider control on the screen
    * @return Address of slider object
    */
   sSlider_t &creatSlider();
   /**
-   * @brief 在屏幕上创建一个开关控件
-   * @return 开关对象的地址
-   */
-  /**
-   * @brief creates a switch control on the screen
-   * @return The address of the switch object
+   * @brief Create a switch control on the screen
+   * @return Address of the switch object
    */
   sSwitch_t &creatSwitch();
   
   
   /**
-   * @brief 在屏幕上创建一个tableview控件
-   * @return tableview对象的地址
-   */
-  /**
-   * @brief creates a tableview control on the screen
-   * @return tableview object address
+   * @brief Create a tableview control on the screen
+   * @return Address of the tableview object 
    */
   sTableview_t &creatTableview();
   
   /**
-   * @brief 在屏幕上创建一个进度条
-   * @n 用户可以自定义结构体里面的数据或者使用经初始化的参数
-   */
-  /**
-   * @brief creates a progress bar on the screen
-   * @n Users can customize the data in the structure or use the initialized parameters
+   * @brief Create a progress bar on the screen
+   * @n Users can customize the data in the struct or use the initialized parameters
    */
   sBar_t &creatBar();
   
 
   
-  uint16_t bgColor; //屏幕背景颜色  Screen background color
+  uint16_t bgColor; //Screen background color
 
 private:
   /**
-   * @brief 刷新进度条
-   * @param bar sBar_t，里面包含了进度条的位置，长度和宽度等参数
-   */
-  /**
-   * @brief refresh the progress bar
+   * @brief Refresh the progress bar
    * @param bar sBar_t, which contains parameters such as the position, length and width of the progress bar
    */
-  void barEvent(void *obj);
+  void barEvent(void *obj); 
   /**
-   * @brief 刷新tableview
-   * @param sTableview_t sSlider_t，里面包含了滑条的位置，长度和宽度等参数
-   */ 
-  /**
-   * @brief refresh tableview
+   * @brief Refresh tableview
    * @param sTableview_t sSlider_t, which contains the position, length and width of the slider
    */
   void tableviewEvent(void *obj);
   /**
-   * @brief 在屏幕上创建一个tableview控件
-   * @param tv sTableview_t，里面包含了tableview的页数，内容等参数
-   * @n 用户需要自定义这些数据
-   */
-  /**
-   * @brief creates a tableview control on the screen
+   * @brief Create a tableview control on the screen
    * @param tv sTableview_t, which contains the tableview page number, content and other parameters
    * @n Users need to customize these data
    */
@@ -516,77 +417,45 @@ private:
   void sliderEvent(void *obj);
   void buttonEvent(void *btn1);
   /**
-   * @brief 创建一个数字键盘控件
-   * @param te sKeyPad_t 类型的结构体
-   */
-  /**
    * @brief Create a numeric keyboard control
-   * @param te sKeyPad_t structure
+   * @param te sKeyPad_t type struct
    */
   void drawKeyBoard(void *obj);
   
   /**
-   * @brief 刷新数字键盘
-   * @param te sKeyPad_t，里面包含了数字键盘的位置，长度和宽度等参数
-   */
-  /**
-   * @brief refresh the numeric keyboard
-   * @param te sKeyPad_t, which contains parameters such as the position, length and width of the numeric keypad
+   * @brief Refresh the numeric keyboard
+   * @param te sKeyPad_t, which contains parameters such as the position, length and width of the numeric keyboard
    */
   void KeyBoardEvent(void *obj);
   /**
-   * @brief 绘制文本框
-   * @param obj 文本框对象的地址
-   */
-  /**
-   * @brief draw text box
-   * @param obj The address of the text box object
+   * @brief Draw text box
+   * @param obj Address of the text box object
    */
   void drawText(void *obj);
   /**
-   * @brief 更新触摸点的数据
-   */
-  /**
-   * @brief update touch point data
+   * @brief Update touch point data
    */
   void updateCoordinate();
   
   /**
-   * @brief 刷新文本框
-   * @param te 里面包含了开关的位置，长度和宽度等参数
-   * @n 可以对文本框的操作有：
-     @n                    1.让文本框显示字符串
-     @n                    2.在文本框添加一个字符
-     @n                    2.在文本框删除一个字符
-   */
-  /**
-   * @brief refresh the text box
-   * @param te contains parameters such as the position, length and width of the switch
-   * @n can operate on the text box:
-     @n 1. Make the text box display a string
-     @n 2. Add a character in the text box
-     @n 2. Delete a character in the text box
+   * @brief Refresh the text box
+   * @param te Contains parameters such as the position, length and width of the switch
+   * @n What operation you can do with the text box:
+     @n                                            1. Display a string in the text box 
+     @n                                            2. Add a character in the text box
+     @n                                            3. Delete a character in the text box
    */
   void refreshTextBox(void *obj);
   /**
-   * @brief 刷新滑条
-   * @param slider sSlider_t，里面包含了滑条的位置，长度和宽度等参数
-   */
-  /**
-   * @brief refresh slider
+   * @brief Refresh slider
    * @param slider sSlider_t, which contains parameters such as the position, length and width of the slider
    */
   void refreshSliser(void *obj);
   
   /**
-   * @brief 在屏幕上创建一个滑条
-   * @param slider sSlider_t类型的数据
-   * @n 用户可以自定义结构体里面的数据或者使用经初始化的参数
-   */
-  /**
-   * @brief creates a slider on the screen
+   * @brief Create a slider on the screen
    * @param slider sSlider_t type data
-   * @n Users can customize the data in the structure or use the initialized parameters
+   * @n Users can customize the data in the struct or use the initialized parameters
    */
   void drawSlider(void *obj);
   void drawSwitch(void *obj);
