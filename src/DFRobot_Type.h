@@ -21,7 +21,7 @@
 #include "Interface/DFRobot_DMA.h"
 #endif
 
-/*访问flash内存方式*/  /* Access to flash memory */
+/* Access to flash memory */
 #ifndef pgm_read_byte
  #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
 #endif
