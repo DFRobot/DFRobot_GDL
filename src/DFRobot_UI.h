@@ -15,6 +15,7 @@
 
 #include "Arduino.h"
 #include "DFRobot_GDL.h"
+#include "graphic.h"
 #include "DFRobot_Touch.h"
 #if defined (__AVR__)
 #define TOUCHPOINTS   1
@@ -117,6 +118,7 @@ public:
     uint16_t  width;/**<Object width>**/
     uint16_t  height;/**<Object height>**/
     uint16_t fgColor;/**<The foreground color of the object font>**/
+    uint16_t lvColor;
     uint16_t bgColor;/**<The background color of the object font>**/
     uint8_t fontSize;/**<The size of control font elements>**/
     drawingControl draw; /**<Function for drawing control>**/
@@ -272,6 +274,34 @@ public:
     RIGHT,
     LEFT,
   } eLocation_t;
+
+
+  typedef enum{
+   TLINE,
+   TPOINT,
+   TCOLUMN,
+   }eCoordinateType_t;
+  struct sLine{
+   sPoint_t *point;
+   uint8_t number;
+   uint8_t uid;
+    uint16_t pointColor;
+   struct sLine *line;
+  };
+ typedef struct sLine sLine_t;
+
+  struct coordinate:object{
+    sLine_t line;
+    uint8_t lineNumber;
+    uint8_t intervalX;
+    uint8_t intervalY;
+    uint8_t intervalWidth;
+    eCoordinateType_t type;
+    uint8_t pointRadius;
+    uint16_t pointColor;
+    void setPoint(int16_t poi[][2],uint8_t number,uint16_t color);
+  };
+  typedef struct coordinate sCoordinate_t;
   
 
 protected:
@@ -380,7 +410,12 @@ public:
    */
   sSwitch_t &creatSwitch();
   
-  
+
+  /**
+?? * @brief creates a coordinate system control on the screen
+?? * @return the address of the coordinate system object
+?? */
+  sCoordinate_t &creatCoordinate();
   /**
    * @brief Create a tableview control on the screen
    * @return Address of the tableview object 
@@ -393,10 +428,13 @@ public:
    */
   sBar_t &creatBar();
   
+  void setBgColor(uint16_t Color);
+  
 
   
   uint16_t bgColor; //Screen background color
-
+  void drawCoordinate(void *obj);
+  void drawCoordLine(void * obj,sLine_t *line);
 private:
   /**
    * @brief Refresh the progress bar
@@ -458,6 +496,8 @@ private:
    * @n Users can customize the data in the struct or use the initialized parameters
    */
   void drawSlider(void *obj);
+ 
+  void coordinateEvent(void *obj);
   void drawSwitch(void *obj);
   void switchEvent(void *obj);
   void drawTableview(void *obj);
@@ -474,8 +514,20 @@ private:
   bool release(uint16_t x,uint16_t y);
   bool press(uint16_t x,uint16_t y);
   bool focus(uint16_t x,uint16_t y);
-  
-  sPoint_t * position;
+  void drawLine(void *obj ,int16_t x0, int16_t y0, int16_t x1, int16_t y1,
+        uint16_t color);
+  #if defined(ESP32) || defined(ESP8266) ||  defined(ARDUINO_SAM_ZERO)||(__AVR_ATmega2560__)
+  void fillRoundRectP(int16_t x, int16_t y, int16_t w,int16_t h, int16_t r, uint16_t hcolor,uint16_t color);
+  void fillCircleHelperP(int16_t x0, int16_t y0, int16_t r,uint8_t corners, int16_t delta,uint16_t width1 ,uint16_t hcolor,uint16_t color);
+  void drawRectShadowF(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint16_t r,uint16_t mColor ,uint16_t gColor);
+  void drawRectShadowB(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint16_t r,uint16_t mColor ,uint16_t gColor);
+  void drawRectP(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t radius,uint16_t mcolor,
+  uint16_t gcolor,uint16_t edgeColor,uint8_t shadow,uint16_t bg_color = 0xffff);
+  void fillCircleP(int16_t x0, int16_t y0, int16_t r,uint16_t mcolor,uint16_t color);
+
+  #endif
+
+  sPoint_t * position; 
   DFRobot_GDL *_gdl;
   eTheme_t theme;
   uint16_t  cursorPosx ,cursorPosy;

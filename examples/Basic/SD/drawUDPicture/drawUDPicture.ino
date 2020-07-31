@@ -14,32 +14,45 @@
 #include <UD.h>
 #include <SPI.h>
 #include "DFRobot_GDL.h"
-#include "picdecoder.h"
+#include "DFRobot_Picdecoder_UD.h"
+
+DFRobot_Picdecoder_UD decoder;
 
 //Custom communication pins
 /*M0*/
+#if defined ARDUINO_SAM_ZERO
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
-
+/*ESP32 and ESP8266*/
+#elif defined(ESP32) || defined(ESP8266)
+#define TFT_DC  D3
+#define TFT_CS  D4
+#define TFT_RST D5
+/*AVR series mainboard */
+#else
+#define TFT_DC  2
+#define TFT_CS  3
+#define TFT_RST 6
+#endif
 /**
  * @brief Constructor Constructor of hardware SPI communication
  * @param dc Command/data line pin for SPI communication
  * @param cs Chip select pin for SPI communication
- * @param rst Reset pin of the screen
+ * @param rst reset pin of the screen
  */
-//DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+// DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-//DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-/* M0 motherboard DMA transfer */
+/*M0 mainboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 
 /*
- *User-selectable macro definition color
+ *User-selectable macro-defined color
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 
  *COLOR_RGB565_MAROON  COLOR_RGB565_PURPLE  COLOR_RGB565_OLIVE    COLOR_RGB565_LGRAY
  *COLOR_RGB565_DGRAY   COLOR_RGB565_BLUE    COLOR_RGB565_GREEN    COLOR_RGB565_CYAN  
@@ -50,8 +63,6 @@ void setup()
 {
   //Initialize the serial port
   SerialUSB.begin(115200);
-  //Wait for serial connection
-  delay(1000);
   //Initialize screen
   screen.begin();
   //Initialize the SD card, wait until the initialization is successful
@@ -83,9 +94,9 @@ void loop()
    * @param ey The y coordinate to end displaying
    * @param screenDrawPixel point-drawing function name
    */
-  drawUDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+  decoder.drawPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   screen.fillScreen(COLOR_RGB565_WHITE);
-  drawUDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+  decoder.drawPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
  /*
   * Mode parameter that can be set by UD.open function
   * FILE_READ: open the file for reading, starting from the beginning of the file
@@ -113,7 +124,7 @@ void loop()
         strcpy(str,"picture/Icon/");
         strcat(str,entry.getName());
         //Show an icon
-        drawUDPicture(/*filename=*/str,/*sx=*/x,/*sy=*/y,/*ex=*/x+32,/*ey=*/y+32,/*screenDrawPixel=*/screenDrawPixel);
+        decoder.drawPicture(/*filename=*/str,/*sx=*/x,/*sy=*/y,/*ex=*/x+32,/*ey=*/y+32,/*screenDrawPixel=*/screenDrawPixel);
       }
     }
 quit:
@@ -126,7 +137,6 @@ quit:
 
   delay(1000);
 }
-
 
 //For decoding function calling, this function is used to draw a pixel on the screen
 void screenDrawPixel(int16_t x, int16_t y, uint16_t color)

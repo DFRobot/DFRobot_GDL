@@ -98,7 +98,7 @@ void setup()
   //Set the output text box of the slider
   slider.setOutput(&tb);
   //Draw a slider at a specified position
-  ui.draw(&slider,/*x = */(screen.width() - slider.width) / 2,/*y = */(screen.height() - tb.posy - tb.height) / 3 * 1 + tb.posy + tb.height);
+  ui.draw(&slider,/*x = */(screen.width() - slider.width) / 2,/*y = */(screen.height() - tb.posy - tb.height) / 3 * 1 + tb.height);
 
   DFRobot_UI::sSwitch_t &swh = ui.creatSwitch();
   swh.bgColor = COLOR_RGB565_RED;

@@ -77,7 +77,7 @@ void setup()
   /**
    * @brief  Set the touch gesture recognition area
    */
-  ui.setGestureArea(/*x=*/screen.width()/2-75,/*y=*/100,/*width=*/150,/*height=*/150);
+  ui.setGestureArea(/*x=*/screen.width()/2-75,/*y=*/150,/*width=*/150,/*height=*/150);
   while(true){
      //Refresh
     ui.refresh();

@@ -96,8 +96,7 @@ void setup()
   ui.begin();
   ui.setTheme(DFRobot_UI::MODERN);
 
-  //Display a string on the screen
-  ui.drawString(/*x=*/33,/*y=*/screen.height()/5*4,"Page of loading",COLOR_RGB565_WHITE,ui.bgColor,/*fontsize =*/2,/*Invert=*/0);
+  
   //Create a progress bar control
   DFRobot_UI::sBar_t &bar1 = ui.creatBar();
   /** User-defined progress bar parameters */
@@ -118,6 +117,8 @@ void setup()
   bar3.setStyle(DFRobot_UI::BAR);
   bar3.setCallback(barCallback3);
   ui.draw(&bar3,/*x=*/(screen.width()-bar3.width)/2,/*y=*/screen.height()/5*0.5);
+  //Display a string on the screen
+  ui.drawString(/*x=*/33,/*y=*/screen.height()/5*4,"Page of loading",COLOR_RGB565_WHITE,ui.bgColor,/*fontsize =*/2,/*Invert=*/0);
 }
 
 

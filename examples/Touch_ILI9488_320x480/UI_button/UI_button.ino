@@ -83,7 +83,7 @@ void setup()
   //Create a text box control
   DFRobot_UI::sTextBox_t & tb = ui.creatText();
   tb.bgColor = 0xe6B6;
-  ui.draw(&tb,/**x=*/5,/**y=*/5,/*width*/screen.width()-10,/*height*/screen.height()/5);
+  ui.draw(&tb);
   //Create a button control on the screen
   DFRobot_UI::sButton_t & btn1 = ui.creatButton();
   //Set the name of the button

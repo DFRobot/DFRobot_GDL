@@ -2,7 +2,7 @@
 #include <DFRobot_Type.h>
 #ifdef ARDUINO_SAM_ZERO
 #define DF_DMA_SPI_TX_REG 0x42001828
-#define DMA_BUFFER_SIZE  0xFFFF
+#define DMA_BUFFER_SIZE  2
 
 uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len){
   if(p == NULL) return 0;

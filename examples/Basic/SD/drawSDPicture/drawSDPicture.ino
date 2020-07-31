@@ -14,7 +14,9 @@
 #include <SD.h>
 #include <SPI.h>
 #include "DFRobot_GDL.h"
-#include "picdecoder.h"
+#include "DFRobot_Picdecoder_SD.h"
+
+DFRobot_Picdecoder_SD decoder;
 
 //Custom communication pins
 /*FireBeetle-M0*/
@@ -44,7 +46,7 @@
  */
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-//DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /* M0 mainboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -95,15 +97,15 @@ void loop()
    * @param ey The y coordinate to end displaying
    * @param screenDrawPixel point-drawing function name
    */
-  drawSDPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+  decoder.drawPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   screen.fillScreen(COLOR_RGB565_WHITE);
-  drawSDPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+  decoder.drawPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
 
  /* Set the screen color to white */
   screen.fillScreen(COLOR_RGB565_WHITE);
 
   //Display batch icons, display any number of icons on large-capacity mainboard.
-  /*FireBeetle-M0，ESP32和ESP8266*/
+  /*FireBeetle-M0，ESP32 and ESP8266*/
 #if defined ARDUINO_SAM_ZERO || defined(ESP8266)
  /*
   * Mode parameter that can be set by SD.open function
@@ -130,7 +132,7 @@ void loop()
         strcpy(str,"picture/Icon/");
         strcat(str,entry.name());
         //Show an icon
-        drawSDPicture(/*filename=*/str,/*sx=*/x,/*sy=*/y,/*ex=*/x+32,/*ey=*/y+32,/*screenDrawPixel=*/screenDrawPixel);
+        decoder.drawPicture(/*filename=*/str,/*sx=*/x,/*sy=*/y,/*ex=*/x+32,/*ey=*/y+32,/*screenDrawPixel=*/screenDrawPixel);
       }
     }
 quit:
@@ -142,14 +144,14 @@ quit:
   }
   /* AVR series motherboard */
 #else
-  drawSDPicture("picture/Icon/1.bmp",0,0,32,32,screenDrawPixel);
-  drawSDPicture("picture/Icon/2.bmp",32,32,64,64,screenDrawPixel);
-  drawSDPicture("picture/Icon/3.bmp",64,64,96,96,screenDrawPixel);
-  drawSDPicture("picture/Icon/4.bmp",96,96,128,128,screenDrawPixel);
-  drawSDPicture("picture/Icon/5.bmp",128,128,160,160,screenDrawPixel);
-  drawSDPicture("picture/Icon/6.bmp",160,160,192,192,screenDrawPixel);
-  drawSDPicture("picture/Icon/7.bmp",192,192,224,224,screenDrawPixel);
-  //drawSDPicture("picture/Icon/8.bmp",224,224,250,250,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/1.bmp",0,0,32,32,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/2.bmp",32,32,64,64,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/3.bmp",64,64,96,96,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/4.bmp",96,96,128,128,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/5.bmp",128,128,160,160,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/6.bmp",160,160,192,192,screenDrawPixel);
+  decoder.drawPicture("picture/Icon/7.bmp",192,192,224,224,screenDrawPixel);
+  //drawPicture("picture/Icon/8.bmp",224,224,250,250,screenDrawPixel);
 #endif
   delay(1000);
 }

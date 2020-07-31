@@ -341,7 +341,7 @@ void DFRobot_ILI9488_320x480_DMA_SPI::setDisplayArea(uint16_t x, uint16_t y, uin
 }
 
 DFRobot_ILI9341_240x320_DMA_SPI::DFRobot_ILI9341_240x320_DMA_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
-  :DFRobot_GDL(&gdl_Dev_ILI9341_R240x320_HW_SPI, 240, 320, dc, cs, rst, bl){
+  :DFRobot_GDL(&gdl_Dev_ILI9341_R240x320_DMA_SPI, 240, 320, dc, cs, rst, bl){
   setDriverICResolution(ILI9341_IC_WIDTH, ILI9341_IC_HEIGHT);
   madctlReg.madctl = ILI9341_MADCTL;
   madctlReg.args.value = ILI9341_MADCTL_RGB;
