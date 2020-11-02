@@ -34,7 +34,7 @@ utf8ToUnicode	KEYWORD2
 getUtf_8Bytes	KEYWORD2
 drawCharBitmaps	KEYWORD2
 update	KEYWORD2
-
+zoomPicture	KEYWORD2
 uMadctlArgs_t	LITERAL1
 sMadctlCmd_t	LITERAL1
 sGdlLcdDev_t	LITERAL1

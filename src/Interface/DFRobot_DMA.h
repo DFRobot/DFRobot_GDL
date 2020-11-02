@@ -48,6 +48,7 @@ public:
   DFRobot_DMA_SPI():_channel(0){}
   void begin();
   void transfer(void *src, uint16_t size);
+  bool checkFlag();
 ///  int transfer
 private:
   uint8_t _channel;

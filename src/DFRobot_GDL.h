@@ -217,7 +217,10 @@ public:
     * @brief When using the OLED screen, the update function must be called to take effect after the operation is completed
     */
   void update();
-  
+  void zoomPicture(void *picturre,uint8_t multiple);
+  void zoomPicture1(void *picturre,uint16_t _width,uint16_t _height);
+  void zoomPicture2(void *picturre,uint16_t _width,uint16_t _height);
+  void drawPIC(int16_t x,int16_t y,uint16_t w ,uint16_t h,uint8_t * rawBuf);
 protected:
   /**
     * @brief Display initialization function, the screen will work after initialization done
@@ -237,7 +240,7 @@ protected:
     * @param h Display area height
     * @param color The color of pixels, RGB565 format
     */
-  virtual void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color) = 0;
+  virtual void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h) = 0;
   /**
     * @brief Write command
     * @param cmd The data is a command
@@ -274,6 +277,9 @@ protected:
     * @param isRamData Pointer c points to ROM or RAM, default point to ROM. A special method is required to read the data args points to.
     */
   void sendColor(uint8_t *c, uint8_t cBytes, uint32_t len, bool isRamData = true);
+  
+  
+  void sendColor(uint8_t *buf,uint32_t len);
   /**
     * @brief Set the resolution of the display driver IC
     * @param w x resolution of driver IC, when rotation = 0
@@ -289,6 +295,8 @@ protected:
     */  
   void getColorFormat(uint8_t *pBuf, uint8_t &len, uint8_t &pixel, uint16_t color);
 
+  void setColorMode(int mode);
+  virtual void pushColor(uint8_t *color,uint32_t len){};
 protected:
   uint8_t _xStart;
   uint8_t _yStart;
@@ -317,7 +325,8 @@ public:
   ~DFRobot_ST7789_240x240_HW_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 
 
@@ -333,7 +342,8 @@ public:
   ~DFRobot_ST7789_240x320_HW_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 
 class DFRobot_ST7735S_80x160_HW_SPI: public DFRobot_GDL{
@@ -342,21 +352,24 @@ public:
   ~DFRobot_ST7735S_80x160_HW_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 class DFRobot_ILI9488_320x480_HW_SPI: public DFRobot_GDL{
 public:
   DFRobot_ILI9488_320x480_HW_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
   ~DFRobot_ILI9488_320x480_HW_SPI();
   void begin(uint32_t freq = 0);
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 class DFRobot_ILI9341_240x320_HW_SPI: public DFRobot_GDL{
 public:
   DFRobot_ILI9341_240x320_HW_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
   ~DFRobot_ILI9341_240x320_HW_SPI();
   void begin(uint32_t freq = 0);
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 
 /**
@@ -372,7 +385,8 @@ public:
   ~DFRobot_SSD1306_128x32_HW_IIC();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 
 #ifdef ARDUINO_SAM_ZERO
@@ -382,7 +396,8 @@ public:
   ~DFRobot_ST7789_240x240_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 class DFRobot_ST7735S_80x160_DMA_SPI: public DFRobot_GDL{
 public:
@@ -390,7 +405,8 @@ public:
   ~DFRobot_ST7735S_80x160_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 class DFRobot_ST7789_240x320_DMA_SPI: public DFRobot_GDL{
 public:
@@ -398,7 +414,8 @@ public:
   ~DFRobot_ST7789_240x320_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 class DFRobot_ILI9488_320x480_DMA_SPI: public DFRobot_GDL{
 public:
@@ -406,7 +423,8 @@ public:
   ~DFRobot_ILI9488_320x480_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
 };
 
 class DFRobot_ILI9341_240x320_DMA_SPI: public DFRobot_GDL{
@@ -415,7 +433,9 @@ public:
   ~DFRobot_ILI9341_240x320_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
-  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
+  
 };
 #endif
 #endif

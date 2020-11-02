@@ -14,6 +14,7 @@
 
 
 #include "DFRobot_GDL.h"
+#include "DFRobot_UI.h"
 /*M0*/
 #if defined ARDUINO_SAM_ZERO
 #define COLOR_RGB565_DC  7

@@ -170,7 +170,9 @@ void DFRobot_DMA_SPI::begin(){
   SERCOM4->SPI.BAUD.reg = 0; 
   sercom4.enableSPI();
 }
-
+bool DFRobot_DMA_SPI::checkFlag(){
+   return _descriptorsWriteBack[0].BTCTRL.bit.VALID;
+}
 void DFRobot_DMA_SPI::transfer(void *src, uint16_t size){
   while (_descriptorsWriteBack[0].BTCTRL.bit.VALID); 
   _descriptors[_channel].SRCADDR.bit.SRCADDR = (uint32_t)src+(uint32_t)size;

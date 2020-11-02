@@ -62,23 +62,52 @@ void DFRobot_GDL::initDisplay(){
 }
 
 void DFRobot_GDL::drawPixel(int16_t x, int16_t y, uint16_t color){
-  setDisplayArea((uint16_t)x, (uint16_t)y, 1, 1, color);
+  setDisplayArea((uint16_t)x, (uint16_t)y, 1, 1);
+  pushColor((uint8_t*)&color,1);
 }
 
 void DFRobot_GDL::fillScreen(uint16_t color){
-  setDisplayArea(0, 0, (uint16_t)_width, (uint16_t)_height, color);
+  setDisplayArea(0, 0, (uint16_t)_width, (uint16_t)_height);
+  pushColor((uint8_t*)&color,(uint32_t)_width*_height);
 }
 
 void DFRobot_GDL::drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color){
-  setDisplayArea((uint16_t)x, (uint16_t)y, 1, h, color);
+  setDisplayArea((uint16_t)x, (uint16_t)y, 1, h);
+  pushColor((uint8_t*)&color,(uint32_t)1*h);
 }
 
 void DFRobot_GDL::drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color){
-  setDisplayArea((uint16_t)x, (uint16_t)y, w, 1, color);
+  setDisplayArea((uint16_t)x, (uint16_t)y, w,1);
+  pushColor((uint8_t*)&color,(uint32_t)1*w);
 }
 
 void DFRobot_GDL::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color){
-  setDisplayArea((uint16_t)x, (uint16_t)y, w, h, color);
+
+  setDisplayArea((uint16_t)x, (uint16_t)y, w, h);
+  pushColor((uint8_t*)&color,(uint32_t)h*w);
+}
+
+void DFRobot_GDL::drawPIC(int16_t x,int16_t y,uint16_t w ,uint16_t h,uint8_t * rawBuf){
+  setDisplayArea((uint16_t)x, (uint16_t)y, w, h);
+  
+  switch(_lcd.cMode){
+    case COLOR_MODE_RGB565 :{
+      sendColor(rawBuf,(uint32_t)h*w*2);
+      break;
+    }
+    case COLOR_MODE_RGB666 :{
+      uint16_t * color = (uint16_t*)rawBuf;
+      uint8_t rgb666[3];
+      uint16_t col;
+      uint32_t len = h*w;
+      for(uint32_t i =0;i<h*w;i++ ){
+          rgb565ToRGB666(rgb666, color[i]);
+          sendColor(rgb666, sizeof(rgb666), 1);
+      }
+      
+    }
+  }
+
 }
 void DFRobot_GDL::setRotation(uint8_t r){
   if(madctlReg.madctl == 0) return;
@@ -175,7 +204,12 @@ void DFRobot_GDL::getColorFormat(uint8_t *pBuf, uint8_t &len, uint8_t &pixel, ui
            break;
   }
 }
+void DFRobot_GDL::setColorMode(int mode){
 
+  _lcd.cMode = mode;
+
+
+}
 uint8_t DFRobot_GDL::rgb565ToRGB666(uint8_t *rgb666, uint16_t color){
   uint8_t r = color >> 11;
   uint8_t g = (color << 5) >> 10;
@@ -239,7 +273,9 @@ void DFRobot_GDL::sendColor(uint16_t color, uint32_t len)
   buf[2] = color & 0xFF;
   _if.dev->talk(&_if, IF_COM_WRITE_RAM_FIXED, buf, len);
 }
-
+void DFRobot_GDL::sendColor(uint8_t *buf,uint32_t len){
+  _if.dev->talk(&_if, IF_COM_WRITE_RAM_INC, buf, len);
+}
 void DFRobot_GDL::sendColor(uint8_t *c, uint8_t cBytes, uint32_t len, bool isRamData){
   if((c == NULL)||(cBytes > 4)) return;
   uint8_t buf[cBytes + 1];
@@ -254,4 +290,83 @@ void DFRobot_GDL::setDriverICResolution(int16_t w, int16_t h){
   if(w < _width ||  h < _height) return;
   _icWidth = w;
   _icHeight = h;
+}
+void DFRobot_GDL::zoomPicture(void *picturre,uint8_t multiple){
+     if(multiple == 1)
+         zoomPicture1(picturre,240,320);
+     else if(multiple == 2){
+         zoomPicture2(picturre,240,320);
+    }
+    else
+      return;
+}
+void DFRobot_GDL::zoomPicture1(void *picturre,uint16_t _width,uint16_t _height){
+    uint16_t pic[240]={0};
+    setDisplayArea(0, 0, _width, _height);
+    uint16_t* rgba = (uint16_t *)picturre;
+    for(int i = 0; i < _height; i++) {
+        int srcRow = i % 2;
+        if(srcRow == 0){
+            srcRow = i/2;
+		} else {
+            srcRow = (i-1)/2;
+		}
+        for (int j = 0; j < _width; j++) {
+           
+           int srcCol = j % 2;
+        if(srcCol == 0){
+            srcCol = j/2;
+		} else {
+            srcCol = (j-1)/2;
+		}
+             pic[j] = rgba[(srcRow * 120 + srcCol)];
+        }
+        sendColor((uint8_t *)pic,480);
+}
+}
+
+void DFRobot_GDL::zoomPicture2(void *picturre,uint16_t _width,uint16_t _height){
+    uint16_t pic[240]={0};
+    setDisplayArea(0, 0, _width, _height);
+    uint16_t* rgba = (uint16_t *)picturre;
+    for(int i = 0; i < _height; i++) {
+        int srcRow = i % 4;
+        if(srcRow == 0){
+            srcRow = i/4;
+		} 
+		else if(srcRow == 1)
+			{
+            srcRow = (i-1)/4;
+		}
+		else if(srcRow == 2)
+			{
+            srcRow = (i-2)/4;
+		}
+		else if(srcRow == 3)
+			{
+            srcRow = (i-3)/4;
+		}
+        for (int j = 0; j < _width; j++) {
+           
+        int srcCol = j % 2;
+        if(srcCol == 0){
+            srcCol = j/4;
+		} 
+		else if(srcCol == 1)
+			{
+            srcCol = (j-1)/4;
+		}
+		else if(srcCol == 2)
+			{
+            srcCol = (j-2)/4;
+		}
+		else if(srcCol == 3)
+			{
+            srcCol = (j-3)/4;
+		}
+             
+             pic[j] = rgba[(srcRow * 60 + srcCol)];
+        }
+        sendColor((uint8_t *)pic,480);
+}
 }

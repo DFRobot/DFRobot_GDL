@@ -2,7 +2,7 @@
 #include <DFRobot_Type.h>
 #ifdef ARDUINO_SAM_ZERO
 #define DF_DMA_SPI_TX_REG 0x42001828
-#define DMA_BUFFER_SIZE  2
+#define DMA_BUFFER_SIZE  65535
 
 uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len){
   if(p == NULL) return 0;
@@ -95,7 +95,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
       }
            break; 
     case IF_COM_WRITE_RAM_INC:
-      {
+      {    Serial.println(len);
            if(!(p->isBegin)) return 0;
            PIN_LOW(p->pinList[IF_PIN_CS]);
            do{
@@ -106,6 +106,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
                 p->pro.dma->transfer(pBuf, n);
                 pBuf += n;
            }while(len);
+		   while(p->pro.dma->checkFlag());
            PIN_HIGH(p->pinList[IF_PIN_CS]); 
            if(p->dev->devName == DEV_TYPE_SCREEN)
                PIN_HIGH(p->pinList[IF_PIN_DC]);
