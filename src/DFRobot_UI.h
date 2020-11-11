@@ -225,7 +225,7 @@ public:
   struct textBox : object{
     eTextState_t state;/**<The status of the text box>**/
     char cache ;/**<Add a char cache to the text box>**/
-    char  text[100] ;/**<Text box content>**/
+    char  text[200] ;/**<Text box content>**/
     uint16_t cursorx;/**<The X-coordinate of the text box cursor>**/
     uint16_t cursory;/**<The Y-coordinate of the text box cursor>**/
     bool selected;/**<Whether the text box is selected>**/

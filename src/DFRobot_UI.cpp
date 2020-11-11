@@ -888,6 +888,13 @@ void DFRobot_UI::KeyBoardEvent(void *obj){
         #endif
      }
     drawkpString(&kb->btn[i],CENTER,CENTER,&kb->btn[i].text[0]);
+    if(kb->text == 0) continue;
+    if(kb->btn[i].text[0] == 'x'){
+      kb->textBox->deleteChar();
+    }
+    else{
+      kb->textBox-> addChar(kb->btn[i].text[0]);
+    }
    }
   if ( judgeKpPress(&kb->btn[i], position[0].x, position[0].y) == false && kb->btn[i].click == 1) {
     kb->btn[i].click = 0;
@@ -910,13 +917,7 @@ void DFRobot_UI::KeyBoardEvent(void *obj){
     
      }
     drawkpString(&kb->btn[i],CENTER,CENTER,&kb->btn[i].text[0]);
-    if(kb->text == 0) continue;
-    if(kb->btn[i].text[0] == 'x'){
-      kb->textBox->deleteChar();
-    }
-    else{
-      kb->textBox-> addChar(kb->btn[i].text[0]);
-    } 
+ 
    }
   }
 }

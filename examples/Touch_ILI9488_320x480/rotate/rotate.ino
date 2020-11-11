@@ -14,7 +14,7 @@
 #include "Arduino.h"
 #include "DFRobot_GDL.h"
 #include "DFRobot_Touch.h"
-#include "GrayscaleBitmap1.h"
+#include "GrayscaleBitmap.h"
 /*M0*/
 #if defined ARDUINO_SAM_ZERO
 #define TFT_DC  7
