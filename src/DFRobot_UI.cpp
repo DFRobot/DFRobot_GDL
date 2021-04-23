@@ -58,8 +58,7 @@ DFRobot_UI::DFRobot_UI(DFRobot_GDL *gdl,DFRobot_Touch *touch)
   cursorState = true;
   theme = MODERN;
   _gdl = gdl;
-  lcdWidth = _gdl->width();
-  lcdHeight = _gdl->height();
+
   
   _touch = touch;
 }
@@ -85,6 +84,8 @@ void DFRobot_UI:: begin()
   if(_touch != NULL){
     _touch->begin();
   }
+  lcdWidth = _gdl->width();
+  lcdHeight = _gdl->height();
   screenPressed = 0;
   head.posx = 0;
   head.posy = 0;
@@ -94,7 +95,8 @@ void DFRobot_UI:: begin()
   head.bgColor = 0;
   head.next = NULL;
   head.event =NULL;
-      _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);
+  _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);
+
 }
 
 void  DFRobot_UI::sButton_t::setText(char * c){
@@ -408,9 +410,9 @@ DFRobot_UI::sCoordinate_t &DFRobot_UI::creatCoordinate(){
   coordData->pointColor = RED_RGB565;
   coordData->posx = 10;
   coordData->lineNumber = 0;
-  coordData->posy = lcdWidth -10;
-  coordData->height = lcdWidth  -20;
-  coordData->width = lcdHeight -20;
+  coordData->posy = lcdHeight -10;
+  coordData->height = lcdHeight  -20;
+  coordData->width = lcdWidth -20;
   coordData->intervalX = 6;
   coordData->intervalY = 4;
   coordData->fgColor = 0xC618;
@@ -477,7 +479,7 @@ void DFRobot_UI::sCoordinate_t::setPoint(int16_t poi[][2],uint8_t number,uint16_
 void DFRobot_UI::drawCoordinate(void *obj)
 {
   sCoordinate_t *coord = (sCoordinate_t *)obj;
-  _gdl->setRotation(1);
+  //_gdl->setRotation(1);
   #if defined(ESP32) || defined(ESP8266) ||  defined(ARDUINO_SAM_ZERO)||(__AVR_ATmega2560__)
   drawRectP(coord->posx,coord->posy - coord->height,coord->width,coord->height,4,coord->lvColor,coord->lvColor,0x4219,1,bgColor);
   #else
@@ -505,6 +507,10 @@ void DFRobot_UI::drawCoordinate(void *obj)
    _gdl->setCursor(coord->posx+coord->width-20,coord->posy-17);
    _gdl->print("y");
    sLine_t *line = coord->line.line;
+   Serial.println(coord->posx);
+   Serial.println(coord->posy);
+   Serial.println(coord->width);
+   Serial.println(coord->height);
    for(uint16_t i = 0 ; i<coord->lineNumber;i++){
       
       drawCoordLine(coord,line);
@@ -1231,8 +1237,8 @@ void DFRobot_UI::drawBar(void *obj){
     
 	_gdl->setTextColor(bar->fgColor);
     _gdl->setTextSize(2);
-    _gdl->print(bar->value);
-    _gdl->print("%");
+    //_gdl->print(bar->value);
+    //_gdl->print("%");
   }
   else if(bar->mode == CIRCULAR){
     _gdl->fillCircle(bar->posx, bar->posy, 32, LIGHTGREY_RGB565);
@@ -1444,35 +1450,9 @@ void DFRobot_UI::switchEvent(void *obj){
   }
 
   if (number == 0) return;
-#if defined (__AVR__)
-  if (sw->change == false ) {
-    if (((position[0].x > sw->posx) && (position[0].x < sw->posx + sw->width)) && ((position[0].y > sw->posy) && (position[0].y < sw->posy + sw->height))) {
-      sw->change = true;
-      sw->state = 1 - sw->state ;
-    }
-  }
-  if (sw->change == true && (((position[0].x < sw->posx) || (position[0].x > sw->posx + sw->width)) || ((position[0].y < sw->posy) || (position[0].y > sw->posy + sw->height)))) {
-    sw->change = false;
-    _gdl->fillRect(sw->posx - sw->height / (1.2) - 1 , sw->posy - sw->height / (1.2), sw->width + sw->height * 2, (sw->height / (1.2)) * 3 , bgColor);
-    if (sw->state == 1 ) {
-      _gdl->fillRoundRect(sw->posx - 1, sw->posy - 1, sw->width + 2, sw->height + 2, sw->height / 2, DARKGREY_RGB565);
-      _gdl->fillRoundRect(sw->posx, sw->posy, sw->width, sw->height, sw->height / 2, sw->bgColor);
-      _gdl->fillCircle(sw->posx + sw->width - sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2) + 1,  DARKGREY_RGB565);
-      _gdl->fillCircle(sw->posx + sw->width - sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2),  sw->bgColor-3);
-
-    }
-    if (sw->state == 0) {
-      _gdl->fillRoundRect(sw->posx - 1, sw->posy - 1, sw->width + 2, sw->height + 2, sw->height / 2, DARKGREY_RGB565);
-      _gdl->fillRoundRect(sw->posx, sw->posy, sw->width, sw->height, sw->height / 2, sw->fgColor);
-      _gdl->fillCircle(sw->posx + sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2) + 1,  DARKGREY_RGB565);
-      _gdl->fillCircle(sw->posx + sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2),  sw->fgColor);
-    }
-    if (sw ->callBack) sw->callBack(*sw,*sw->output);
-
-  }
+  #if defined(ESP32) || defined(ESP8266) ||  defined(ARDUINO_SAM_ZERO)||(__AVR_ATmega2560__)
   
-#else
-  if (sw->change == false ) {
+    if (sw->change == false ) {
     for (uint8_t i = 0 ; i < number ; i++) {
       if (((position[i].x > sw->posx) && (position[i].x < sw->posx + sw->width)) && ((position[i].y > sw->posy) && (position[i].y < sw->posy + sw->height))) {
         sw->change = true;
@@ -1506,6 +1486,36 @@ void DFRobot_UI::switchEvent(void *obj){
 
       }
     }
+  }
+  
+
+  
+#else
+  
+  if (sw->change == false ) {
+    if (((position[0].x > sw->posx) && (position[0].x < sw->posx + sw->width)) && ((position[0].y > sw->posy) && (position[0].y < sw->posy + sw->height))) {
+      sw->change = true;
+      sw->state = 1 - sw->state ;
+    }
+  }
+  if (sw->change == true && (((position[0].x < sw->posx) || (position[0].x > sw->posx + sw->width)) || ((position[0].y < sw->posy) || (position[0].y > sw->posy + sw->height)))) {
+    sw->change = false;
+    _gdl->fillRect(sw->posx - sw->height / (1.2) - 1 , sw->posy - sw->height / (1.2), sw->width + sw->height * 2, (sw->height / (1.2)) * 3 , bgColor);
+    if (sw->state == 1 ) {
+      _gdl->fillRoundRect(sw->posx - 1, sw->posy - 1, sw->width + 2, sw->height + 2, sw->height / 2, DARKGREY_RGB565);
+      _gdl->fillRoundRect(sw->posx, sw->posy, sw->width, sw->height, sw->height / 2, sw->bgColor);
+      _gdl->fillCircle(sw->posx + sw->width - sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2) + 1,  DARKGREY_RGB565);
+      _gdl->fillCircle(sw->posx + sw->width - sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2),  sw->bgColor-3);
+
+    }
+    if (sw->state == 0) {
+      _gdl->fillRoundRect(sw->posx - 1, sw->posy - 1, sw->width + 2, sw->height + 2, sw->height / 2, DARKGREY_RGB565);
+      _gdl->fillRoundRect(sw->posx, sw->posy, sw->width, sw->height, sw->height / 2, sw->fgColor);
+      _gdl->fillCircle(sw->posx + sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2) + 1,  DARKGREY_RGB565);
+      _gdl->fillCircle(sw->posx + sw->height / (1.2), sw->posy + sw->height / 2, sw->height / (1.2),  sw->fgColor);
+    }
+    if (sw ->callBack) sw->callBack(*sw,*sw->output);
+
   }
 #endif
 }

@@ -116,7 +116,7 @@ void DFRobot_ST7789_240x320_HW_SPI::pushColor(uint8_t *color,uint32_t len){
      uint16_t col = color[1]<<8 | color[0];
      sendColor(col, len);
 }
-DFRobot_ST7735S_80x160_HW_SPI::DFRobot_ST7735S_80x160_HW_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
+DFRobot_ST7735_80x160_HW_SPI::DFRobot_ST7735_80x160_HW_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
   :DFRobot_GDL(&gdl_Dev_ST7735S_R80x160_HW_SPI, 80, 160, dc, cs, rst, bl){
   setDriverICResolution(ST7735S_IC_WIDTH, ST7735S_IC_HEIGHT);
   madctlReg.madctl = ST7735S_MADCTL;
@@ -124,28 +124,32 @@ DFRobot_ST7735S_80x160_HW_SPI::DFRobot_ST7735S_80x160_HW_SPI(uint8_t dc, uint8_t
   invertOffCmd = ST7735S_INVOFF;
   invertOnCmd = ST7735S_INVON;
 }
-DFRobot_ST7735S_80x160_HW_SPI::~DFRobot_ST7735S_80x160_HW_SPI(){}
-void DFRobot_ST7735S_80x160_HW_SPI::begin(uint32_t freq)
+DFRobot_ST7735_80x160_HW_SPI::~DFRobot_ST7735_80x160_HW_SPI(){}
+void DFRobot_ST7735_80x160_HW_SPI::begin(uint32_t freq)
 {
   gdlInit(freq);
   initDisplay();
+  setRotation(1);
   setColorMode(COLOR_MODE_RGB565);
 }
-void DFRobot_ST7735S_80x160_HW_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+void DFRobot_ST7735_80x160_HW_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   //if((x + w ) > _width || (y + h) > _height) ;
+  //Serial.println(rotation);
   switch(rotation){
       case 0:
       case 2:
-            _xStart = (ST7735S_IC_WIDTH - _width)/2;
-            _yStart = (ST7735S_IC_HEIGHT - _height)/2;
+            _xStart = 24;
+            _yStart = 0;
             break;
       case 1:
       case 3:
-            _xStart = (ST7735S_IC_HEIGHT - _width)/2;
-            _yStart = (ST7735S_IC_WIDTH - _height)/2;
+            _xStart = 0;
+            _yStart = 24;
             break;
   }
+ // Serial.println(_xStart);
+ // Serial.println(_yStart);
   sendCommand(ST7735S_COLSET);
   sendData16(_xStart + x);
   sendData16(_xStart + x + w -1);
@@ -155,7 +159,7 @@ void DFRobot_ST7735S_80x160_HW_SPI::setDisplayArea(uint16_t x, uint16_t y, uint1
   sendCommand(ST7735S_RAMWR);
   //sendColor(color, (uint32_t)w*h);
 }
-void DFRobot_ST7735S_80x160_HW_SPI::pushColor(uint8_t *color,uint32_t len){
+void DFRobot_ST7735_80x160_HW_SPI::pushColor(uint8_t *color,uint32_t len){
      uint16_t col = color[1]<<8 | color[0];
      sendColor(col, len);
 }
@@ -274,7 +278,7 @@ void DFRobot_ST7789_240x240_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
      uint16_t col = color[1]<<8 | color[0];
      sendColor(col, len);
 }
-DFRobot_ST7735S_80x160_DMA_SPI::DFRobot_ST7735S_80x160_DMA_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
+DFRobot_ST7735_80x160_DMA_SPI::DFRobot_ST7735_80x160_DMA_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
   :DFRobot_GDL(&gdl_Dev_ST7735S_R80x160_DMA_SPI, 80, 160, dc, cs, rst, bl){
   setDriverICResolution(ST7735S_IC_WIDTH, ST7735S_IC_HEIGHT);
   madctlReg.madctl = ST7735S_MADCTL;
@@ -282,28 +286,31 @@ DFRobot_ST7735S_80x160_DMA_SPI::DFRobot_ST7735S_80x160_DMA_SPI(uint8_t dc, uint8
   invertOffCmd = ST7735S_INVOFF;
   invertOnCmd = ST7735S_INVON;
 }
-DFRobot_ST7735S_80x160_DMA_SPI::~DFRobot_ST7735S_80x160_DMA_SPI(){}
-void DFRobot_ST7735S_80x160_DMA_SPI::begin(uint32_t freq)
+DFRobot_ST7735_80x160_DMA_SPI::~DFRobot_ST7735_80x160_DMA_SPI(){}
+void DFRobot_ST7735_80x160_DMA_SPI::begin(uint32_t freq)
 {
   gdlInit(freq);
   initDisplay();
+   setRotation(1);
   setColorMode(COLOR_MODE_RGB565);
 }
-void DFRobot_ST7735S_80x160_DMA_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+void DFRobot_ST7735_80x160_DMA_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   //if((x + w ) > _width || (y + h) > _height) return;
+  
   switch(rotation){
       case 0:
       case 2:
-            _xStart = (ST7735S_IC_WIDTH - _width)/2;
-            _yStart = (ST7735S_IC_HEIGHT - _height)/2;
+            _xStart = 24;
+            _yStart = 0;
             break;
       case 1:
       case 3:
-            _xStart = (ST7735S_IC_HEIGHT - _width)/2;
-            _yStart = (ST7735S_IC_WIDTH - _height)/2;
+            _xStart = 0;
+            _yStart = 24;
             break;
   }
+  
   sendCommand(ST7735S_COLSET);
   sendData16(_xStart + x);
   sendData16(_xStart + x + w -1);
@@ -313,7 +320,7 @@ void DFRobot_ST7735S_80x160_DMA_SPI::setDisplayArea(uint16_t x, uint16_t y, uint
   sendCommand(ST7735S_RAMWR);
   //sendColor(color, (uint32_t)w*h);
 }
-void DFRobot_ST7735S_80x160_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
+void DFRobot_ST7735_80x160_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
      uint16_t col = color[1]<<8 | color[0];
      sendColor(col, len);
 }

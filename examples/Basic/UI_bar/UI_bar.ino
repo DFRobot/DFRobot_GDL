@@ -91,32 +91,35 @@ void setup()
 {
   
   Serial.begin(9600);
-  //Initialize UI
+  //UI initialization
   ui.begin();
   ui.setTheme(DFRobot_UI::MODERN);
 
-  //Display a string on the screen
-  ui.drawString(/*x=*/33,/*y=*/screen.height()/5*4,"Page of loading",COLOR_RGB565_WHITE,ui.bgColor,/*fontsize =*/2,/*Invert=*/0);
+  
   //Create a progress bar control
   DFRobot_UI::sBar_t &bar1 = ui.creatBar();
-  /** User-defined progress bar parameter **/
+  /** User-defined progress bar parameters */
   bar1.setStyle(DFRobot_UI::COLUMN);
   bar1.fgColor = COLOR_RGB565_GREEN;
   bar1.setCallback(barCallback1);
   ui.draw(&bar1,/*x=*/33,/*y=*/screen.height()/5*3);
   
   DFRobot_UI::sBar_t &bar2 = ui.creatBar();
-  /**User-defined progress bar parameter*/
+  /* User-defined progress bar parameters */
   bar2.setStyle(DFRobot_UI::CIRCULAR);
   bar2.setCallback(barCallback2);
   ui.draw(&bar2,/*x=*/120,/*y=*/screen.height()/5*2);
 
   DFRobot_UI::sBar_t &bar3 = ui.creatBar();
-  /**User-defined progress bar parameter*/
+  /* User-defined progress bar parameters */
   bar3.fgColor = COLOR_RGB565_BLUE;
   bar3.setStyle(DFRobot_UI::BAR);
   bar3.setCallback(barCallback3);
-  ui.draw(&bar3,/*x=*/(screen.width()-bar3.width)/2,/*y=*/screen.height()/10);
+  ui.draw(&bar3,/*x=*/(screen.width()-bar3.width)/2,/*y=*/screen.height()/5*0.5);
+  //Display a string on the screen
+  ui.drawString(/*x=*/33,/*y=*/screen.height()/5*4,"Page of loading",COLOR_RGB565_WHITE,ui.bgColor,/*fontsize =*/2,/*Invert=*/0);
+  
+
 }
 
 

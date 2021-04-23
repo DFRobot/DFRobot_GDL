@@ -95,7 +95,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
       }
            break; 
     case IF_COM_WRITE_RAM_INC:
-      {    Serial.println(len);
+      {    //Serial.println(len);
            if(!(p->isBegin)) return 0;
            PIN_LOW(p->pinList[IF_PIN_CS]);
            do{

@@ -32,7 +32,7 @@ public:
 #define JPEG_WBUF_SIZE  4096 
 /*AVR*/
 #else
-#define	JD_SZBUF		512 
+#define	JD_SZBUF		256 
 #define JPEG_WBUF_SIZE  0 
 #endif
 

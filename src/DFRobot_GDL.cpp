@@ -142,6 +142,7 @@ void DFRobot_GDL::setRotation(uint8_t r){
                 _yStart = 0;
                 break;
             case 2:
+			
                 madctlReg.args.my = 1;
                 madctlReg.args.mx = 1;
                 _width = WIDTH;

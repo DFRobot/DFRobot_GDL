@@ -13,40 +13,41 @@
 
 
 
-#include "DFRobot_GDL.h"
 #include "DFRobot_UI.h"
+#include "Arduino.h"
+#include "DFRobot_GDL.h"
+#include "DFRobot_Touch.h"
 /*M0*/
 #if defined ARDUINO_SAM_ZERO
-#define COLOR_RGB565_DC  7
-#define COLOR_RGB565_CS  5
-#define COLOR_RGB565_RST 6
+#define TFT_DC  7
+#define TFT_CS  5
+#define TFT_RST 6
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
-#define COLOR_RGB565_DC  D3
-#define COLOR_RGB565_CS  D4
-#define COLOR_RGB565_RST D5
-/*AVR series mainboard*/
+#define TFT_DC  D3
+#define TFT_CS  D4
+#define TFT_RST D5
+/*AVR series*/
 #else
-#define COLOR_RGB565_DC  2
-#define COLOR_RGB565_CS  3
-#define COLOR_RGB565_RST 4
+#define TFT_DC  2
+#define TFT_CS  3
+#define TFT_RST 4
 #endif
-
 /**
  * @brief Constructor Constructor of hardware SPI communication
  * @param dc Command/data line pin for SPI communication
  * @param cs Chip select pin for SPI communication
  * @param rst reset pin of the screen
  */
-//DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
-//DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
-//DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
-//DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
+//DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /* M0 mainboard DMA transfer */
-//DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
-//DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
-//DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
-//DFRobot_ILI9488_320x480_DMA_SPI screen(/*dc=*/COLOR_RGB565_DC,/*cs=*/COLOR_RGB565_CS,/*rst=*/COLOR_RGB565_RST);
+//DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ILI9488_320x480_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /*
  *User-selectable macro definition color
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 

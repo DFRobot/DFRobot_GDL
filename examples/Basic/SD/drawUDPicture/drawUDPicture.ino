@@ -11,12 +11,12 @@
  * @date 2020-03-13
  * @url https://github.com/DFRobot/DFRobot_GDL
  */
-#include <UD.h>
+#include <SD.h>
 #include <SPI.h>
 #include "DFRobot_GDL.h"
-#include "DFRobot_Picdecoder_UD.h"
+#include "DFRobot_Picdecoder_SD.h"
 
-DFRobot_Picdecoder_UD decoder;
+DFRobot_Picdecoder_SD decoder;
 
 //Custom communication pins
 /*M0*/
@@ -41,14 +41,14 @@ DFRobot_Picdecoder_UD decoder;
  * @param cs Chip select pin for SPI communication
  * @param rst reset pin of the screen
  */
-// DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /*M0 mainboard DMA transfer */
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
-//DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 
 /*
@@ -68,7 +68,7 @@ void setup()
   //Initialize the SD card, wait until the initialization is successful
   while(1)
   {
-    if (UD.begin())
+    if (SD.begin())
     {
       SerialUSB.println("initialization done.");
       break;
@@ -103,7 +103,7 @@ void loop()
   * FILE_WRITE: open the file for reading and writing, starting from the end of the file
   */
    //Batch display icons
-  UDFile myDir = UD.open(/*directory name=*/"picture/Icon/",/*mode=*/FILE_READ);
+  SDFile myDir = SD.open(/*directory name=*/"picture/Icon/",/*mode=*/FILE_READ);
   if(myDir)
   {
     /* Set the screen color to white */
@@ -114,7 +114,7 @@ void loop()
       for(uint16_t x = 10; x<screen.width()-32; x+=60)//x coordinate
       {
         //Read the next file information in the directory
-        UDFile entry = myDir.openNextFile();
+        SDFile entry = myDir.openNextFile();
         if (! entry)
         {
           //There are no more pictures to show, jump out of the loop
@@ -122,7 +122,7 @@ void loop()
         }
         //Splice file name
         strcpy(str,"picture/Icon/");
-        strcat(str,entry.getName());
+        strcat(str,entry.name());
         //Show an icon
         decoder.drawPicture(/*filename=*/str,/*sx=*/x,/*sy=*/y,/*ex=*/x+32,/*ey=*/y+32,/*screenDrawPixel=*/screenDrawPixel);
       }

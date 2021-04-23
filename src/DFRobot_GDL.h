@@ -346,10 +346,10 @@ protected:
   void pushColor(uint8_t *color,uint32_t len);
 };
 
-class DFRobot_ST7735S_80x160_HW_SPI: public DFRobot_GDL{
+class DFRobot_ST7735_80x160_HW_SPI: public DFRobot_GDL{
 public:
-  DFRobot_ST7735S_80x160_HW_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
-  ~DFRobot_ST7735S_80x160_HW_SPI();
+  DFRobot_ST7735_80x160_HW_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
+  ~DFRobot_ST7735_80x160_HW_SPI();
   void begin(uint32_t freq = 0);
 protected:
   void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
@@ -399,10 +399,10 @@ protected:
   void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
   void pushColor(uint8_t *color,uint32_t len);
 };
-class DFRobot_ST7735S_80x160_DMA_SPI: public DFRobot_GDL{
+class DFRobot_ST7735_80x160_DMA_SPI: public DFRobot_GDL{
 public:
-  DFRobot_ST7735S_80x160_DMA_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
-  ~DFRobot_ST7735S_80x160_DMA_SPI();
+  DFRobot_ST7735_80x160_DMA_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
+  ~DFRobot_ST7735_80x160_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
   void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);

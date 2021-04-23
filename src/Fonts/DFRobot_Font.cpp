@@ -155,7 +155,7 @@ size_t DFRobot_GDL::write(const uint8_t *buffer, size_t size){  //The default is
       if(_font.getFont() == false){
         continue;
 	  } 
-      //Serial.println(str);
+     // Serial.println(str);
       if(wrap && ((cursor_x + (uint16_t)pgm_read_byte(&(_gdlFont->glyph->xAdvance))) > _width)){
           cursor_x = 0;
           cursor_y += _gdlFont->yAdvance;
