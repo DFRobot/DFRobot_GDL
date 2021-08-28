@@ -27,10 +27,10 @@ DFRobot_Picdecoder_SD decoder;
 #define TFT_SD  3
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D3
-#define TFT_CS  D4
-#define TFT_RST D5
-#define TFT_SD  D6
+#define TFT_DC  D2
+#define TFT_CS  D6
+#define TFT_RST D3
+#define TFT_SD  D7
 /* AVR series mainboard */
 #else
 #define TFT_DC  2

@@ -1,5 +1,5 @@
 /*!
- * @file gettureFont.ino
+ * @file gestureFont.ino
  * @brief Control the words in the center of the screen by zooming in, zooming out, sliding up, and sliding down in a two-finger gesture.
  * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
  *
@@ -22,9 +22,9 @@
 #define TFT_RST 6
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D3
-#define TFT_CS  D4
-#define TFT_RST D5
+#define TFT_DC  D2
+#define TFT_CS  D6
+#define TFT_RST D3
 /* AVR series mainboard */
 #else
 #define TFT_DC  2

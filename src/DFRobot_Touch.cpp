@@ -70,11 +70,13 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
       _if.dev->addr = (uint8_t *)touchGt5688ConfigTable;
       sizeReg = 0x8051;
   }else if(id == "911"){
-
-      _if.dev->addr = (uint8_t *)touchGT911ConfigTable;
-      sizeReg = 0x8048;
+   IC = GT911;
+   _if.dev->addr = (uint8_t *)touchGT911ConfigTable;
+   sizeReg = 0x8048;
   }else{
-      return;
+   IC = FT5436;
+   _if.pinList[IF_PIN_ADDR] = 0x38;
+   return;
   }
   uint8_t *addr = _if.dev->addr;
   touchConfig(addr);
@@ -87,6 +89,17 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
   //Serial.println("_size.yh = ");Serial.println(_size.yh);
 }
 String DFRobot_Touch_GT911::scan(){
+   
+   if(IC == FT5436){
+     return ft5436Scan();
+   }else if(IC == GT911){
+     return gt911Scan();
+   }else{
+     return "255,0,0,0,0 ";
+   }
+}
+String DFRobot_Touch_GT911::gt911Scan()
+{
   uint8_t flag = 0;
   uint8_t val = 0x00;
   String s = "";
@@ -119,7 +132,40 @@ String DFRobot_Touch_GT911::scan(){
   _points = s;
   return s;
 }
+String DFRobot_Touch_GT911::ft5436Scan()
+{
+  uint8_t FT5216_Touch_Buf[43];
+  uint8_t point = 0;
+  String s = "";
+   //I2C_read_reg(0,FT5216_Touch_Buf,33);
+   readCommand(0,FT5216_Touch_Buf,33);
+  if((FT5216_Touch_Buf[2] == 0x00) || (FT5216_Touch_Buf[2] == 0xFF)){
+    point = FT5216_Touch_Buf[2];
+  }else if(FT5216_Touch_Buf[2] > 5){
+  }else{
+    point = FT5216_Touch_Buf[2];
+    if(point > 0x05){
+      point = 0x05;
+    }
+    for(uint8_t i = 0; i < point; i++){
+      uint16_t x = (uint16_t)(FT5216_Touch_Buf[3+6*i] & 0x0F)<<8 | (uint16_t) FT5216_Touch_Buf[4+6*i];
+      uint16_t y = (uint16_t)(FT5216_Touch_Buf[5+6*i] & 0x0F) << 8 | (uint16_t) FT5216_Touch_Buf[6+6*i];
+      uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
+      uint8_t id = FT5216_Touch_Buf[5+6*i]>>4;
+      if(x > 319){ x = 319; }
+      if(y > 479){ y = 479; }
+      x = 319 - x;
+      y = 479 - y;
+      
+      s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
+      
+	  
+    }
+	return s;
+  }
+  return "255,0,0,0,0 ";
 
+}
 DFRobot_Touch_XPT2046::DFRobot_Touch_XPT2046(uint8_t cs, uint8_t rst , uint8_t irq )
 :DFRobot_Touch(&gdl_Dev_XPT2046_TOUCH_HW_SPI, cs, rst, irq, GDL_PIN_NC){}
 DFRobot_Touch_XPT2046::~DFRobot_Touch_XPT2046(){}
@@ -174,9 +220,6 @@ uint16_t DFRobot_Touch_XPT2046::readxy(uint8_t cmd){
         uint8_t buf1[2];
         memset(buf1, 0, sizeof(buf1));
         readCommand(cmd, buf1, 2);
-        //Serial.print("buf[0] = ");Serial.println(buf1[0]);
-        //Serial.print("buf[1] = ");Serial.println(buf1[1]);
-        //delay(1000);
         num = (buf1[0] << 8) | buf1[1];
         num >>= 3;
         buf[i]=num;            
@@ -200,4 +243,48 @@ uint16_t DFRobot_Touch_XPT2046::readxy(uint8_t cmd){
     }
     temp=sum/(5-2*1);
     return temp;   
+}
+
+DFRobot_Touch_FT5436::DFRobot_Touch_FT5436(uint8_t addr , uint8_t rst, uint8_t irq)
+  :DFRobot_Touch(&gdl_Dev_GTXXX_TOUCH_HW_IIC, addr, rst, irq){
+
+}
+
+DFRobot_Touch_FT5436::~DFRobot_Touch_FT5436(){
+
+}
+void DFRobot_Touch_FT5436::begin(uint32_t freq){
+  initTouch();
+}
+String DFRobot_Touch_FT5436::scan(){
+  uint8_t FT5216_Touch_Buf[43];
+  uint8_t point = 0;
+  String s = "";
+   //I2C_read_reg(0,FT5216_Touch_Buf,33);
+   readCommand(0,FT5216_Touch_Buf,33);
+  if((FT5216_Touch_Buf[2] == 0x00) || (FT5216_Touch_Buf[2] == 0xFF)){
+    point = FT5216_Touch_Buf[2];
+  }else if(FT5216_Touch_Buf[2] > 5){
+  }else{
+    point = FT5216_Touch_Buf[2];
+    if(point > 0x05){
+      point = 0x05;
+    }
+    for(uint8_t i = 0; i < point; i++){
+      uint16_t x = (uint16_t)(FT5216_Touch_Buf[3+6*i] & 0x0F)<<8 | (uint16_t) FT5216_Touch_Buf[4+6*i];
+      uint16_t y = (uint16_t)(FT5216_Touch_Buf[5+6*i] & 0x0F) << 8 | (uint16_t) FT5216_Touch_Buf[6+6*i];
+      uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
+      uint8_t id = FT5216_Touch_Buf[5+6*i]>>4;
+      if(x > 319){ x = 319; }
+      if(y > 479){ y = 479; }
+      x = 319 - x;
+      y = 479 - y;
+      
+      s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
+      
+	  
+    }
+	return s;
+  }
+  return "255,0,0,0,0 ";
 }

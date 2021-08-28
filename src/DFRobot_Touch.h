@@ -31,7 +31,8 @@
 #define XPT2046_XOFFSET_240x320   (-13) //(-13)
 #define XPT2046_YFAC_240x320      894 //894
 #define XPT2046_YOFFSET_240x320   (-30) 
-
+#define GT911                     11
+#define FT5436                    36
 /* Different touch ICs, touch devices */
 extern sGdlIFDev_t gdl_Dev_GTXXX_TOUCH_HW_IIC;
 extern sGdlIFDev_t gdl_Dev_XPT2046_TOUCH_HW_SPI;
@@ -112,6 +113,9 @@ private:
       uint8_t hSize;
       uint8_t reserve;
   }sGtPoints_t;
+  String gt911Scan();
+  String ft5436Scan();
+  uint8_t IC;
   sGtPoints_t _p[5];
   String id;
 };
@@ -124,6 +128,16 @@ public:
   String scan();
   uint16_t readxy(uint8_t cmd);
 private:
+  
   String id;
+};
+class DFRobot_Touch_FT5436 : public DFRobot_Touch{
+public:
+  DFRobot_Touch_FT5436(uint8_t addr = 0x38, uint8_t rst = 255, uint8_t irq = 255);
+  ~DFRobot_Touch_FT5436();
+  void begin(uint32_t freq = 0);
+  String scan();
+private:
+
 };
 #endif

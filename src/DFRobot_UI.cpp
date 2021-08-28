@@ -1770,7 +1770,7 @@ uint8_t DFRobot_UI::stringToPoint(String str, sPoint_t *point)
     pin[n] = str[i];
     n++;
   }
-
+  return 1;
 }
 
 bool DFRobot_UI::focus(uint16_t x, uint16_t y) {

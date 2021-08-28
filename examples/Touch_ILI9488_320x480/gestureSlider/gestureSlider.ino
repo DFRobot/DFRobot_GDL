@@ -23,9 +23,9 @@
 #define TFT_RST 6
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D3
-#define TFT_CS  D4
-#define TFT_RST D5
+#define TFT_DC  D2
+#define TFT_CS  D6
+#define TFT_RST D3
 /* AVR series mainboard */
 #else
 #define TFT_DC  2
@@ -170,10 +170,10 @@ void drawT(uint8_t dir , uint8_t pointnum) {
   }
   else if (dir == 3 && pointnum == 1) {
     screen.fillTriangle(20, screen.height() / 2, 20 + 30, screen.height() / 2 - 15, 20 + 30, screen.height() / 2 + 15, COLOR_RGB565_RED);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8, 70, 16, COLOR_RGB565_RED);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8, 70, 16, COLOR_RGB565_RED);
     delay(500);
     screen.fillTriangle(20, screen.height() / 2, 20 + 30, screen.height() / 2 - 15, 20 + 30, screen.height() / 2 + 15, ui.bgColor);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8, 70, 16, ui.bgColor);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8, 70, 16, ui.bgColor);
   }
   else if (dir == 0 && pointnum == 2) {
     screen.fillTriangle(screen.width() / 2 - 15, screen.height() / 20, screen.width() / 2 - 15 - 15, screen.height() / 20 + 24, screen.width() / 2 + 15 - 15, screen.height() / 20 + 24, COLOR_RGB565_GREEN);
@@ -213,14 +213,14 @@ void drawT(uint8_t dir , uint8_t pointnum) {
   }
   else if (dir == 3 && pointnum == 2) {
     screen.fillTriangle(20, screen.height() / 2 - 15, 20 + 30, screen.height() / 2 - 15 - 15, 20 + 30, screen.height() / 2 + 15 - 15, COLOR_RGB565_GREEN);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 - 15, 70, 16, COLOR_RGB565_GREEN);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 - 15, 70, 16, COLOR_RGB565_GREEN);
     screen.fillTriangle(20, screen.height() / 2 + 15, 20 + 30, screen.height() / 2 - 15 + 15, 20 + 30, screen.height() / 2 + 15 + 15, COLOR_RGB565_GREEN);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 + 15, 70, 16, COLOR_RGB565_GREEN);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 + 15, 70, 16, COLOR_RGB565_GREEN);
     delay(500);
     screen.fillTriangle(20, screen.height() / 2 - 15, 20 + 30, screen.height() / 2 - 15 - 15, 20 + 30, screen.height() / 2 + 15 - 15, ui.bgColor);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 - 15, 70, 16, ui.bgColor);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 - 15, 70, 16, ui.bgColor);
     screen.fillTriangle(20, screen.height() / 2 + 15, 20 + 30, screen.height() / 2 - 15 + 15, 20 + 30, screen.height() / 2 + 15 + 15, ui.bgColor);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 + 15, 70, 16, ui.bgColor);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 + 15, 70, 16, ui.bgColor);
   }
   else if (dir == 10 && pointnum == 0) {
     screen.drawCircleHelper(screen.width() / 2, screen.height() / 2, 100, 10, COLOR_RGB565_GREEN);
@@ -296,18 +296,18 @@ void drawT(uint8_t dir , uint8_t pointnum) {
   }
   else if (dir == 3 && pointnum == 3) {
     screen.fillTriangle(20, screen.height() / 2 - 30, 20 + 30, screen.height() / 2 - 15 - 30, 20 + 30, screen.height() / 2 + 15 - 30, COLOR_RGB565_BLUE);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 - 30, 70, 16, COLOR_RGB565_BLUE);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 - 30, 70, 16, COLOR_RGB565_BLUE);
     screen.fillTriangle(20, screen.height() / 2 + 30, 20 + 30, screen.height() / 2 - 15 + 30, 20 + 30, screen.height() / 2 + 15 + 30, COLOR_RGB565_BLUE);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 + 30, 70, 16, COLOR_RGB565_BLUE);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 + 30, 70, 16, COLOR_RGB565_BLUE);
     screen.fillTriangle(20, screen.height() / 2 , 20 + 30, screen.height() / 2 - 15, 20 + 30, screen.height() / 2 + 15 , COLOR_RGB565_BLUE);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 , 70, 16, COLOR_RGB565_BLUE);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 , 70, 16, COLOR_RGB565_BLUE);
  
     delay(500);
     screen.fillTriangle(20, screen.height() / 2 - 30, 20 + 30, screen.height() / 2 - 15 - 30, 20 + 30, screen.height() / 2 + 15 - 30, ui.bgColor);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 - 30, 70, 16, ui.bgColor);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 - 30, 70, 16, ui.bgColor);
     screen.fillTriangle(20, screen.height() / 2 + 30, 20 + 30, screen.height() / 2 - 15 + 30, 20 + 30, screen.height() / 2 + 15 + 30, ui.bgColor);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 + 30, 70, 16, ui.bgColor);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 + 30, 70, 16, ui.bgColor);
     screen.fillTriangle(20, screen.height() / 2 , 20 + 30, screen.height() / 2 - 15, 20 + 30, screen.height() / 2 + 15 , ui.bgColor);
-    screen.fillRect(20 + 30, screen.height() / 2 - 8 , 70, 16, ui.bgColor);
+    screen.fillRect(20 + 20, screen.height() / 2 - 8 , 70, 16, ui.bgColor);
   }
 }
