@@ -18,22 +18,31 @@
 
 class DFRobot_Gesture{
 public:
-//Used to store the information of a point from pressed-state and released-state on the touch screen
-typedef struct{
-    uint16_t pointx[POINT]; //X-coordinates of all recorded points
-	uint16_t pointy[POINT]; //Y-coordinates of all recorded points
-	uint8_t id; //Touch point id
-	uint8_t pressed; //Whether it was pressed
-}sTouchRecord_t;
-//Record the location information of five points in real-time //
-typedef struct{
-	uint16_t x[5];
-	uint16_t y[5];
-	
-}sTouchMessage_t;
-  /*!
-    The enumeration defines different gestures
-  */
+  /**
+   * @struct sTouchRecord_t
+   * @brief Used to store the information of a point from pressed-state and released-state on the touch screen
+   */
+  typedef struct{
+      uint16_t pointx[POINT]; //X-coordinates of all recorded points
+  	uint16_t pointy[POINT]; //Y-coordinates of all recorded points
+  	uint8_t id; //Touch point id
+  	uint8_t pressed; //Whether it was pressed
+  }sTouchRecord_t;
+  
+  /**
+   * @struct sTouchMessage_t
+   * @brief Record the location information of five points in real-time
+   */
+  typedef struct{
+  	uint16_t x[5];
+  	uint16_t y[5];
+  	
+  }sTouchMessage_t;
+  
+  /**
+   * @enum eGesture_t
+   * @brief The enumeration defines different gestures
+   */
   typedef enum {
   	SCLICK,/**<Single finger tap>**/
   	DDOUBLECLICK,/**<Single finger double-tap>**/
@@ -57,12 +66,14 @@ typedef struct{
   	TDOWNGLIDE,/**<Three-fingers swipe down>**/
   	TUPGLIDE,/**<Three-fingers swipe up>**/
    	WCLICK,/**<Four-fingers tap>**/
-	PCLICK,/**<Five-fingers tap>**/
+  PCLICK,/**<Five-fingers tap>**/
     NONE,/**<Gesture not recognized>**/
   }eGesture_t;
-  /*!
-    The enumeration defines a finger's change of direction in X or Y axis on the screen
-  */
+  
+  /**
+   * @enum eDirection_t
+   * @brief The enumeration defines a finger's change of direction in X or Y axis on the screen
+   */
   typedef enum{
   	  UPL, /**<The finger's coordinate in the y direction decreases>**/
   	  DOWNL,/**<The finger's coordinate in the y direction increases>**/
@@ -71,10 +82,11 @@ typedef struct{
   	  NOCHANGE,/**<The range of finger changing is too small, defined as unchanged>**/
   	  UNIDENTIFIABLE,/**<Cannot be recognized>**/
   }eDirection_t;
-
-  /*!
-    The enumeration defines the change of a single finger on the screen
-  */  
+  
+  /**
+   * @enum eDirection_t
+   * @brief The enumeration defines the change of a single finger on the screen
+   */
   typedef enum{
   	  LETTUP,
   	  LEFTDOWN,
@@ -88,69 +100,85 @@ typedef struct{
   	  UNABLE,
   }eDir_t;
   /**
-    * @brief Get the gesture detected by the touch screen
-    * @param str String, which contains touch point information
-    * @return  Variables of eGesture_t type represent different gestures
-    */
+   * @fn gesture
+   * @brief Get the gesture detected by the touch screen
+   * @param str String, which contains touch point information
+   * @return  Variables of eGesture_t type represent different gestures
+   */
   eGesture_t gesture(String str);
+
   /**
-    * @brief Get the gesture detected by the touch screen
-    * @param release Whether the finger released during the touch
-    * @param number The number of fingers touching the screen
-    * @return Variables of eGesture_t type represent different gestures
-    */
+   * @fn fingers
+   * @brief Get the gesture detected by the touch screen
+   * @param release Whether the finger released during the touch
+   * @param number The number of fingers touching the screen
+   * @return Variables of eGesture_t type represent different gestures
+   */
   eGesture_t fingers(uint8_t release,uint8_t number);
+
   /**
-    * @brief Calculate the distance from the touch beginning position of the first finger to the end position of the first finger. 
-    * @return Distance between two points
-    */
+   * @fn clickCount
+   * @brief Calculate the distance from the touch beginning position of the first finger to the end position of the first finger. 
+   * @return Distance between two points
+   */
   uint16_t clickCount();
+
   /**
-    * @brief Convert the point information in the string into array for later use
-    * @param str String, which contains touch point information
-    * @return The number of touch points detected by the touch screen
-    */
+   * @fn stringToPoint
+   * @brief Convert the point information in the string into array for later use
+   * @param str String, which contains touch point information
+   * @return The number of touch points detected by the touch screen
+   */
   virtual uint8_t stringToPoint(String str)=0;
   
   /**
-    * @brief The function of gesture recognition for single finger touch
-    * @param pointOne, the change direction of the first finger on the screen
-    * @return Single-finger gesture
-    */
+   * @fn getGestureOne
+   * @brief The function of gesture recognition for single finger touch
+   * @param pointOne, the change direction of the first finger on the screen
+   * @return Single-finger gesture
+   */
   eGesture_t getGestureOne(eDir_t pointOne);
+
   /**
-    * @brief The function of gesture recognition for two-fingers touch
-    * @param pointOne, the change direction of the first finger on the screen
-    * @param pointTwo, the change direction of the second finger on the screen
-    * @return Two-fingers gesture
-    */
+   * @fn getGestureTwo
+   * @brief The function of gesture recognition for two-fingers touch
+   * @param pointOne, the change direction of the first finger on the screen
+   * @param pointTwo, the change direction of the second finger on the screen
+   * @return Two-fingers gesture
+   */
   eGesture_t getGestureTwo(eDir_t pointOne,eDir_t pointTwo);
+
   /**
-    * @brief The function of gesture recognition for three-fingers touch
-    * @param pointOne, the change direction of the first finger on the screen
-    * @param pointTwo, the change direction of the second finger on the screen
-    * @param pointThree, the change direction of the third finger on the screen
-    * @return Three-fingers gesture
-    */
+   * @fn getGestureThree
+   * @brief The function of gesture recognition for three-fingers touch
+   * @param pointOne, the change direction of the first finger on the screen
+   * @param pointTwo, the change direction of the second finger on the screen
+   * @param pointThree, the change direction of the third finger on the screen
+   * @return Three-fingers gesture
+   */
   eGesture_t getGestureThree(eDir_t pointOne,eDir_t pointTwo,eDir_t pointThree);
+
   /**
-    * @brief The function of gesture recognition for four-fingers touch
-    * @param pointOne, the change direction of the first finger on the screen
-    * @param pointTwo, the change direction of the second finger on the screen
-    * @param pointThree, the change direction of the third finger on the screen
-    * @param pointFour, the change direction of the fourth finger on the screen
-    * @return Four-fingers gesture
-    */
+   * @fn getGestureFour
+   * @brief The function of gesture recognition for four-fingers touch
+   * @param pointOne, the change direction of the first finger on the screen
+   * @param pointTwo, the change direction of the second finger on the screen
+   * @param pointThree, the change direction of the third finger on the screen
+   * @param pointFour, the change direction of the fourth finger on the screen
+   * @return Four-fingers gesture
+   */
   eGesture_t getGestureFour(eDir_t pointOne,eDir_t pointTwo,eDir_t pointThree,eDir_t pointFour);
+  
   /**
-    * @brief The function of gesture recognition for five-fingers touch
-    * @param pointOne, the change direction of the first finger on the screen
-    * @param pointTwo, the change direction of the second finger on the screen
-    * @param pointThree, the change direction of the third finger on the screen
-    * @param pointFour, the changing direction of the fourth finger on the screen
-    * @param pointFive, the change direction of the fifth finger on the screen
-    * @return Five-fingers gesture
-    */
+   * @fn getGestureFive
+   * @brief The function of gesture recognition for five-fingers touch
+   * @param pointOne, the change direction of the first finger on the screen
+   * @param pointTwo, the change direction of the second finger on the screen
+   * @param pointThree, the change direction of the third finger on the screen
+   * @param pointFour, the changing direction of the fourth finger on the screen
+   * @param pointFive, the change direction of the fifth finger on the screen
+   * @return Five-fingers gesture
+   */
   eGesture_t getGestureFive(eDir_t pointOne,eDir_t pointTwo,eDir_t pointThree,eDir_t pointFour,eDir_t pointFive);
   
   sTouchMessage_t tpDev;//Touch point information
@@ -164,7 +192,7 @@ private:
   uint16_t minp(uint16_t num1,uint16_t num2,uint16_t num3);
   sTouchRecord_t touchge[5];
   sTouchRecord_t touchgeT[5];
-  uint8_t lastPN = 0; 
+  uint8_t lastPN = 0;
   uint8_t release = 0;
   uint16_t change;
   int16_t changeX;

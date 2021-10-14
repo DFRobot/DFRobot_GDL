@@ -5,7 +5,7 @@
  * @n The pictures of this demo are stored under example-> SD-> picture; just copy the picture folder to the SD card
  * @n This demo supports mainboard ESP8266, FireBeetle-M0, MAGE2560, and UNO.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
+ * @license The MIT License (MIT)
  * @author [YeHangYu] (hangyu.ye@dfrobot.com)
  * @version V0.1
  * @date 2020-03-20

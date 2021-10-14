@@ -3,7 +3,7 @@
  * @brief Demonstrate the built-in font library in MO UD
  * @n The demo supports mainboard FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
+ * @license The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
  * @version  V0.1
  * @date  2021-04-13

@@ -3,7 +3,7 @@
  * @brief Demonstrate different English fonts
  * @n The demo supports mainboard Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
+ * @license The MIT License (MIT)
  * @author [LuoYufeng] (yufeng.luo@dfrobot.com)
  * @version V0.1
  * @date 2020-01-07

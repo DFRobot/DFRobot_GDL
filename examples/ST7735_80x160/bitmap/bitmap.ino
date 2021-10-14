@@ -4,7 +4,7 @@
  * @n The demo requires to be run on a main-controller with 40000 bytes of dynamic memory, like FireBeetle-ESP8266 and FireBeetle-ESP32 since there are 380,000 bytes in this project.
  * @n This demo supports mainboard FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
+ * @license The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
  * @version  V0.1
  * @date  2021-04-13

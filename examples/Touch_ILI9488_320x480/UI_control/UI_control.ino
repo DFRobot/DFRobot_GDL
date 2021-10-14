@@ -5,7 +5,7 @@
  * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-SP8266, FireBeetle-M0
  * @n Click the text box to move the cursor into it when we need a text box to display.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
+ * @license The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
  * @version V1.0
  * @date 2019-12-6

@@ -3,7 +3,7 @@
  * @brief Present the animation effect of balls moving and colliding in the screen  
  * @n The demo supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
  * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
+ * @license     The MIT License (MIT)
  * @author [LuoYufeng](yufeng.luo@dfrobot.com)
  * @version  V0.1
  * @date  2020-01-07

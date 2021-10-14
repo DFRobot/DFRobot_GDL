@@ -5,7 +5,7 @@
  * @n The pictures of this demo are stored under example-> SD-> picture; just copy the picture folder to M0 flash S
  * @n The demo supports FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
- * @licence The MIT License (MIT)
+ * @license The MIT License (MIT)
  * @author [YeHangYu] (hangyu.ye@dfrobot.com)
  * @version V0.1
  * @date 2020-03-13

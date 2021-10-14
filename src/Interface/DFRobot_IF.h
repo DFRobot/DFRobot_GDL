@@ -116,12 +116,18 @@ Define device type, for example: screen and touch
 typedef struct sGdlIF sGdlIF_t;
 typedef uint8_t(*devInterfaceFunctionPtr)(sGdlIF_t *gdl, uint8_t step, uint8_t *addr, uint32_t len);//FP->function pointer函数指针
 
+/**
+ * @struct sGdlIFDev_t
+ */
 typedef struct{
   uint8_t devName; /**<Record the device type, DEV_TYPE_TOUCH represents touch, DEV_TYPE_SCREEN represents screen*/
   uint8_t *addr;  /**<Record the device's initialization array*/
   devInterfaceFunctionPtr talk;/**<Register communication interface function of the screen, pointer to the function*/
 }sGdlIFDev_t;
 
+/**
+ * @union uProtocol_t
+ */
 typedef union{
   TwoWire *iic;/**<Define an I2C pointer*/
   SPIClass *spi;/**<Define a SPI pointer*/
@@ -131,6 +137,9 @@ typedef union{
   void *interface;/**<Public interface*/
 }uProtocol_t;
 
+/**
+ * @struct sGdlIF
+ */
 struct sGdlIF{
   uint8_t interface;/**<Display communication type of storage screen*/
   uint32_t freq;/**<Communication frequency*/
@@ -159,6 +168,7 @@ class DFRobot_IF{
 public:
   sGdlIF_t _if;/*interface*/
   /**
+   * @fn DFRobot_IF
    * @brief Constructor Get the information of I2C interface
    * @param dev Pointer to communication interface structure. The sctruct holds the screen's communication interface type, 
    * @n communication frequency and related IO pins. On different main-controllers, the maximum number of bytes processed in
@@ -169,6 +179,7 @@ public:
    */
   DFRobot_IF(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t bl/*irq*/);
   /**
+   * @fn DFRobot_IF
    * @brief Constructor Get the information of SPI interface
    * @param dev Pointer to communication interface structure. The struct holds the screen's communication interface type,
    * @n communication frequency, and related IO pins. On different main-controllers, the maximum number of bytes processed in
@@ -181,10 +192,12 @@ public:
   DFRobot_IF(sGdlIFDev_t *dev, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl/*irq*/);
   ~DFRobot_IF();
   /**
+   * @fn initInterface
    * @brief communication interface initialization
    */
   void initInterface();
   /**
+   * @fn setFrequency
    * @brief Set communication interface frequency
    * @param freq frequency in Hz
    */
@@ -196,6 +209,7 @@ protected:
   void writeData32(uint32_t data, bool isRamData);
   void writeBuf(uint16_t reg, void *pBuf, uint32_t len, bool flag = false);//flag represents whether the data match with the register
   /**
+   * @fn readReg
    * @brief Read register data
    * @param reg can be a register
    * @param pBuf Receive array
@@ -208,6 +222,7 @@ protected:
   void sendBuf(void *buf, uint32_t len, bool isRamData = true);
 private:
   /**
+   * @fn readBuf
    * @brief Read data
    * @param reg can be a register or command
    * @param regBytes reg Effective data length of reg
