@@ -10,7 +10,9 @@
 #define COLOR_GET_B(c) (c).ch.blue
 #define COLOR_GET_A(c)     0xFF
 #define _swap_int16_t(a, b) { int16_t t = a; a = b; b = t; }
+#ifndef min
 #define min(a,b) (((a) < (b)) ? (a) : (b))
+#endif
 #define CIRC_OCT1_X(p) (p.x)
 #define CIRC_OCT1_Y(p) (p.y)
 #define CIRC_OCT2_X(p) (p.y)

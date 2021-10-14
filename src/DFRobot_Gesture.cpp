@@ -98,9 +98,6 @@ DFRobot_Gesture::eGesture_t DFRobot_Gesture::fingers(uint8_t release,uint8_t num
 	return NONE;
 }
 uint16_t DFRobot_Gesture::clickCount(){
-uint16_t distance1;
-
-
 	int x1 = (touchge[0].pointx[0] - clickOldx);
 	int y1 = (touchge[0].pointy[0] - clickOldy);
 return sqrtf((unsigned long)x1*x1+(unsigned long)y1*y1);
@@ -293,8 +290,6 @@ DFRobot_Gesture::eGesture_t DFRobot_Gesture::getGestureOne(eDir_t pointOne){
 }
 uint8_t DFRobot_Gesture::judgeRotate(){
 	int16_t x1 ,x2,x3,y1,y2,y3;
-	int px12,py12;
-	int px23,py23;
 	double  concave;
 	bool clockwise;
 	
@@ -304,19 +299,15 @@ uint8_t DFRobot_Gesture::judgeRotate(){
 	y2 = 0 - touchge[0].pointy[1];	
 	x3 = touchge[0].pointx[2];
 	y3 = 0 - touchge[0].pointy[2];
-	px12 = x2-x1;
-	py12 = y2-y1;
-	
-	px23 = x3-x2;
-	py23 = y3-y2;
-	concave = (x2-x1)*(y3-y1)-(y2-y1)*(x3-x1);
-	if(concave < 0)
-		clockwise = 1;
-	else if(concave > 0) 
-		clockwise = 0;
-    else
-        return 2;	
 
+	concave = (x2-x1)*(y3-y1)-(y2-y1)*(x3-x1);
+	if(concave < 0){
+		clockwise = 1;
+	} else if(concave > 0){
+		clockwise = 0;
+	}else{
+        return 2;
+	}
 	return clockwise;
 	
 }

@@ -128,8 +128,8 @@ uint8_t interfaceComHardwareSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
            uint8_t num = pgm_read_byte(&pBuf[0]);
            if(!(p->isBegin) || num > 4) return 0;
            PIN_LOW(p->pinList[IF_PIN_CS]);
-           uint8_t *addr = pBuf + 1;
-           uint8_t buf[num];
+           //uint8_t *addr = pBuf + 1;
+           //uint8_t buf[num];
            do{
                uint32_t datBytes = len;
                uint32_t args = 100000/num;

@@ -1483,6 +1483,7 @@ void Adafruit_GFX::getTextBounds(const __FlashStringHelper *str,
 /**************************************************************************/
 void Adafruit_GFX::invertDisplay(boolean i) {
     // Do nothing, must be subclassed if supported by hardware
+    i=i;
 }
 
 /***************************************************************************/

@@ -31,11 +31,10 @@ void DFRobot_Touch::touchConfig(uint8_t *addr){
   for(uint8_t j = 0; j < regByte; j++){
       reg |= (uint32_t)(regBuf[regByte -1 -j] << 8*j);
   }
-  uint16_t length =  pgm_read_byte(addr++)<<8|pgm_read_byte(addr++);
-  int8_t flag = regByte - 1;
+  uint16_t length =  (pgm_read_byte(addr++)<<8) | (pgm_read_byte(addr++));
+  //int8_t flag = regByte - 1;
   uint8_t buf[regByte+1+regValByte];
   buf[0] = regByte;
-  
   for(uint8_t i = 0; i < length; i++){
       memcpy(buf+1, regBuf, regByte);
       for(uint8_t j = 0; j < regValByte; j++){
@@ -60,6 +59,7 @@ DFRobot_Touch_GT911::~DFRobot_Touch_GT911(){
   
 }
 void DFRobot_Touch_GT911::begin(uint32_t freq){
+  freq = freq;
   initTouch();
   char temp[4]={0};//Get chip id
   uint16_t sizeReg = 0;
@@ -150,7 +150,7 @@ String DFRobot_Touch_GT911::ft5436Scan()
     for(uint8_t i = 0; i < point; i++){
       uint16_t x = (uint16_t)(FT5216_Touch_Buf[3+6*i] & 0x0F)<<8 | (uint16_t) FT5216_Touch_Buf[4+6*i];
       uint16_t y = (uint16_t)(FT5216_Touch_Buf[5+6*i] & 0x0F) << 8 | (uint16_t) FT5216_Touch_Buf[6+6*i];
-      uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
+      //uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
       uint8_t id = FT5216_Touch_Buf[5+6*i]>>4;
       if(x > 319){ x = 319; }
       if(y > 479){ y = 479; }
@@ -255,6 +255,7 @@ DFRobot_Touch_FT5436::~DFRobot_Touch_FT5436(){
 }
 void DFRobot_Touch_FT5436::begin(uint32_t freq){
   initTouch();
+  freq= freq;
 }
 String DFRobot_Touch_FT5436::scan(){
   uint8_t FT5216_Touch_Buf[43];
@@ -273,16 +274,13 @@ String DFRobot_Touch_FT5436::scan(){
     for(uint8_t i = 0; i < point; i++){
       uint16_t x = (uint16_t)(FT5216_Touch_Buf[3+6*i] & 0x0F)<<8 | (uint16_t) FT5216_Touch_Buf[4+6*i];
       uint16_t y = (uint16_t)(FT5216_Touch_Buf[5+6*i] & 0x0F) << 8 | (uint16_t) FT5216_Touch_Buf[6+6*i];
-      uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
+      //uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
       uint8_t id = FT5216_Touch_Buf[5+6*i]>>4;
       if(x > 319){ x = 319; }
       if(y > 479){ y = 479; }
       x = 319 - x;
       y = 479 - y;
-      
       s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
-      
-	  
     }
 	return s;
   }

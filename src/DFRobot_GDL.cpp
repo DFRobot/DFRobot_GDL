@@ -98,8 +98,8 @@ void DFRobot_GDL::drawPIC(int16_t x,int16_t y,uint16_t w ,uint16_t h,uint8_t * r
     case COLOR_MODE_RGB666 :{
       uint16_t * color = (uint16_t*)rawBuf;
       uint8_t rgb666[3];
-      uint16_t col;
-      uint32_t len = h*w;
+      //uint16_t col;
+      //uint32_t len = h*w;
       for(uint32_t i =0;i<h*w;i++ ){
           rgb565ToRGB666(rgb666, color[i]);
           sendColor(rgb666, sizeof(rgb666), 1);
@@ -162,7 +162,6 @@ void DFRobot_GDL::setRotation(uint8_t r){
         sendCommand(madctlReg.madctl, &madctlReg.args.value, 1,true);
         madctlReg.args.value = temp;
   }
-
 }
 void DFRobot_GDL::invertDisplay(bool i){
   if(invertOnCmd == invertOffCmd) return;

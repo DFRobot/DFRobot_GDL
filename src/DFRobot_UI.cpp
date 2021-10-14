@@ -591,7 +591,7 @@ void DFRobot_UI::drawLine(void * obj,int16_t x0, int16_t y0, int16_t x1, int16_t
     }
 }
 void DFRobot_UI::coordinateEvent(void *obj){
-
+  obj = obj;
 }
 void DFRobot_UI::drawText(void *obj)
 {
@@ -1223,6 +1223,8 @@ void DFRobot_UI::drawBar(void *obj){
   sBar_t *bar = (sBar_t *)obj;
   
   uint8_t edgeWidth = lcdWidth / 160;
+  edgeWidth = edgeWidth;
+
     _gdl->setTextWrap(false);
   if (bar->mode == BAR) {
     //_gdl->fillRoundRect(bar->posx - edgeWidth, bar->posy - edgeWidth, bar->width + 2 * edgeWidth, bar->height + 2 * edgeWidth, bar->height / 2, DARKGREY_RGB565);
@@ -1270,7 +1272,7 @@ void DFRobot_UI::barEvent(void *obj) {
   sBar_t *bar = (sBar_t *)obj;
   //Serial.println(position[0].x);
   double pi = 3.1415926;
-  double rad1, rad2, cosa, sina, x, y;
+  double rad1, cosa, sina, x, y;
   bar->sliderPos = (bar->width * bar->value) / 100 + bar->posx ;
   if (bar->callBack) bar->callBack(*bar);
 
@@ -1531,7 +1533,8 @@ void DFRobot_UI::drawCursor(sTextBox_t* obj, uint8_t offset_x, uint8_t offset_y,
   uint8_t fontOffset = 0;
   uint8_t fontHight = 8;
   uint8_t fontWidth = 6;
-  #endif 
+  #endif
+  fontOffset =fontOffset;
   uint16_t  x = obj->posx + offset_x + ((obj->fontSize) * fontWidth) * (obj->cursorx) + 2;
   uint16_t  y = obj->posy + offset_y + (obj->fontSize) * fontHight * (obj->cursory);
   uint16_t color ;
@@ -1608,7 +1611,7 @@ bool DFRobot_UI::judgeKpPress(sButton_t*obj, uint16_t x, uint16_t y)
 void DFRobot_UI::drawButtonString(sObject_t *obj, eLocation_t x, eLocation_t y, char * c,bool click)
 {
 
-  int16_t po_x, po_y;
+  int16_t po_x= 0, po_y = 0;
 
   #if defined(ESP32) || defined(ESP8266) ||  defined(ARDUINO_SAM_ZERO)||(__AVR_ATmega2560__)
   uint8_t fontHight = 16;
@@ -1622,6 +1625,8 @@ void DFRobot_UI::drawButtonString(sObject_t *obj, eLocation_t x, eLocation_t y, 
   uint8_t fontHight = 8;
   uint8_t fontWidth = 6;
   #endif 
+  fontOffset= fontOffset;
+  fontHight =fontHight;
   char b ;
   uint8_t length = (obj->width) / ((fontWidth+1) * obj->fontSize);
   if (length >= strlen(c)) length = strlen(c);
@@ -1660,7 +1665,7 @@ void DFRobot_UI::drawButtonString(sObject_t *obj, eLocation_t x, eLocation_t y, 
   }
 }
 void DFRobot_UI::drawkpString(sButton_t *btn, eLocation_t x, eLocation_t y, char * c){
-int16_t po_x, po_y;
+int16_t po_x=0, po_y=0;
   //sButton_t* btn = kp->btn[num];
   #if defined(ESP32) || defined(ESP8266) ||  defined(ARDUINO_SAM_ZERO)||(__AVR_ATmega2560__)
   uint8_t fontHight = 16;
@@ -1677,6 +1682,8 @@ int16_t po_x, po_y;
   _gdl->setFont(NULL);//设置字体为FreeMono12pt7b
   uint8_t fontWidth = 6;
   #endif 
+  fontHight =fontHight;
+  fontOffset = fontOffset;
   uint8_t length = (btn->width) / (fontWidth * btn->fontSize);
   char b ;
   if (length >= strlen(c)) length = strlen(c);
@@ -1719,6 +1726,7 @@ int16_t po_x, po_y;
 void DFRobot_UI::drawString(int16_t x, int16_t y, char * c, uint16_t color, uint16_t bg, uint8_t size, boolean mode)
 {
   char b ;
+  mode=mode;
   _gdl->setTextSize(size);
   _gdl->setTextColor(color, bg);
 
@@ -1813,9 +1821,8 @@ void DFRobot_UI::setGestureArea(uint16_t x, uint16_t y, uint16_t width, uint16_t
   gestureWidth = width;
   gestureHeight = height;
   _gdl->fillRoundRect(x, y, width, height, height / 4, LIGHTGREY_RGB565);
-  drawString(x + 5, y + height / 2, "Gesture area", DARKGREY_RGB565, LIGHTGREY_RGB565, 2, 0);
+  drawString(x + 5, y + height / 2, (char *)"Gesture area", (uint16_t)DARKGREY_RGB565, (uint16_t)LIGHTGREY_RGB565, 2, 0);
 }
-
 DFRobot_UI::eGesture_t DFRobot_UI::getGestures()
 {
   if(_touch == NULL) return NONE;

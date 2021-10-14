@@ -143,7 +143,7 @@ struct sGdlIF{
 
 
 #define GDL_IF_PB_DEV(name, type, init, interface) \
-sGdlIFDev_t name = {type, init, interface};
+sGdlIFDev_t name = {(uint8_t)type, init, interface};
 
 /**<Define functions of different interfaces*/
 uint8_t interfaceComHardwareSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len);

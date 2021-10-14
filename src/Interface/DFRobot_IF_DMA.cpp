@@ -4,12 +4,13 @@
 #define DF_DMA_SPI_TX_REG 0x42001828
 #define DMA_BUFFER_SIZE  65535
 
-uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len){
+uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len)
+{
   if(p == NULL) return 0;
   if(p->isBegin){
       #if defined(ARDUINO_SAM_ZERO)
      if(p->freq > 12000000)
-           {
+      {
           sercom4.disableSPI();
           while(SERCOM4->SPI.SYNCBUSY.bit.ENABLE);
           SERCOM4->SPI.BAUD.reg = 0; 
@@ -19,7 +20,8 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
       }
       #endif
   }
-  switch(cmd){
+  switch(cmd)
+  {
     case IF_COM_PROTOCOL_INIT:
     {
         p->pro.dma = &DMASPI;
@@ -29,9 +31,9 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
           break;
     case IF_COM_SET_FREQUENCY:
     {
-           if(!p->freq) return 0;
-           #if defined(ARDUINO_SAM_ZERO)
-            if(p->freq > 12000000)
+        if(!p->freq) {return 0;}
+            #if defined(ARDUINO_SAM_ZERO)
+           if((p->freq) > 12000000)
            {
                sercom4.disableSPI();
                while(SERCOM4->SPI.SYNCBUSY.bit.ENABLE);
@@ -41,7 +43,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
                p->pro.spi->beginTransaction(SPISettings(p->freq, MSBFIRST, SPI_MODE0));
            }
            #endif
-      }
+    }
     case IF_COM_WRITE_CMD:
     {     if(!p->isBegin) return 0;
           PIN_LOW(p->pinList[IF_PIN_CS]);
@@ -118,6 +120,7 @@ uint8_t interfaceComDmaSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_t len
   
   //  p->pro.spi->endTransaction();
     SPI.setClockDivider(12);
+    return 0;
 }
 
 #endif

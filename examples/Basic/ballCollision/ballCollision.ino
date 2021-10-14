@@ -34,11 +34,13 @@
  * @param cs Chip select pin for SPI communication
  * @param rst reset pin of the screen
  */
+//DFRobot_ST7735_128x160_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /* M0 mainboard DMA transfer */
+//DFRobot_ST7735_128x160_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -54,7 +56,7 @@
  *COLOR_RGB565_WHITE   
  */
 
-int xx0 = 39;int yy0 = 99;int xx1 = 199;int yy1 = 29;int xx2 = 99;int yy2 = 59;
+int xx0 = 39;int yy0 = 99;int xx1 = 139;int yy1 = 29;int xx2 = 99;int yy2 = 59;
 int xx3 = 5;int yy3 = 5;int xx4 = 5;int yy4 = 5;int xx5 = 5;int yy5 = 5;
 uint16_t color1 = COLOR_RGB565_YELLOW;
 uint16_t color2 = COLOR_RGB565_RED;

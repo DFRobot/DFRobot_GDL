@@ -42,11 +42,13 @@
  * @param rst  Reset pin of the screen
  * @param bl  Screen backlight pin
  */
+//DFRobot_ST7735_128x160_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /* M0 mainboard DMA transfer */
+//DFRobot_ST7735_128x160_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -65,17 +67,17 @@ void tbCallback(void * highLightPage){
   switch (*hl) {
      case 1:{
     //Display a string on the screen
-       ui.drawString(10, 200, "this is tab1", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
+       ui.drawString(10, 200, (char *)"this is tab1", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
        }
     case 2: {
-       ui.drawString(10, 200, "this is tab2", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
+       ui.drawString(10, 200, (char *)"this is tab2", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
        }
     case 3:  {
       
-       ui.drawString(10, 200, "this is tab3", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
+       ui.drawString(10, 200, (char *)"this is tab3", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
       }
     case 4:  {
-       ui.drawString(10, 200, "this is tab4", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
+       ui.drawString(10, 200, (char *)"this is tab4", COLOR_RGB565_YELLOW, ui.bgColor, 3, 0);break;
   }
   }
 }
@@ -90,7 +92,7 @@ void setup()
  //Create a tableview control
  DFRobot_UI::sTableview_t &tv = ui.creatTableview();
  //Set the number and name of tableview, at most 4 pages.
- tv.setName(/*page=*/4,/*page1 name=*/"tab1",/*page2 name=*/"tab2",/*page3 name=*/"tab3",/*page4 name=*/"tab4");
+ tv.setName(/*page=*/4,/*page1 name=*/(char *)"tab1",/*page2 name=*/(char *)"tab2",/*page3 name=*/(char *)"tab3",/*page4 name=*/(char *)"tab4");
  //Set callback function
  tv.setCallback(tbCallback);
  ui.draw(&tv);

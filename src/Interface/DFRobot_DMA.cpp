@@ -73,7 +73,7 @@ void DFRobot_DMA::setDstAddr(uint8_t channel, void *dst, uint16_t size, bool inc
 }
 
 void DFRobot_DMA::setRoundTransMode(bool flag){
-  
+  flag = flag;
 }
 void DFRobot_DMA::setIncMode(uint8_t channel, uint8_t mode){
   switch(mode){

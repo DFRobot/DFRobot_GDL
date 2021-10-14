@@ -33,11 +33,13 @@
  * @param cs Chip select pin for SPI communication
  * @param rst reset pin of the screen
  */
+//DFRobot_ST7735_128x160_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /* M0 mainboard DMA transfer */
+//DFRobot_ST7735_128x160_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
@@ -61,7 +63,7 @@ void setup() {
   screen.begin();
   screen.fillScreen(COLOR_RGB565_LGRAY);
   for(uint16_t i=0;i<screen.height();i++){
-    screen.drawFastHLine(0,i,screen.width(),rainbow(i));
+    screen.drawFastHLine(0,i,screen.width(),rainbow());
     
    }
 
@@ -125,11 +127,8 @@ void loop() {
 }
 
 
-unsigned int rainbow(byte value)
+unsigned int rainbow()
 {
-  // Value is expected to be in range 0-127
-  // The value is converted to a spectrum colour from 0 = blue through to 127 = red
-
     switch (state) {
       case 0:
         green ++;

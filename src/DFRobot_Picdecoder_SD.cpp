@@ -50,14 +50,14 @@ bool DFRobot_Picdecoder_SD::bmpDecode(uint8_t* filename, void (*screenDrawPixel)
 {
   uint16_t count;
   uint8_t  rgb, color_byte;
-  uint8_t R, G, B;
+  uint8_t R=0, G=0, B=0;
   uint16_t x, y,color;
   uint16_t uiTemp;    
   uint16_t countpix = 0;
   uint16_t realx = 0;
   uint16_t realy = 0;
   uint8_t  yok = 1;
-  uint8_t  bitype;
+  //uint8_t  bitype;
   BITMAPINFO* pbmp;
 
     picFile_SD = SD.open((const char*)filename, FILE_READ);
@@ -69,7 +69,6 @@ bool DFRobot_Picdecoder_SD::bmpDecode(uint8_t* filename, void (*screenDrawPixel)
     }
   picFile_SD.read(jpg_buffer, JD_SZBUF);
   pbmp = (BITMAPINFO*)jpg_buffer;
-  (uint8_t*)jpg_buffer;
   count = pbmp->bmfHeader.bfOffBits;
   color_byte = pbmp->bmiHeader.biBitCount / 8;
   PICINFO_SD.ImgHeight = pbmp->bmiHeader.biHeight;
@@ -588,7 +587,7 @@ int32_t DFRobot_Picdecoder_SD::Decode(void (*screenDrawPixel)(int16_t,int16_t,ui
 
 void  DFRobot_Picdecoder_SD::GetYUV(int16_t flag)
 {
-  int16_t H, VV;
+  int16_t H=0, VV=0;
   int16_t i, j, k, h;
   int16_t* buf = NULL;
   int16_t* pQtZzMCU = NULL;
@@ -651,12 +650,15 @@ void DFRobot_Picdecoder_SD::StoreBuffer(void (*screenDrawPixel)(int16_t,int16_t,
           R = (uint8_t)rr;
           G = (uint8_t)gg;
           B = (uint8_t)bb;
-          if (rr & 0xffffff00) if (rr > 255) R = 255;
-            else if (rr < 0) R = 0;
-          if (gg & 0xffffff00) if (gg > 255) G = 255;
+          if (rr & 0xffffff00){ if (rr > 255) {R = 255;}
+            else if (rr < 0) {R = 0;}
+          }
+          if (gg & 0xffffff00){ if (gg > 255) G = 255;
             else if (gg < 0) G = 0;
-          if (bb & 0xffffff00) if (bb > 255) B = 255;
+          }
+          if (bb & 0xffffff00){ if (bb > 255) B = 255;
             else if (bb < 0) B = 0;
+          }
           color = R >> 3;
           color = color << 6;
           color |= (G >> 2);
@@ -857,7 +859,7 @@ int32_t DFRobot_Picdecoder_SD::DecodeElement()
 }
 void DFRobot_Picdecoder_SD::IQtIZzMCUComponent(int16_t flag)
 {
-  int16_t H, VV;
+  int16_t H=0, VV=0;
   int16_t i, j;
   int16_t* pQtZzMCUBuffer = NULL;
   int16_t* pMCUBuffer = NULL;
@@ -894,7 +896,7 @@ void DFRobot_Picdecoder_SD::IQtIZzBlock(int16_t* s, int16_t* d, int16_t flag)
   int16_t* pQt = NULL;
   int32_t buffer2[8][8];
   int32_t* buffer1;
-  int16_t offset;
+  int16_t offset=0;
 
   switch (flag)
   {
