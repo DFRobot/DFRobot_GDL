@@ -363,6 +363,15 @@ protected:
   void pushColor(uint8_t *color,uint32_t len);
 };
 
+class DFRobot_ST7789_240x204_HW_SPI: public DFRobot_GDL{
+public:
+  DFRobot_ST7789_240x204_HW_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
+  ~DFRobot_ST7789_240x204_HW_SPI();
+  void begin(uint32_t freq = 0);
+protected:
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
+};
 /**
  * @fn DFRobot_ST7789_240x320_HW_SPI
  * @brief 1.54 inches SPI color screen
@@ -440,6 +449,16 @@ class DFRobot_ST7789_240x240_DMA_SPI: public DFRobot_GDL{
 public:
   DFRobot_ST7789_240x240_DMA_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
   ~DFRobot_ST7789_240x240_DMA_SPI();
+  void begin(uint32_t freq = 0);
+protected:
+  void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+  void pushColor(uint8_t *color,uint32_t len);
+};
+
+class DFRobot_ST7789_240x204_DMA_SPI: public DFRobot_GDL{
+public:
+  DFRobot_ST7789_240x204_DMA_SPI(uint8_t dc, uint8_t cs = GDL_PIN_NC, uint8_t rst = GDL_PIN_NC, uint8_t bl = GDL_PIN_NC);
+  ~DFRobot_ST7789_240x204_DMA_SPI();
   void begin(uint32_t freq = 0);
 protected:
   void setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);

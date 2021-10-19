@@ -15,31 +15,36 @@
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
+#define TFT_BL  9
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
 #define TFT_DC  D2
 #define TFT_CS  D6
 #define TFT_RST D3
-/*AVR Series Board*/
+#define TFT_BL  D13
+/* AVR series mainboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
 #define TFT_RST 4
+#define TFT_BL  5
 #endif
 
 /**
  * @brief Constructor Constructor of hardware SPI communication
  * @param dc Command/data line pin for SPI communication
  * @param cs Chip select pin for SPI communication
- * @param rst Reset pin of the screen
+ * @param rst reset pin of the screen
  */
 //DFRobot_ST7735_128x160_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ST7789_240x204_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL);
 //DFRobot_ST7789_240x240_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 /* M0 mainboard DMA transfer */
 //DFRobot_ST7735_128x160_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ST7789_240x204_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL);
 //DFRobot_ST7789_240x240_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ST7789_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 //DFRobot_ILI9341_240x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);

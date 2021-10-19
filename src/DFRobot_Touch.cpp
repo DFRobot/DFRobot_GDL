@@ -222,8 +222,8 @@ uint16_t DFRobot_Touch_XPT2046::readxy(uint8_t cmd){
         readCommand(cmd, buf1, 2);
         num = (buf1[0] << 8) | buf1[1];
         num >>= 3;
-        buf[i]=num;            
-    }           
+        buf[i]=num;
+    }
     for(i=0;i<5-1; i++)//Sort in ascending order
     {
         for(j=i+1;j<5;j++)
@@ -280,6 +280,47 @@ String DFRobot_Touch_FT5436::scan(){
       if(y > 479){ y = 479; }
       x = 319 - x;
       y = 479 - y;
+      s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
+    }
+	return s;
+  }
+  return "255,0,0,0,0 ";
+}
+
+
+DFRobot_Touch_FT3267::DFRobot_Touch_FT3267(uint8_t addr , uint8_t rst, uint8_t irq)
+  :DFRobot_Touch(&gdl_Dev_GTXXX_TOUCH_HW_IIC, addr, rst, irq){
+
+}
+
+DFRobot_Touch_FT3267::~DFRobot_Touch_FT3267(){
+
+}
+
+void DFRobot_Touch_FT3267::begin(uint32_t freq){
+  initTouch();
+  freq= freq;
+}
+
+String DFRobot_Touch_FT3267::scan(){
+  uint8_t FT3267_Touch_Buf[10];
+  uint8_t point = 0;
+  String s = "";
+  readCommand(0,FT3267_Touch_Buf,10);
+  if((FT3267_Touch_Buf[2] == 0x00) || (FT3267_Touch_Buf[2] == 0xFF)){
+    point = FT3267_Touch_Buf[2];
+  }else if(FT3267_Touch_Buf[2] > 5){
+  }else{
+    point = FT3267_Touch_Buf[2];
+    if(point > 0x05){
+      point = 0x05;
+    }
+    for(uint8_t i = 0; i < point; i++){
+      uint16_t x = (uint16_t)(FT3267_Touch_Buf[3+6*i] & 0x0F)<<8 | (uint16_t) FT3267_Touch_Buf[4+6*i];
+      uint16_t y = (uint16_t)(FT3267_Touch_Buf[5+6*i] & 0x0F) << 8 | (uint16_t) FT3267_Touch_Buf[6+6*i];
+      uint8_t id = FT3267_Touch_Buf[5+6*i]>>4; 
+      if(x > 240){ x = 240; }
+      if(y > 204){ y = 204; }
       s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
     }
 	return s;

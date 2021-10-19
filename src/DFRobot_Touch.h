@@ -140,4 +140,14 @@ public:
 private:
 
 };
+
+class DFRobot_Touch_FT3267 : public DFRobot_Touch{
+public:
+  DFRobot_Touch_FT3267(uint8_t addr = 0x38, uint8_t rst = 255, uint8_t irq = 255);
+  ~DFRobot_Touch_FT3267();
+  void begin(uint32_t freq = 0);
+  String scan();
+private:
+
+};
 #endif
