@@ -42,11 +42,11 @@ typedef struct {
 #include "Fonts/FreeSerifBold12pt7b.h"
 #include "Fonts/FreeSerifBoldItalic12pt7b.h"
 #include "Fonts/FreeSerifItalic12pt7b.h"
-
+#include "Fonts/FreeMonoBoldOblique9pt7b.h"
 #include "Fonts/FreeSans18pt7b.h"
 
 #include "Fonts/FreeSans9pt7b.h"
-
+#include "Fonts/FreeSerif9pt7b.h"
 
 
 #endif // _GFXFONT_H_
