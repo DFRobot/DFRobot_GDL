@@ -117,13 +117,5 @@ void loop() {
   screen.setTextWrap(true);
   screen.print("你好");
   delay(2000);
-  
-  //use SIMKAIFont72pt font
-  screen.fillScreen(COLOR_RGB565_BLACK);
-  screen.setFont(&SIMKAIFont72pt);
-  screen.setCursor(/*x=*/32,/*y=*/64);
-  screen.setTextColor(COLOR_RGB565_ORANGE);
-  screen.setTextWrap(true);
-  screen.print("你好");
-  delay(2000);
+
 }

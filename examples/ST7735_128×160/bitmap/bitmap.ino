@@ -13,8 +13,6 @@
 #include "DFRobot_GDL.h"
 #include "Bitmap.h"
 #include "XBitmap.h"
-#include "GrayscaleBitmap.h"
-#include "mask.h"
 #include "RGBBitmap.h"
 //Custom communication pins
 /*M0*/
