@@ -1,17 +1,15 @@
 /*!
  * @file UI_coord.ino
  * @brief Coordinate system control, users can customize the coordinate data in the coordinate system to draw polyline graph
- * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @n The demo supports  FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license     The MIT License (MIT)
- * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-6
+ * @author [fary] (feng.yang@dfrobot.com)
+ * @version V1.0
+ * @date 2021-11-04
  * @get from https://www.dfrobot.com
  * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
 */
-
-
 
 #include "DFRobot_UI.h"
 #include "Arduino.h"
@@ -22,17 +20,23 @@
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
-/*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
+/*ESP32 ESP8266*/
+defined(ESP32)
 #define TFT_DC  D2
 #define TFT_CS  D6
 #define TFT_RST D3
-/*AVR series*/
+/*ESP8266*/
+#elif defined(ESP8266)
+#define TFT_DC  D4
+#define TFT_CS  D6
+#define TFT_RST D5
+/* AVR series mainboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
 #define TFT_RST 4
 #endif
+
 /**
  * @brief Constructor Constructor of hardware SPI communication
  * @param dc Command/data line pin for SPI communication

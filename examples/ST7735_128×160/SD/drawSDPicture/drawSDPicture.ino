@@ -1,14 +1,14 @@
 /*!
- * @file SD.ino
+ * @file drawSDPicture.ino
  * @brief Read pictures in bmp / jpg / jpeg format from the SD card and display them on the screen. bmp supports 16-bit / 24-bit / 32-bit.
  * @n jpg only supports JFIF format, you can open with windows drawing and save it as this format.
  * @n The pictures of this demo are stored under example-> SD-> picture; just copy the picture folder to the SD card
  * @n This demo supports mainboard ESP8266, FireBeetle-M0, MAGE2560, and UNO.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
- * @author [YeHangYu] (hangyu.ye@dfrobot.com)
- * @version V0.1
- * @date 2020-03-20
+ * @author [fary] (feng.yang@dfrobot.com)
+ * @version V1.0
+ * @date 2021-11-04
  * @url https://github.com/DFRobot/DFRobot_GDL
  */
 #include <SD.h>
@@ -19,17 +19,23 @@
 DFRobot_Picdecoder_SD decoder;
 
 //Custom communication pins
-/*FireBeetle-M0*/
+/*M0*/
 #if defined ARDUINO_SAM_ZERO
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
 #define TFT_SD  3
-/*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
+/*ESP32 ESP8266*/
+defined(ESP32)
 #define TFT_DC  D2
 #define TFT_CS  D6
 #define TFT_RST D3
+#define TFT_SD  D7
+/*ESP8266*/
+#elif defined(ESP8266)
+#define TFT_DC  D4
+#define TFT_CS  D6
+#define TFT_RST D5
 #define TFT_SD  D7
 /* AVR series mainboard */
 #else
@@ -147,10 +153,6 @@ quit:
   decoder.drawPicture("picture/Icon/2.bmp",32,32,64,64,screenDrawPixel);
   decoder.drawPicture("picture/Icon/3.bmp",64,64,96,96,screenDrawPixel);
   decoder.drawPicture("picture/Icon/4.bmp",96,96,128,128,screenDrawPixel);
-  decoder.drawPicture("picture/Icon/5.bmp",128,128,160,160,screenDrawPixel);
-  decoder.drawPicture("picture/Icon/6.bmp",160,160,192,192,screenDrawPixel);
-  decoder.drawPicture("picture/Icon/7.bmp",192,192,224,224,screenDrawPixel);
-  //drawPicture("picture/Icon/8.bmp",224,224,250,250,screenDrawPixel);
 #endif
   delay(1000);
 }

@@ -5,9 +5,9 @@
  * @n This demo supports mainboard FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
- * @author [YeHangYu] (hangyu.ye@dfrobot.com)
- * @version V0.1
- * @date 2020-01-07
+ * @author [fary] (feng.yang@dfrobot.com)
+ * @version V1.0
+ * @date 2021-11-04
  * @url https://github.com/DFRobot/DFRobot_GDL
  */
 #include "DFRobot_GDL.h"
@@ -20,19 +20,21 @@
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
-#define TFT_BL  9
-/*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
+/*ESP32 ESP8266*/
+defined(ESP32)
 #define TFT_DC  D2
 #define TFT_CS  D6
 #define TFT_RST D3
-#define TFT_BL  D13
+/*ESP8266*/
+#elif defined(ESP8266)
+#define TFT_DC  D4
+#define TFT_CS  D6
+#define TFT_RST D5
 /* AVR series mainboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
 #define TFT_RST 4
-#define TFT_BL  5
 #endif
 
 /**

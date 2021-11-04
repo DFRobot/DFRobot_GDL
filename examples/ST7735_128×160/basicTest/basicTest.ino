@@ -4,9 +4,9 @@
  * @n This demo supports Arduino Uno, Leonardo, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
- * @author [LuoYufeng] (yufeng.luo@dfrobot.com)
- * @version V0.1
- * @date 2020-01-07
+ * @author [fary] (feng.yang@dfrobot.com)
+ * @version V1.0
+ * @date 2021-11-04
  * @url https://github.com/DFRobot/DFRobot_GDL
  */
 #include "DFRobot_GDL.h"
@@ -15,19 +15,21 @@
 #define TFT_DC  7
 #define TFT_CS  5
 #define TFT_RST 6
-#define TFT_BL  9
-/*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
+/*ESP32 ESP8266*/
+defined(ESP32)
 #define TFT_DC  D2
 #define TFT_CS  D6
 #define TFT_RST D3
-#define TFT_BL  D13
+/*ESP8266*/
+#elif defined(ESP8266)
+#define TFT_DC  D4
+#define TFT_CS  D6
+#define TFT_RST D5
 /* AVR series mainboard */
 #else
 #define TFT_DC  2
 #define TFT_CS  3
 #define TFT_RST 4
-#define TFT_BL  5
 #endif
 
 /**
@@ -57,7 +59,6 @@ void setup() {
 }
 
 void loop(){
-    testDrawPixel();
     testLine();
     testFastLines(COLOR_RGB565_PURPLE,COLOR_RGB565_YELLOW);       
     testRects(COLOR_RGB565_BLACK,COLOR_RGB565_WHITE);
@@ -65,43 +66,8 @@ void loop(){
     testCircles(24,COLOR_RGB565_BLUE);
     testTriangles(COLOR_RGB565_YELLOW);
     testPrint();
-
 }
 
-/* Test to draw a pixel*/
-void testDrawPixel() {
-  //Clear screen
-  screen.fillScreen(COLOR_RGB565_BLACK);
-  int x = 0;
-  int y = screen.height();
-  for(int i = 0; i <= screen.width()/2; i += 10){
-    for (x = screen.width() - i; x >= i; x-=10 ){
-      /*
-       * @ brief draw a pixel
-       * @ param x coordinate
-       *         y coordinate
-       * c pixel color
-       */
-      screen.drawPixel(x, y, COLOR_RGB565_ORANGE);
-      delay(10);
-    }
-	
-    for (y = screen.height() - i; y >= i; y-=10){
-      screen.drawPixel(x, y, COLOR_RGB565_ORANGE);
-      delay(10);
-    }
-	
-    for (x = i; x <= screen.width() - i + 1; x+=10 ){
-      screen.drawPixel(x, y, COLOR_RGB565_ORANGE);
-      delay(10);
-    }
-	
-    for (y = i; y <= screen.height() - i + 1; y+=10){
-      screen.drawPixel(x, y, COLOR_RGB565_ORANGE);
-      delay(10);
-    }
-  }
-}
 
 /* Test to draw a line*/
 void testLine(){
