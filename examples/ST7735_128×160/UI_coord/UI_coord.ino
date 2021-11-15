@@ -21,7 +21,7 @@
 #define TFT_CS  5
 #define TFT_RST 6
 /*ESP32 ESP8266*/
-defined(ESP32)
+#elif defined(ESP32)
 #define TFT_DC  D2
 #define TFT_CS  D6
 #define TFT_RST D3
