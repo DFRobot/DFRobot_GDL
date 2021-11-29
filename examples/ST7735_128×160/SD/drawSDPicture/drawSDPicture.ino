@@ -102,9 +102,12 @@ void loop()
    * @param ey The y coordinate to end displaying
    * @param screenDrawPixel point-drawing function name
    */
-  decoder.drawPicture(/*filename=*/"picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+#if defined ARDUINO_SAM_ZERO || defined(ESP8266) ||defined(ESP32)
+  //JPG images need to be decoded internally. AVR series master controls do not support JPG images due to lack of memory
+  decoder.drawPicture(/*filename=*/"/picture/219x220.jpg",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
   screen.fillScreen(COLOR_RGB565_WHITE);
-  decoder.drawPicture(/*filename=*/"picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
+#endif 
+  decoder.drawPicture(/*filename=*/"/picture/RGB565.bmp",/*sx=*/0,/*sy=*/0,/*ex=*/screen.width(),/*ey=*/screen.height(),/*screenDrawPixel=*/screenDrawPixel);
 
  /* Set the screen color to white */ 
   screen.fillScreen(COLOR_RGB565_WHITE);
@@ -117,7 +120,7 @@ void loop()
   * FILE_READ: open the file for reading, starting from the beginning of the file
   * FILE_WRITE: open the file for reading and writing, starting from the end of the file
   */
-  File myDir = SD.open(/*directory name=*/"picture/Icon/",/*mode=*/FILE_READ);
+  File myDir = SD.open(/*directory name=*/"/picture/Icon/",/*mode=*/FILE_READ);
   if(myDir)
   {
     char str[32];//Store file name of the icon in the read directory
@@ -134,7 +137,7 @@ void loop()
           goto quit;
         }
         //Splice file name
-        strcpy(str,"picture/Icon/");
+        strcpy(str,"/picture/Icon/");
         strcat(str,entry.name());
         //Show an icon
         decoder.drawPicture(/*filename=*/str,/*sx=*/x,/*sy=*/y,/*ex=*/x+32,/*ey=*/y+32,/*screenDrawPixel=*/screenDrawPixel);
@@ -149,10 +152,10 @@ quit:
   }
   /* AVR series motherboard */
 #else
-  decoder.drawPicture("picture/Icon/1.bmp",0,0,32,32,screenDrawPixel);
-  decoder.drawPicture("picture/Icon/2.bmp",32,32,64,64,screenDrawPixel);
-  decoder.drawPicture("picture/Icon/3.bmp",64,64,96,96,screenDrawPixel);
-  decoder.drawPicture("picture/Icon/4.bmp",96,96,128,128,screenDrawPixel);
+  decoder.drawPicture("/picture/Icon/1.bmp",0,0,32,32,screenDrawPixel);
+  decoder.drawPicture("/picture/Icon/2.bmp",32,32,64,64,screenDrawPixel);
+  decoder.drawPicture("/picture/Icon/3.bmp",64,64,96,96,screenDrawPixel);
+  decoder.drawPicture("/picture/Icon/4.bmp",96,96,128,128,screenDrawPixel);
 #endif
   delay(1000);
 }
