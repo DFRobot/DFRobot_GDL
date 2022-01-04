@@ -4,7 +4,7 @@
  * There are three buttons created in this demo: on, off, and clr. Press button on and off, the character "ON" and "OFF" will be 
  * @n displayed in the text box. Press the clr button to delete a character in the text box.
  * @n Click the text box to move the cursor into it when you need a text box to display characters.
- * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
