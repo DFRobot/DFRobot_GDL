@@ -1,7 +1,7 @@
 /*!
  * @file gestureFont.ino
  * @brief Control the words in the center of the screen by zooming in, zooming out, sliding up, and sliding down in a two-finger gesture.
- * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
