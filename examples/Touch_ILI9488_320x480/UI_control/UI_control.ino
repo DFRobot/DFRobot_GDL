@@ -2,7 +2,7 @@
  * @file UI_control.ino
  * @brief Create a switch, text box and slider control on the screen, users can directly use the controls' parameters here or use the default parameters.
  * @n When using a control, your current operation will be displayed in the text box.
- * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-SP8266, FireBeetle-M0
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-SP8266, FireBeetle-M0
  * @n Click the text box to move the cursor into it when we need a text box to display.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
