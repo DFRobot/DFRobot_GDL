@@ -1,7 +1,7 @@
 /*!
  * @file UI_gesture.ino
  * @brief Recognize user's gesture in the specified area of the screen, and display the name of the gesture in the text box.
- * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @n The demo supports  Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
  * @n Click the text box to move the cursor into it when we need a text box to display.
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
