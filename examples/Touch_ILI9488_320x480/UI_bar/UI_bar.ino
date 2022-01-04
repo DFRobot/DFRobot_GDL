@@ -3,7 +3,7 @@
  * @brief Create a progress bar control on the screen.
  * @n Users can customize the parameters of the progress bar, or use the default parameters.
  * @n Users can control the value of the progress bar through the callback function of the progress bar.
- * @n The demo supports Arduino Uno, Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
