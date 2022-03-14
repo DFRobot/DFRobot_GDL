@@ -82,6 +82,8 @@ public:
     * @brief Init touch, including interface and configuration initialization
     */
   void initTouch();
+  void setRotation(uint8_t rotate);
+  String pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height);
   virtual void begin(uint32_t freq = 0)=0;
   /**
     * @brief Touch configuration function
@@ -93,6 +95,7 @@ public:
     * @return String type, stores the id, coordinates, size and other information of all touch points
     */
   virtual String scan() = 0;
+  uint8_t direction  = 0;
 };
 
 
@@ -118,6 +121,7 @@ private:
   uint8_t IC;
   sGtPoints_t _p[5];
   String id;
+
 };
 
 class DFRobot_Touch_XPT2046:public DFRobot_Touch{

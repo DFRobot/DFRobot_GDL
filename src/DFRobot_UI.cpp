@@ -1832,7 +1832,7 @@ DFRobot_UI::eGesture_t DFRobot_UI::getGestures()
 }
 
 uint8_t DFRobot_UI::stringToPoint(String str){
-		  char pin[4];
+  char pin[4];
   uint8_t nowi = 0;
   uint8_t n = 0;
   uint8_t b = 0;

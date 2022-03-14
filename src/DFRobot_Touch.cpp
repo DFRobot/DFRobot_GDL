@@ -49,6 +49,42 @@ void DFRobot_Touch::touchConfig(uint8_t *addr){
   }
 }
 
+void DFRobot_Touch::setRotation(uint8_t rotate)
+{
+   direction = rotate;
+}
+
+
+String DFRobot_Touch::pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height){
+
+   uint16_t tempX = x;
+   uint16_t tempY = y;
+   switch(direction){
+     case 0:{
+
+     break;
+     }
+     case 1:{
+       x = tempY;
+       y = _width -tempX;
+     break;
+    }
+     case 2:{
+       x = _width -tempX;
+       y = _height -tempY;
+     break;
+     }
+     case 3:{
+       x = _height -tempY;
+       y = tempX;
+     break;
+    }
+     
+   }
+  
+   return "ok";
+
+}
 
 DFRobot_Touch_GT911::DFRobot_Touch_GT911(uint8_t addr, uint8_t rst, uint8_t irq)
   :DFRobot_Touch(&gdl_Dev_GTXXX_TOUCH_HW_IIC, addr, rst, irq){
@@ -88,6 +124,7 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
   //Serial.println("_size.xw = ");Serial.println(_size.xw);
   //Serial.println("_size.yh = ");Serial.println(_size.yh);
 }
+
 String DFRobot_Touch_GT911::scan(){
    
    if(IC == FT5436){
@@ -120,6 +157,7 @@ String DFRobot_Touch_GT911::gt911Scan()
           _point.wSize = _p[i].wSize;
           _point.hSize = _p[i].hSize;
           if((_point.x <= _size.xw) && (_point.y <= _size.yh)){
+              pointRemap(_point.x,_point.y,319,479);
               s += String(_point.id) + "," + String(_point.x) + "," + String(_point.y) + "," + String(_point.wSize) + ","+ String(_point.hSize) + " ";
           }
       }
@@ -156,7 +194,7 @@ String DFRobot_Touch_GT911::ft5436Scan()
       if(y > 479){ y = 479; }
       x = 319 - x;
       y = 479 - y;
-      
+      pointRemap(x,y,319,479);
       s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
       
 	  
@@ -202,6 +240,8 @@ String DFRobot_Touch_XPT2046::scan(){
      x = x;
      y = 320 - y;
     }
+    
+    pointRemap(x,y,240,320);
     //delay(10);
     s += String(1) + "," + String(x) + "," + String(y) + "," + String(10) + ","+ String(10) + " ";
     return s;
@@ -280,6 +320,7 @@ String DFRobot_Touch_FT5436::scan(){
       if(y > 479){ y = 479; }
       x = 319 - x;
       y = 479 - y;
+	  pointRemap(x,y,319,479);
       s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
     }
 	return s;
@@ -321,6 +362,7 @@ String DFRobot_Touch_FT3267::scan(){
       uint8_t id = FT3267_Touch_Buf[5+6*i]>>4; 
       if(x > 240){ x = 240; }
       if(y > 204){ y = 204; }
+      pointRemap(x,y,240,204);
       s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
     }
 	return s;
