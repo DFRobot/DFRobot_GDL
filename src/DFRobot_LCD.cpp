@@ -470,7 +470,7 @@ void DFRobot_ST7789_172x320_DMA_SPI::setDisplayArea(uint16_t x, uint16_t y, uint
   sendCommand(ST7789_RAMWR);
   //sendColor(color, (uint32_t)w*h);
 }
-void DFRobot_ST7789_240x204_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
+void DFRobot_ST7789_172x320_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
      uint16_t col = color[1]<<8 | color[0];
      sendColor(col, len);
 }

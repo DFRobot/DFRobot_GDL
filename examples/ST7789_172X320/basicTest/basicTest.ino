@@ -16,9 +16,15 @@
 #define TFT_CS  5
 #define TFT_RST 6
 #define TFT_BL  9
-/*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
+/*ESP32*/
+#elif defined(ESP32)
 #define TFT_DC  D2
+#define TFT_CS  D6
+#define TFT_RST D3
+#define TFT_BL  D4
+/*ESP8266*/
+#elif defined(ESP8266)
+#define TFT_DC  D8
 #define TFT_CS  D6
 #define TFT_RST D3
 #define TFT_BL  D4
@@ -29,7 +35,6 @@
 #define TFT_RST 4
 #define TFT_BL  5
 #endif
-
 /**
    @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x204, this constructor can be called
    @param dc Command/data line pin for SPI communication
