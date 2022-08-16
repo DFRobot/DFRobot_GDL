@@ -112,7 +112,18 @@ void DFRobot_ST7789_172x320_HW_SPI::begin(uint32_t freq)
 void DFRobot_ST7789_172x320_HW_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   //if((x + w ) > _width || (y + h) > _height) return;
-  _xStart=34;
+  switch(rotation){
+      case 0:
+      case 2:
+            _xStart = 34;
+            _yStart = 0;
+            break;
+      case 1:
+      case 3:
+            _xStart = 0;
+            _yStart = 34;
+            break;
+  }
   sendCommand(ST7789_COLSET);
   sendData16(_xStart + x);
   sendData16(_xStart + x + w -1);

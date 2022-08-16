@@ -28,6 +28,12 @@
 #define TFT_CS  D6
 #define TFT_RST D3
 #define TFT_BL  D4
+/*RP2040*/
+#elif ARDUINO_DFROBOT_BEETLE_RP2040
+#define TFT_DC  8
+#define TFT_CS  9
+#define TFT_RST 15
+#define TFT_BL  7
 /* AVR series mainboard */
 #else
 #define TFT_DC  2

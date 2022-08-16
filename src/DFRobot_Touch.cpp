@@ -31,7 +31,8 @@ void DFRobot_Touch::touchConfig(uint8_t *addr){
   for(uint8_t j = 0; j < regByte; j++){
       reg |= (uint32_t)(regBuf[regByte -1 -j] << 8*j);
   }
-  uint16_t length =  (pgm_read_byte(addr++)<<8) | (pgm_read_byte(addr++));
+
+  uint16_t length =  0;//(pgm_read_byte(addr++)<<8) | (pgm_read_byte(addr++));
   //int8_t flag = regByte - 1;
   uint8_t buf[regByte+1+regValByte];
   buf[0] = regByte;

@@ -34,7 +34,16 @@ uint8_t interfaceComHardwareSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
       case IF_COM_PROTOCOL_INIT:
       {
            p->pro.spi = &SPI;
+
+           #ifdef ARDUINO_ESP32S3_BOX_Bottom
+           p->pro.spi->begin(LCD_SCLK,LCD_MISO,LCD_MOSI,LCD_CS);
+           #elif ARDUINO_DFROBOT_BEETLE_RP2040
+            p->pro.spi = &SPI1;
+            p->pro.spi->begin();
+           #else 
            p->pro.spi->begin();
+           #endif
+           
            if(p->freq == 0) {
              p->freq = DEFAULT_SPI_FREQ;
            }else{
