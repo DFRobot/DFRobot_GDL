@@ -33,8 +33,9 @@ uint8_t interfaceComHardwareSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
   switch(cmd){
       case IF_COM_PROTOCOL_INIT:
       {
-           p->pro.spi = &SPI;
-
+           if(p->pro.iic == NULL) p->pro.spi = &SPI;
+           p->pro.spi->begin();
+/*           
            #ifdef ARDUINO_ESP32S3_BOX_Bottom
            p->pro.spi->begin(LCD_SCLK,LCD_MISO,LCD_MOSI,LCD_CS);
            #elif ARDUINO_DFROBOT_BEETLE_RP2040
@@ -43,7 +44,47 @@ uint8_t interfaceComHardwareSPI(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
            #else 
            p->pro.spi->begin();
            #endif
-           
+*/           
+           if(p->freq == 0) {
+             p->freq = DEFAULT_SPI_FREQ;
+           }else{
+             #if defined(SPI_HAS_TRANSACTION)
+             #if defined(ARDUINO_SAM_ZERO)
+             uint8_t baud = 48000000/(p->freq*2) - 1;
+             sercom4.disableSPI();
+             while(SERCOM4->SPI.SYNCBUSY.bit.ENABLE);
+             SERCOM4->SPI.BAUD.reg = baud; 
+             sercom4.enableSPI();
+             #else
+                  p->pro.spi->beginTransaction(SPISettings(p->freq, MSBFIRST, SPI_MODE0));
+             #endif
+             #else
+             #if defined(__AVR__)
+                    p->pro.spi->setClockDivider(SPI_CLOCK_DIV2);
+             #elif defined(ESP8266) || defined(ESP32)
+                    p->pro.spi->setFrequency(p->freq);
+             #endif
+                    p->pro.spi->setBitOrder(MSBFIRST);
+                    p->pro.spi->setDataMode(SPI_MODE0);
+             #endif 
+           }
+           p->isBegin = true;
+      }
+           break;
+      case IF_COM_PROTOCOL_INIT1:
+      {
+           if(p->pro.iic == NULL) p->pro.spi = &SPI;
+           //p->pro.spi->begin();
+/*           
+           #ifdef ARDUINO_ESP32S3_BOX_Bottom
+           p->pro.spi->begin(LCD_SCLK,LCD_MISO,LCD_MOSI,LCD_CS);
+           #elif ARDUINO_DFROBOT_BEETLE_RP2040
+            p->pro.spi = &SPI1;
+            p->pro.spi->begin();
+           #else 
+           p->pro.spi->begin();
+           #endif
+*/           
            if(p->freq == 0) {
              p->freq = DEFAULT_SPI_FREQ;
            }else{

@@ -12,8 +12,22 @@ uint8_t interfaceComHardwareIIC(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
       case IF_COM_PROTOCOL_INIT:
       {
           //Serial.println("IF_COM_PROTOCOL_INIT");
-          p->pro.iic = &Wire;
+          if(p->pro.iic == NULL) p->pro.iic = &Wire;
           p->pro.iic->begin();
+          /* When the frequency is 0, the onboard frequency is used by default, and the frequency is assigned to p-> freq */
+          if(p->freq != 0) {
+              p->pro.iic->setClock(p->freq);
+          }else{
+              p->freq = DEFAULT_IIC_FREQ;
+          }
+          p->isBegin = true;
+      }
+           break;
+      case IF_COM_PROTOCOL_INIT1:
+      {
+          //Serial.println("IF_COM_PROTOCOL_INIT");
+          if(p->pro.iic == NULL) p->pro.iic = &Wire;
+          //p->pro.iic->begin();
           /* When the frequency is 0, the onboard frequency is used by default, and the frequency is assigned to p-> freq */
           if(p->freq != 0) {
               p->pro.iic->setClock(p->freq);

@@ -13,27 +13,29 @@
 #include "DFRobot_GDL.h"
 #include "DFRobot_Type.h"
 
-DFRobot_GDL::DFRobot_GDL(sGdlIFDev_t *dev, int16_t w, int16_t h, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
-  :Adafruit_GFX(w,h),DFRobot_IF(dev, dc, cs, rst, bl),_xStart(0),_yStart(0),_icWidth(w),_icHeight(h),invertOnCmd(0),invertOffCmd(0){
+DFRobot_GDL::DFRobot_GDL(sGdlIFDev_t *dev, int16_t w, int16_t h, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl, SPIClass *pspi)
+  :Adafruit_GFX(w,h),DFRobot_IF(dev, dc, cs, rst, bl,pspi),_xStart(0),_yStart(0),_icWidth(w),_icHeight(h),invertOnCmd(0),invertOffCmd(0){
   memset(&madctlReg, 0, sizeof(madctlReg));
 }
 
-DFRobot_GDL::DFRobot_GDL(sGdlIFDev_t *dev, int16_t w, int16_t h, uint8_t addr, uint8_t rst, uint8_t bl)
-  :Adafruit_GFX(w,h),DFRobot_IF(dev, addr, rst, bl),_xStart(0),_yStart(0),_icWidth(w),_icHeight(h),invertOnCmd(0),invertOffCmd(0){}
+DFRobot_GDL::DFRobot_GDL(sGdlIFDev_t *dev, int16_t w, int16_t h, uint8_t addr, uint8_t rst, uint8_t bl,TwoWire *pWire)
+  :Adafruit_GFX(w,h),DFRobot_IF(dev, addr, rst, bl,pWire),_xStart(0),_yStart(0),_icWidth(w),_icHeight(h),invertOnCmd(0),invertOffCmd(0){}
+
 DFRobot_GDL::~DFRobot_GDL(){
   if(_lcd.buffer != NULL){
        free(_lcd.buffer);
   }
   _lcd.buffer = NULL;
 }
-void DFRobot_GDL::gdlInit(uint32_t freq){
+
+void DFRobot_GDL::gdlInit(uint32_t freq, devInterfaceInit fun){
   _gdlFont = NULL;
   _fontType = FONT_TYPE_BUILTIN;
   memset(&_lcd, 0, sizeof(_lcd));
   _lcd.buffer = NULL;
   if((_if.interface == IF_HW_SPI)&&(freq == 0)) freq = MCU_SPI_FREQ;
   _if.freq = freq;
-  initInterface();
+  initInterface(fun);
 }
 void DFRobot_GDL::initDisplay(){
   if(_if.pro.interface == NULL){

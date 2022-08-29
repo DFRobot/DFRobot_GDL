@@ -19,13 +19,17 @@
 #include "DFRobot_Type.h"
 #include "Arduino.h"
 
-DFRobot_IF::DFRobot_IF(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t bl/*irq*/){
+DFRobot_IF::DFRobot_IF(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t bl/*irq*/, TwoWire *pwire)
+{
   memset(&_if, 0, sizeof(_if));
   initHWIIC(dev, addr, rst, bl);
+  _if.pro.iic = pwire;
 }
-DFRobot_IF::DFRobot_IF(sGdlIFDev_t *dev, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl/*irq*/){
+DFRobot_IF::DFRobot_IF(sGdlIFDev_t *dev, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl/*irq*/, SPIClass *pspi)
+{
   memset(&_if, 0, sizeof(_if));
   initHWSPI(dev, dc, cs, rst, bl);
+  _if.pro.spi = pspi;
 }
 DFRobot_IF::~DFRobot_IF(){
   if(_if.pinList != NULL){
@@ -34,12 +38,15 @@ DFRobot_IF::~DFRobot_IF(){
   _if.pinList = NULL;
 }
 
-void DFRobot_IF::initInterface(){
+void DFRobot_IF::initInterface(devInterfaceInit fun){
   PIN_LOW(_if.pinList[IF_PIN_RST]);
   delay(100);
   PIN_HIGH(_if.pinList[IF_PIN_RST]);
   delay(100);
-  _if.dev->talk(&_if, IF_COM_PROTOCOL_INIT, NULL, 0);
+  if(fun){
+    _if.pro.interface = fun();
+    _if.dev->talk(&_if, IF_COM_PROTOCOL_INIT1, NULL, 0);
+  }else  _if.dev->talk(&_if, IF_COM_PROTOCOL_INIT, NULL, 0);
 }
 
 void DFRobot_IF::setFrequency(uint32_t freq){

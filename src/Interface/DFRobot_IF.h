@@ -90,6 +90,7 @@ Define device type, for example: screen and touch
 #define IF_COM_WRITE_FLASH_INC   5
 #define IF_COM_WRITE_RAM_FIXED   6
 #define IF_COM_WRITE_RAM_INC     7
+#define IF_COM_PROTOCOL_INIT1     8
 
 /* Useless pin, empty pin */
 #define GDL_PIN_NC     0xFF 
@@ -115,7 +116,7 @@ Define device type, for example: screen and touch
  
 typedef struct sGdlIF sGdlIF_t;
 typedef uint8_t(*devInterfaceFunctionPtr)(sGdlIF_t *gdl, uint8_t step, uint8_t *addr, uint32_t len);//FP->function pointer函数指针
-
+typedef void* (*devInterfaceInit)();
 /**
  * @struct sGdlIFDev_t
  */
@@ -177,7 +178,7 @@ public:
    * @param rst Reset signal
    * @param irq Interrupt signal
    */
-  DFRobot_IF(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t bl/*irq*/);
+  DFRobot_IF(sGdlIFDev_t *dev, uint8_t addr, uint8_t rst, uint8_t bl/*irq*/, TwoWire *pwire = &Wire);
   /**
    * @fn DFRobot_IF
    * @brief Constructor Get the information of SPI interface
@@ -189,13 +190,13 @@ public:
    * @param rst Reset signal
    * @param bl Backlight or interrupt signal
    */
-  DFRobot_IF(sGdlIFDev_t *dev, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl/*irq*/);
+  DFRobot_IF(sGdlIFDev_t *dev, uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl/*irq*/, SPIClass *pspi = &SPI);
   ~DFRobot_IF();
   /**
    * @fn initInterface
    * @brief communication interface initialization
    */
-  void initInterface();
+  void initInterface(devInterfaceInit fun = NULL);
   /**
    * @fn setFrequency
    * @brief Set communication interface frequency
