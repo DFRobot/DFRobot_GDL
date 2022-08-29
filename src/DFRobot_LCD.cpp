@@ -404,7 +404,7 @@ void DFRobot_SSD1306_128x32_HW_IIC::setDisplayArea(uint16_t x, uint16_t y, uint1
       }
   }
   */
- x=x;y=y;w=w;h=h;
+  x=x;y=y;w=w;h=h;
   sendCommand(SSD1306_COLSET);
   sendCommand(SSD1306_STARTCOL);
   sendCommand(SSD1306_ENDCOL);

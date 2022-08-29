@@ -28,7 +28,7 @@
 #define TFT_RST D3
 #define TFT_BL  D4
 /*RP2040*/
-#elif OPT_MCU_RP2040
+#elif defined(PICO_CYW43_ARCH_THREADSAFE_BACKGROUND)
 #define TFT_DC  8
 #define TFT_CS  9
 #define TFT_RST 15
@@ -41,7 +41,7 @@
 #define TFT_BL  5
 #endif
 
-DFRobot_ST7789_172x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL, /*pspi=*/ &SPI);
+DFRobot_ST7789_172x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL);
 /* M0 mainboard DMA transfer */
 //DFRobot_ST7789_172x320_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL);
 
@@ -49,13 +49,14 @@ void *interfaceInit(){
 #ifdef ARDUINO_ESP32S3_BOX_Bottom
   SPI.begin(LCD_SCLK,LCD_MISO,LCD_MOSI,LCD_CS);
   return &SPI;
-#elif OPT_MCU_RP2040
+#elif defined(PICO_CYW43_ARCH_THREADSAFE_BACKGROUND)
   //引脚重映射
-  SPI.setRX(16);
-  SPI.setSCK(18);
-  SPI.setTX(19);
-  SPI.begin();
-  return &SPI;
+  SPI1.setRX(12);
+  SPI1.setSCK(10);
+  SPI1.setTX(11);
+  SPI1.setCS(9);
+  SPI1.begin();
+  return &SPI1;
 #else
   SPI.begin();
   return &SPI;

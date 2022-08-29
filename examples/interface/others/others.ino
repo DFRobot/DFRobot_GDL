@@ -28,7 +28,7 @@
 #define TFT_RST D3
 #define TFT_BL  D4
 /*RP2040*/
-#elif ARDUINO_DFROBOT_BEETLE_RP2040
+#elif defined(PICO_CYW43_ARCH_THREADSAFE_BACKGROUND)
 #define TFT_DC  8
 #define TFT_CS  9
 #define TFT_RST 15
