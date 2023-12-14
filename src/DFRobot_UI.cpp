@@ -334,6 +334,16 @@ DFRobot_UI::sBar_t &DFRobot_UI::creatBar(){
   obj->next =  barData;
   return *barData;
 }
+
+void DFRobot_UI::clear(){
+  struct object* obj= &head;
+  while(obj->next != NULL){
+    obj->next = NULL;//resets objects
+  }
+  _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);//this will reset teh background
+}
+
+
 void DFRobot_UI::draw(sObject_t *obj,uint16_t posx,uint16_t posy,uint16_t width,uint16_t height){
   if(posx != 0){
     obj->posx =posx;
