@@ -388,7 +388,12 @@ public:
    * @param height The height of the control
    */
   void draw(sObject_t *obj,uint16_t posx = 0,uint16_t posy = 0,uint16_t width = 0,uint16_t height = 0);
-  
+
+   /**
+   * @brief Clear all objects on screen and draw the original background.
+   */
+  void clear();
+
   /**
    * @brief Create a button control on the screen
    * @return Button object address
