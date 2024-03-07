@@ -1,3 +1,8 @@
+> Why this for?
+>
+> Added suport for nrf52 boards (Arduino Nano 33 BLE Sense, Seeed Xiao BLE etc. )
+> Also edited custom font script to accomodate for multiple OS and not just Windows
+> 
 # DFRobot_GDL
 DFRobot_GDL is a comprehensive display interaction framework that supports multiple MCUs, supporting display, touch, and UI.<br>
 It supports a variety of display ICs and touch ICs. Users can use GDL to drive a wide variety of displays, such as colorful screen, black and white screen, e-ink screen and so on.<br>
