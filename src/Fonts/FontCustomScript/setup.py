@@ -9,6 +9,19 @@ import codecs
 import copy
 import chardet
 
+
+def detect_os():
+  os_name = platform.system()
+  if os_name == 'Darwin':
+    return 'macOS'
+  elif os_name == 'Linux':
+    return 'Linux'
+  elif os_name == 'Windows':
+    return 'Windows'
+  else:
+    return 'Unknown OS'
+
+
 def setup():
   if not os.path.exists('ttf'):
     os.makedirs('ttf')
@@ -44,6 +57,7 @@ def readText():
     #charList = ["nihao"]
     return charList
 
+
 def getFontDict():
   if os.path.exists('config.txt'):
     fontDict ={'FontFileNamePre':'', 'FontSizeList':[], 'charList':[]}
@@ -72,6 +86,7 @@ def getFontDict():
       fontDict['FontSizeList'] = [12,18,24,36,48,72]
     fontDict['charList'] = readText()
     return fontDict
+
 
 def parseFont(dstfilename, filename, lis, size = 12, angle = 0):
   face = freetype.Face(filename)
@@ -174,9 +189,12 @@ def parseFont(dstfilename, filename, lis, size = 12, angle = 0):
   L.append(Font_totallen)
   return L
 
+
 def listToString(List,c = ''):#Convert list to string, c indicates whether there is a comma added
   s = str(List).replace('[',']').strip(']').replace("'",'') + c
   return s
+
+
 def getUnicode(text):#return a List
   L = []
   cl = []
@@ -185,6 +203,7 @@ def getUnicode(text):#return a List
   for i in cl:
       L.append(hex(i))
   return L
+
 
 def getBitmap(bitmap):
   L = []
@@ -227,6 +246,8 @@ def getBitmap(bitmap):
               L.append(hex(oneByte))
               n = 0
   return L
+
+
 def loadList(List, num,remains, fix = 0):#Load data into list, and return the invalid length of the last byte of data in list 
   s = str(bin(num)).lstrip('0').strip('b')
   if fix != 0:
@@ -252,6 +273,8 @@ def loadList(List, num,remains, fix = 0):#Load data into list, and return the in
       s = s[tail:]
   
   return remains
+
+
 def ModifySuffixName(filename, suffix):# Revise the file name suffix
   portion = os.path.splitext(filename)
   if portion[1] != suffix:
@@ -259,6 +282,7 @@ def ModifySuffixName(filename, suffix):# Revise the file name suffix
       if os.path.exists(newname):
           return
       os.rename(filename, newname)
+
 
 def writeFile(filename, text):
   fp = open(filename, 'a+')
@@ -275,21 +299,39 @@ def writeFileArray(filename, List):#10 numbers in each row
   if m:
       writeFile(filename, listToString(List[(num*10):], ',\n'))
 
+
+
+
+
 if __name__ == '__main__':
   setup()
   pwdPath = os.getcwd()
-  ttfSourcePath = pwdPath + '\\ttf'
-  fontDestPath = pwdPath + '\\font'
+  os_type = detect_os()
+
+  '''
+  ***
+    Make adjust ments bvased on OS type ...
+    Note: Do not use + on PATH strings
+  '''
+  ttfSourcePath = os.path.join(pwdPath, 'ttf')
+  fontDestPath = os.path.join(pwdPath, 'font')
+  # ------------------------------------------
+
+  
   ttfFileList = os.listdir(ttfSourcePath)
+
   if len(ttfFileList) == 0:
     print("Failed! Please add truetype file with the extension .ttf in the ttf folder.")
     sys.exit()
+
   fontDict ={'FontFileNamePre':'', 'FontSizeList':[], 'charList':[]}
   fontDict = getFontDict()
   fontDict['ttfFileList'] = ttfFileList
+
   lis_1 = ["const uint8_t ", "Bitmaps[] PROGMEM = {\n"]
   lis_2 = ["const gdl_Glyph_t ","Glyphs[] PROGMEM = {\n"]
   lis_3 = ["const gdl_Font_t "," PROGMEM = {\n"]
+
   fpd = open('font.txt', 'w+')
   for ttf in fontDict['ttfFileList']:
     (filename,suffix) = os.path.splitext(ttf)
@@ -297,7 +339,15 @@ if __name__ == '__main__':
       continue
     for size in fontDict['FontSizeList']:
       newfilename = fontDict['FontFileNamePre'] + filename + "Font"+ str(size) +'pt'
-      filename_path = fontDestPath + '\\' +newfilename
+
+      '''
+      ***
+        Make adjust ments bvased on OS type ...
+        Note: Do not use + on PATH strings
+      '''
+      filename_path = os.path.join(fontDestPath, newfilename)
+      # -----------------------------------------------------
+
       filename_h = filename_path +'.h'
       if os.path.exists(filename_h):
           os.remove(filename_h)
@@ -306,7 +356,15 @@ if __name__ == '__main__':
       text = lis_1[0] + newfilename + lis_1[1]
       fp.write(text)
       fp.close()
-      src = ttfSourcePath + '\\' + ttf
+
+      '''
+      ***
+        Make adjust ments bvased on OS type ...
+        Note: Do not use + on PATH strings
+      '''
+      src = os.path.join(ttfSourcePath, ttf);
+      # --------------------------------------
+
       Glyph_list = parseFont(filename_txt, src, fontDict['charList'], size, 0)
       text = '};\n\n' + lis_2[0] + newfilename + lis_2[1]
       writeFile(filename_txt, text)
@@ -320,4 +378,20 @@ if __name__ == '__main__':
       text = "#include \"Fonts/"+newfilename+'.h"\n'
       fpd.write(text)
   fpd.close()
-  os.system(pwdPath+'\\font.txt')
+
+  '''
+  ***
+    Make adjust ments bvased on OS type ...
+    Note: Do not use + on PATH strings
+  '''
+  font_file_path = os.path.join(pwdPath, 'font.txt')
+  if os_type == 'macOS':
+    os.system(f"open '{font_file_path}'")
+  elif os_type == 'Windows':
+    os.startfile(font_file_path)
+  elif os_type == 'Linux':
+    os.system(f"xdg-open '{font_file_path}'")
+  else:
+    print("Operating system not recognized. Can't proceed ...")
+    exit();
+

@@ -56,7 +56,30 @@ uint8_t interfaceComHardwareIIC(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
               }else{
                   (len > I2C_BUFFER_LENGTH) ? n = len : n = I2C_BUFFER_LENGTH;
               }
-              p->pro.iic->write(pBuf, n);
+
+              /*
+              p->pro.iic->write(pBuf, n); 
+              
+              ISSUE:
+              There is an compilation errordue to an ambiguity in the function write call when using with 
+              the Arduino Nano 33 BLE, which is based on the MBED OS. 
+              The "write" is overloaded and the compiler can't decide between arduino::MbedI2C::write(const uint8_t*, int) 
+              and arduino::Print::write(const uint8_t*, size_t).
+              
+              SOLUTION:
+              Cast the second argument to the correct type, assuming uint32_t as the datatype.
+              Cast it to int or size_t depending on the appropriate method. 
+              If you're writing to an I2C device, you probably want to use the arduino::MbedI2C::write method.
+              p->pro.iic->write(pBuf, static_cast<int>(n))
+              */
+              
+              #if defined(ARDUINO_ARCH_NRF52840) || defined(ARDUINO_NRF52_ADAFRUIT)
+                // Modified write call for Arduino Nano 33 BLE/Sense, Adafruit nRF52 boards, Seeed Xiao BLE/Sense boards
+                p->pro.iic->write(pBuf, static_cast<int>(n));
+              #else
+                // Original write call for other boards
+                p->pro.iic->write(pBuf, n);
+              #endif
               p->pro.iic->endTransmission();
               pBuf += n;
               len -= n;
@@ -186,7 +209,27 @@ uint8_t interfaceComHardwareIIC(sGdlIF_t *p, uint8_t cmd, uint8_t *pBuf, uint32_
               }else{
                   p->pro.iic->write((const uint8_t *)(pBuf+1),(size_t)pBuf[0]);
                   if(len > I2C_BUFFER_LENGTH) return 0;
+
+                  /*
                   p->pro.iic->write(&pBuf[(1+pBuf[0])],len);
+                  
+                  ISSUE:
+                  There is an compilation errordue to an ambiguity in the function write call when using with 
+                  the Arduino Nano 33 BLE, which is based on the MBED OS. 
+                  The "write" is overloaded and the compiler can't decide between arduino::MbedI2C::write(const uint8_t*, int) 
+                  and arduino::Print::write(const uint8_t*, size_t).
+                  
+                  SOLUTION:
+                  Cast the len variable to the appropriate type
+                  */
+                  #if defined(ARDUINO_ARCH_NRF52840) || defined(ARDUINO_NRF52_ADAFRUIT)
+                    // Modified write call for Arduino Nano 33 BLE/Sense, Adafruit nRF52 boards, Seeed Xiao BLE/Sense boards
+                    p->pro.iic->write(&pBuf[(1+pBuf[0])], static_cast<int>(len));
+                  #else
+                    // Original write call for other boards
+                    p->pro.iic->write(&pBuf[(1+pBuf[0])],len);
+                  #endif
+
                   if( p->pro.iic->endTransmission() != 0) return 0;
                   len -= len;
               }
