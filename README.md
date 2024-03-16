@@ -2,6 +2,7 @@
 >
 > * Added suport for nrf52 boards (Arduino Nano 33 BLE Sense, Seeed Xiao BLE etc. )
 > * Also edited custom font script to accomodate for multiple OS and not just Windows
+>   
 > Upon asking, the pull requests were not merged. So, I had to create a new version 
 >
 > 
