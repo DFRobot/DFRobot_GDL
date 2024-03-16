@@ -1,7 +1,9 @@
 > Why this fork from Original?
 >
-> Added suport for nrf52 boards (Arduino Nano 33 BLE Sense, Seeed Xiao BLE etc. )
-> Also edited custom font script to accomodate for multiple OS and not just Windows
+> * Added suport for nrf52 boards (Arduino Nano 33 BLE Sense, Seeed Xiao BLE etc. )
+> * Also edited custom font script to accomodate for multiple OS and not just Windows
+> Upon asking, the pull requests were not merged. So, I had to create a new version 
+>
 > 
 # DFRobot_GDL
 DFRobot_GDL is a comprehensive display interaction framework that supports multiple MCUs, supporting display, touch, and UI.<br>
