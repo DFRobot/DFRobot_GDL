@@ -63,10 +63,10 @@ GDL integrates a number of functional components contained in the wiki.<br>
     * [Please click here] to learn how to use it.
     * (https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/src/extras/FontCustomScript/README.md)
 
-#### Chinese Fonts<br>
-* A pixel style Chinese font called [BoutiqueBitmap](https://github.com/scott0107000/BoutiqueBitmap9x9) has been used.
-* It has been renamed and stored in [extras/FontCustomScript/ttf](https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/extras/FontCustomScript/ttf/) as [BB_9_9_1_9.ttf](https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/extras/FontCustomScript/ttf/BB_9_9_1_9.ttf). 
-* They have been converted to bitmap headers based on specific words and sizes, using modified [setup.py](https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/extras/FontCustomScript/setup.py) and stored [here](https://github.com/dattasaurabh82/DFRobot_GDL/tree/master/src/Fonts/Fonts)
+* Chinese Fonts<br>
+    * A pixel style Chinese font called [BoutiqueBitmap](https://github.com/scott0107000/BoutiqueBitmap9x9) has been used.
+    * It has been renamed and stored in [extras/FontCustomScript/ttf](https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/extras/FontCustomScript/ttf/) as [BB_9_9_1_9.ttf](https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/extras/FontCustomScript/ttf/BB_9_9_1_9.ttf). 
+    * They have been converted to bitmap headers based on specific words and sizes, using modified [setup.py](https://github.com/dattasaurabh82/DFRobot_GDL/blob/master/extras/FontCustomScript/setup.py) and stored [here](https://github.com/dattasaurabh82/DFRobot_GDL/tree/master/src/Fonts/Fonts)
 
 
 #### Touch
