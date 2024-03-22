@@ -1,4 +1,6 @@
-#include "Fonts/CN_prokidoBB_9_9_1_9Font36pt.h"
+// #include "Fonts/CN_prokidoBB_9_9_1_9Font36pt.h"
+#include "Fonts/CN_brandBB_9_9_1_9Font36pt.h"
+
 #include "Fonts/CN_loadingBB_9_9_1_9Font24pt.h"
 #include "Fonts/CN_loadingBB_9_9_1_9Font36pt.h"
 #include "Fonts/CN_analyzeBB_9_9_1_9Font24pt.h"
