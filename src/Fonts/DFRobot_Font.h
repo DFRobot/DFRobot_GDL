@@ -25,4 +25,3 @@
 #include "Fonts/CN_sleepinginBB_9_9_1_9Font36pt.h"
 #include "Fonts/CN_sleepingBB_9_9_1_9Font24pt.h"
 #include "Fonts/CN_sleepingBB_9_9_1_9Font36pt.h"
-#include "Fonts/CN_uncertainBB_9_9_1_9Font36pt.h"
