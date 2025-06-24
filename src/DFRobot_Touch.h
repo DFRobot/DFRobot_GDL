@@ -124,6 +124,32 @@ private:
 
 };
 
+class DFRobot_Touch_GT911_IPS: public DFRobot_Touch{
+public:
+  DFRobot_Touch_GT911_IPS(uint8_t addr = 0x5D, uint8_t rst = 255, uint8_t irq = 255);
+  ~DFRobot_Touch_GT911_IPS();
+  void begin(uint32_t freq = 0);
+  String scan();
+private:
+  typedef struct{
+      uint8_t id;
+      uint8_t xl;
+      uint8_t xh;
+      uint8_t yl;
+      uint8_t yh;
+      uint8_t wSize;
+      uint8_t hSize;
+      uint8_t reserve;
+  }sGtPoints_t;
+  String gt911Scan();
+  String ft5436Scan();
+  uint8_t IC;
+  sGtPoints_t _p[5];
+  String pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height);
+  String id;
+
+};
+
 class DFRobot_Touch_XPT2046:public DFRobot_Touch{
 public:
   DFRobot_Touch_XPT2046(uint8_t cs, uint8_t rst = GDL_PIN_NC, uint8_t irq = GDL_PIN_NC);
