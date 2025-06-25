@@ -212,6 +212,7 @@ DFRobot_Touch_GT911_IPS::DFRobot_Touch_GT911_IPS(uint8_t addr, uint8_t rst, uint
   PIN_OUT(rst);
   PIN_OUT(irq);
   PIN_LOW(irq);
+  delay(10);
   PIN_HIGH(rst);
   memset(_p, 0, sizeof(_p));
 }

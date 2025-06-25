@@ -3,7 +3,7 @@
  * @brief Create a numeric keyboard control on the screen
  * @n Users can click number on the keyboard and then the output will be displayed in the text box.
  * @n Click the text box to move the cursor into it when we need a text box to display.
- * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, and FireBeetle-M0.
+ * @n The demo supports Mega2560, FireBeetle-ESP32, and FireBeetle-M0.
  *
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
@@ -27,15 +27,21 @@
 #define TOUCH_RST 2
 #define TOUCH_INT 3
 /*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D2
-#define TFT_CS  D6
-#define TFT_RST D3
+#elif defined(ESP32)
+#define TFT_DC    26    
+#define TFT_CS    14     
+#define TFT_RST   0    
+#define TFT_BL    25   
+#define TOUCH_RST 13
+#define TOUCH_INT 2 
 /* AVR series mainboard */
 #else
-#define TFT_DC  2
-#define TFT_CS  3
-#define TFT_RST 4
+#define TFT_DC    34
+#define TFT_CS    36
+#define TFT_RST   35
+#define TFT_BL    33
+#define TOUCH_RST 31
+#define TOUCH_INT 32
 #endif
 
 /**

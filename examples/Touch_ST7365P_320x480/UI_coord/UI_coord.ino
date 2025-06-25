@@ -1,7 +1,7 @@
 /*!
  * @file UI_coord.ino
  * @brief Coordinate system control, users can customize the coordinate data in the coordinate system to draw polyline graph
- * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-ESP8266, FireBeetle-M0
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-M0
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -26,17 +26,21 @@
 #define TOUCH_INT 3
 #define TOUCH_CS A3
 /*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D2
-#define TFT_CS  D6
-#define TFT_RST D3
-#define TOUCH_CS D6
+#elif defined(ESP32)
+#define TFT_DC    26    
+#define TFT_CS    14     
+#define TFT_RST   0    
+#define TFT_BL    25   
+#define TOUCH_RST 13
+#define TOUCH_INT 2 
 /* AVR series mainboard */
 #else
-#define TFT_DC  2
-#define TFT_CS  3
-#define TFT_RST 4
-#define TOUCH_CS 5
+#define TFT_DC    34
+#define TFT_CS    36
+#define TFT_RST   35
+#define TFT_BL    33
+#define TOUCH_RST 31
+#define TOUCH_INT 32
 #endif
 
 /**
