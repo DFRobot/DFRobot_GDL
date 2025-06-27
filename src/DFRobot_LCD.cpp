@@ -431,7 +431,7 @@ void DFRobot_ST7365P_320x480_HW_SPI::setRotation(uint8_t r){
                 break;
             case 1:
                 madctlReg.args.mv = 1;
-                madctlReg.args.mx = 0;
+                madctlReg.args.mx = 0; //The ST7365P screen has been horizontally mirrored.
                 _width = HEIGHT;
                 _height = WIDTH;
                 _xStart = 0;
@@ -440,7 +440,7 @@ void DFRobot_ST7365P_320x480_HW_SPI::setRotation(uint8_t r){
             case 2:
 			
                 madctlReg.args.my = 1;
-                madctlReg.args.mx = 0;
+                madctlReg.args.mx = 0; //The ST7365P screen has been horizontally mirrored.
                 _width = WIDTH;
                 _height = HEIGHT;
                 _xStart = 0;

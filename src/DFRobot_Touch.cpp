@@ -19,7 +19,6 @@ void DFRobot_Touch::initTouch(){
   memset(&_point, 0, sizeof(sPoints_t));
   initInterface();
 }
-
 void DFRobot_Touch::touchConfig(uint8_t *addr){
   uint8_t regByte = pgm_read_byte(addr++);
   uint8_t regValByte = pgm_read_byte(addr++);
@@ -55,14 +54,13 @@ void DFRobot_Touch::setRotation(uint8_t rotate)
    direction = rotate;
 }
 
-
 String DFRobot_Touch::pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height){
 
    uint16_t tempX = x;
    uint16_t tempY = y;
    switch(direction){
      case 0:{
-
+       
      break;
      }
      case 1:{
@@ -207,7 +205,7 @@ String DFRobot_Touch_GT911::ft5436Scan()
 }
 
 DFRobot_Touch_GT911_IPS::DFRobot_Touch_GT911_IPS(uint8_t addr, uint8_t rst, uint8_t irq)
-  :DFRobot_Touch(&gdl_Dev_GTXXX_TOUCH_HW_IIC, addr, rst, irq){
+  :DFRobot_Touch_GT911(addr, rst, irq){
   id = "";
   PIN_OUT(rst);
   PIN_OUT(irq);
@@ -217,126 +215,14 @@ DFRobot_Touch_GT911_IPS::DFRobot_Touch_GT911_IPS(uint8_t addr, uint8_t rst, uint
   memset(_p, 0, sizeof(_p));
 }
 DFRobot_Touch_GT911_IPS::~DFRobot_Touch_GT911_IPS(){
-  
 }
-void DFRobot_Touch_GT911_IPS::begin(uint32_t freq){
-  freq = freq;
-  initTouch();
-  char temp[4]={0};//Get chip id
-  uint16_t sizeReg = 0;
-  readReg(0x8140,temp,4);
-  id += temp;
-  //Serial.println(id);
-  if(id == "5688"){
-      _if.dev->addr = (uint8_t *)touchGt5688ConfigTable;
-      sizeReg = 0x8051;
-  }else if(id == "911"){
-   IC = GT911;
-   _if.dev->addr = (uint8_t *)touchGT911ConfigTable;
-   sizeReg = 0x8048;
-  }else{
-   IC = FT5436;
-   _if.pinList[IF_PIN_ADDR] = 0x38;
-   return;
-  }
-  uint8_t *addr = _if.dev->addr;
-  touchConfig(addr);
-  readReg(sizeReg,temp,4);
-
-  _size.xw = ((uint8_t)temp[1] << 8) | (uint8_t)temp[0];
-  _size.yh = ((uint8_t)temp[3] << 8) | (uint8_t)temp[2];
-  
-  //Serial.println("_size.xw = ");Serial.println(_size.xw);
-  //Serial.println("_size.yh = ");Serial.println(_size.yh);
-}
-
-String DFRobot_Touch_GT911_IPS::scan(){
-   
-   if(IC == FT5436){
-     return ft5436Scan();
-   }else if(IC == GT911){
-     return gt911Scan();
-   }else{
-     return "255,0,0,0,0 ";
-   }
-}
-String DFRobot_Touch_GT911_IPS::gt911Scan()
-{
-  uint8_t flag = 0;
-  uint8_t val = 0x00;
-  String s = "";
-  memset(_p, 0, sizeof(_p));
-  readReg(0x814E, &flag, 1);
-  if((flag & 0x80) ||((flag&0x0F)<6)){
-      writeBuf(0x814E, &val, 1);
-  }
-  if((flag & 0x80) &&((flag&0x0F)<6)){
-      readReg(0x814F, &_p, sizeof(_p));
-      _pNum = flag&0x0F;
-      for(uint8_t i = 0; i < _pNum; i++){
-          _point.id = _p[i].id;
-          if(id == "5688")
-              _point.id &= 0x0F;
-          _point.x =  _p[i].xl + (_p[i].xh << 8);
-          _point.y =  _p[i].yl + (_p[i].yh << 8);
-          _point.wSize = _p[i].wSize;
-          _point.hSize = _p[i].hSize;
-          if((_point.x <= _size.xw) && (_point.y <= _size.yh)){
-              pointRemap(_point.x,_point.y,319,479);
-              s += String(_point.id) + "," + String(_point.x) + "," + String(_point.y) + "," + String(_point.wSize) + ","+ String(_point.hSize) + " ";
-          }
-      }
-  }
-  //Serial.println(s);
-  if(s.length() == 0){
-     s = "255,0,0,0,0 ";
-  }
-  delay(10);
-  _points = s;
-  return s;
-}
-String DFRobot_Touch_GT911_IPS::ft5436Scan()
-{
-  uint8_t FT5216_Touch_Buf[43];
-  uint8_t point = 0;
-  String s = "";
-   //I2C_read_reg(0,FT5216_Touch_Buf,33);
-   readCommand(0,FT5216_Touch_Buf,33);
-  if((FT5216_Touch_Buf[2] == 0x00) || (FT5216_Touch_Buf[2] == 0xFF)){
-    point = FT5216_Touch_Buf[2];
-  }else if(FT5216_Touch_Buf[2] > 5){
-  }else{
-    point = FT5216_Touch_Buf[2];
-    if(point > 0x05){
-      point = 0x05;
-    }
-    for(uint8_t i = 0; i < point; i++){
-      uint16_t x = (uint16_t)(FT5216_Touch_Buf[3+6*i] & 0x0F)<<8 | (uint16_t) FT5216_Touch_Buf[4+6*i];
-      uint16_t y = (uint16_t)(FT5216_Touch_Buf[5+6*i] & 0x0F) << 8 | (uint16_t) FT5216_Touch_Buf[6+6*i];
-      //uint8_t event = FT5216_Touch_Buf[0x3+6*i] >> 6;
-      uint8_t id = FT5216_Touch_Buf[5+6*i]>>4;
-      if(x > 319){ x = 319; }
-      if(y > 479){ y = 479; }
-      x = 319 - x;
-      y = 479 - y;
-      pointRemap(x,y,319,479);
-      s += String(id) + "," + String(x) + "," + String(y) + "," + String(0) + ","+ String(0) + " ";
-      
-	  
-    }
-	return s;
-  }
-  return "255,0,0,0,0 ";
-
-}
-
 String DFRobot_Touch_GT911_IPS::pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height){
 
    uint16_t tempX = x;
    uint16_t tempY = y;
    switch(direction){
      case 0:{
-        x = _width -tempX;
+        x = _width -tempX;  //X-axis mirroring
      break;
      }
      case 1:{
