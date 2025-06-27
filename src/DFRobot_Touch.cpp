@@ -123,7 +123,6 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
   //Serial.println("_size.xw = ");Serial.println(_size.xw);
   //Serial.println("_size.yh = ");Serial.println(_size.yh);
 }
-
 String DFRobot_Touch_GT911::scan(){
    
    if(IC == FT5436){

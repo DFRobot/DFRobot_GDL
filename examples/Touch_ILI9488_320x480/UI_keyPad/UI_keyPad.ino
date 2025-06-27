@@ -60,7 +60,6 @@ DFRobot_UI ui(&screen, &touch);
 
 
 
-
 void setup()
 {
 

@@ -51,6 +51,7 @@ byte red = 29; // Red is the top 5 bits of a 16 bit colour value
 byte green = 0;// Green is the middle 6 bits
 byte blue = 0; // Blue is the bottom 5 bits
 byte state = 0;
+
 /*
  *User-selectable macro definition color
  *COLOR_RGB565_BLACK   COLOR_RGB565_NAVY    COLOR_RGB565_DGREEN   COLOR_RGB565_DCYAN 

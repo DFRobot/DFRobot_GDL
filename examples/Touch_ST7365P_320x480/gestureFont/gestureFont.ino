@@ -46,7 +46,6 @@
 */
 DFRobot_Touch_GT911_IPS touch(0X5D,TOUCH_RST,TOUCH_INT);
 
-
 /**
    @brief Constructor When the screen uses hardware SPI communication, the driver IC is ST7365P, and the screen resolution is 320x480, this constructor can be called
    @param dc Command/data line pin for SPI communication

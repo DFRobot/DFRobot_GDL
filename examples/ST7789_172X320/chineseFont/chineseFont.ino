@@ -58,7 +58,6 @@ DFRobot_ST7789_172x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST
  *COLOR_RGB565_WHITE   
  */
 
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);

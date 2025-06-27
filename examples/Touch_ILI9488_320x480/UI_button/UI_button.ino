@@ -50,7 +50,6 @@ DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RS
 /* M0 mainboard DMA transfer */
 //DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
 
-
 /**
    @brief Constructor
    @param gdl Screen object

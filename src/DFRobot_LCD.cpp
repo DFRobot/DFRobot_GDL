@@ -404,7 +404,6 @@ void DFRobot_ST7365P_320x480_HW_SPI::pushColor(uint8_t *color,uint32_t len){
   rgb565ToRGB666(rgb666, col);
   sendColor(rgb666, 3, (uint32_t)len);
 }
-
 void DFRobot_ST7365P_320x480_HW_SPI::setRotation(uint8_t r){
   if(madctlReg.madctl == 0) return;
   if(madctlReg.madctl == 0xA0){

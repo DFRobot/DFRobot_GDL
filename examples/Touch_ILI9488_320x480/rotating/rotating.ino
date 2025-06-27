@@ -29,7 +29,6 @@
 #define TFT_DC  2
 #define TFT_CS  3
 #define TFT_RST 4
-
 #endif
 /**
    @brief Constructor  When the touch uses the gt series chip, you can call this constructor

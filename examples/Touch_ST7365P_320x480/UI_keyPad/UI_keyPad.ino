@@ -68,8 +68,6 @@ DFRobot_ST7365P_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RS
 DFRobot_UI ui(&screen, &touch);
 
 
-
-
 void setup()
 {
 

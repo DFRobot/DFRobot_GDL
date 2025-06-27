@@ -98,7 +98,6 @@ public:
   uint8_t direction  = 0;
 };
 
-
 class DFRobot_Touch_GT911: public DFRobot_Touch{
 public:
   DFRobot_Touch_GT911(uint8_t addr = 0x5D, uint8_t rst = 255, uint8_t irq = 255);
