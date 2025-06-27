@@ -104,7 +104,7 @@ public:
   ~DFRobot_Touch_GT911();
   void begin(uint32_t freq = 0);
   String scan();
-//private:
+protected:
   typedef struct{
       uint8_t id;
       uint8_t xl;
