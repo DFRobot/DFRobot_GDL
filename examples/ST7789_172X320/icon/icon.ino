@@ -39,7 +39,7 @@
 #endif
 
 /**
-   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x204, this constructor can be called
+   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 172x320, this constructor can be called
    @param dc Command/data line pin for SPI communication
    @param cs Chip select pin for SPI communication
    @param rst Reset pin of the screen
