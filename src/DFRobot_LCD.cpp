@@ -21,6 +21,7 @@ GDL_IF_PB_DEV(gdl_Dev_ST7789_R240x320_HW_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobo
 GDL_IF_PB_DEV(gdl_Dev_ST7735S_R80x160_HW_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7735S_R80x160_initCmd, IF_COM_HW_SPI);
 GDL_IF_PB_DEV(gdl_Dev_ST7735S_R128x160_HW_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7735S_R128x160_initCmd, IF_COM_HW_SPI);
 GDL_IF_PB_DEV(gdl_Dev_ILI9488_R320x480_HW_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ILI9488_initCmd, IF_COM_HW_SPI);
+GDL_IF_PB_DEV(gdl_Dev_ST7365P_R320x480_HW_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7365P_initCmd, IF_COM_HW_SPI);
 GDL_IF_PB_DEV(gdl_Dev_SSD1306_R128x32_HW_IIC, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_SSD1306_initCmd, IF_COM_HW_IIC);
 GDL_IF_PB_DEV(gdl_Dev_ILI9341_R240x320_HW_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ILI9341_initCmd, IF_COM_HW_SPI);
 
@@ -364,6 +365,100 @@ void DFRobot_ILI9488_320x480_HW_SPI::pushColor(uint8_t *color,uint32_t len){
   rgb565ToRGB666(rgb666, col);
   sendColor(rgb666, 3, (uint32_t)len);
 }
+
+DFRobot_ST7365P_320x480_HW_SPI::DFRobot_ST7365P_320x480_HW_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl, SPIClass *pspi)
+  :DFRobot_GDL(&gdl_Dev_ST7365P_R320x480_HW_SPI, 320, 480, dc, cs, rst, bl,pspi){
+  setDriverICResolution(ST7365P_IC_WIDTH, ST7365P_IC_HEIGHT);
+  madctlReg.madctl = ST7365P_MADCTL;
+  madctlReg.args.value = ST7365P_MADCTL_RGB;
+  invertOffCmd = ST7365P_INVOFF;
+  invertOnCmd = ST7365P_INVON;
+}
+DFRobot_ST7365P_320x480_HW_SPI::~DFRobot_ST7365P_320x480_HW_SPI(){}
+void DFRobot_ST7365P_320x480_HW_SPI::begin(uint32_t freq)
+{
+  begin(NULL, freq);
+}
+void DFRobot_ST7365P_320x480_HW_SPI::begin(devInterfaceInit fun, uint32_t freq)
+{
+  gdlInit(freq,fun);
+  initDisplay();
+  invertDisplay(1);
+  setColorMode(COLOR_MODE_RGB666);
+}
+void DFRobot_ST7365P_320x480_HW_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+{
+  //if((x + w ) > _width || (y + h) > _height) return;
+  sendCommand(ST7365P_COLSET);
+  sendData16(_xStart + x);
+  sendData16(_xStart + x + w -1);
+  sendCommand(ST7365P_RAWSET);
+  sendData16(_yStart + y);
+  sendData16(_yStart + y + h -1);
+  sendCommand(ST7365P_RAMWR);
+  //sendColor(rgb666, 3, (uint32_t)w*h);
+}
+void DFRobot_ST7365P_320x480_HW_SPI::pushColor(uint8_t *color,uint32_t len){
+  uint8_t rgb666[3];
+  uint16_t col = color[1]<<8 | color[0];
+  rgb565ToRGB666(rgb666, col);
+  sendColor(rgb666, 3, (uint32_t)len);
+}
+void DFRobot_ST7365P_320x480_HW_SPI::setRotation(uint8_t r){
+  if(madctlReg.madctl == 0) return;
+  if(madctlReg.madctl == 0xA0){
+      rotation = r&1;
+      switch(rotation){
+          case 0:
+                sendCommand(madctlReg.madctl);
+                sendCommand(madctlReg.args.value);
+                break;
+          case 1:
+                sendCommand(madctlReg.madctl | 1);
+                sendCommand(madctlReg.args.value | 8);
+                break;
+      }
+  }else{
+        rotation = r&3;
+        uint8_t temp = madctlReg.args.value;
+        switch(rotation){
+            case 0:
+                _width = WIDTH;
+                _height = HEIGHT;
+                _xStart = 0;
+                _yStart = 0;
+                break;
+            case 1:
+                madctlReg.args.mv = 1;
+                madctlReg.args.mx = 0; //The ST7365P screen has been horizontally mirrored.
+                _width = HEIGHT;
+                _height = WIDTH;
+                _xStart = 0;
+                _yStart = 0;
+                break;
+            case 2:
+			
+                madctlReg.args.my = 1;
+                madctlReg.args.mx = 0; //The ST7365P screen has been horizontally mirrored.
+                _width = WIDTH;
+                _height = HEIGHT;
+                _xStart = 0;
+                _yStart = _icHeight - HEIGHT;
+                break;
+            default:
+                madctlReg.args.mv = 1;
+                madctlReg.args.my = 1;
+                _width = HEIGHT;
+                _height = WIDTH;
+                _xStart = _icHeight - HEIGHT;
+                _yStart = 0;
+                break;
+        }
+        sendCommand(madctlReg.madctl, &madctlReg.args.value, 1,true);
+        madctlReg.args.value = temp;
+  }
+}
+
 DFRobot_SSD1306_128x32_HW_IIC::DFRobot_SSD1306_128x32_HW_IIC(uint8_t addr, uint8_t rst, uint8_t bl, TwoWire *pwire)
   :DFRobot_GDL(&gdl_Dev_SSD1306_R128x32_HW_IIC, 128, 32, addr, rst, bl,pwire){
   invertOffCmd = SSD1306_INVOFF;
@@ -424,6 +519,7 @@ GDL_IF_PB_DEV(gdl_Dev_ST7789_R240x320_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRob
 GDL_IF_PB_DEV(gdl_Dev_ST7735S_R80x160_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7735S_R80x160_initCmd, IF_COM_DMA_SPI);
 GDL_IF_PB_DEV(gdl_Dev_ST7735S_R128x160_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7735S_R128x160_initCmd, IF_COM_DMA_SPI);
 GDL_IF_PB_DEV(gdl_Dev_ILI9488_R320x480_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ILI9488_initCmd, IF_COM_DMA_SPI);
+GDL_IF_PB_DEV(gdl_Dev_ST7365P_R320x480_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7365P_initCmd, IF_COM_DMA_SPI);
 GDL_IF_PB_DEV(gdl_Dev_ILI9341_R240x320_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ILI9341_initCmd, IF_COM_DMA_SPI);
 GDL_IF_PB_DEV(gdl_Dev_ST7789_R172x320_DMA_SPI, DEV_TYPE_SCREEN, (uint8_t *)DFRobot_ST7789_initCmd, IF_COM_DMA_SPI);
 
@@ -684,6 +780,98 @@ void DFRobot_ILI9488_320x480_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
   uint16_t col = color[1]<<8 | color[0];
   rgb565ToRGB666(rgb666, col);
   sendColor(rgb666, sizeof(rgb666), (uint32_t)len);
+}
+
+
+DFRobot_ST7365P_320x480_DMA_SPI::DFRobot_ST7365P_320x480_DMA_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
+  :DFRobot_GDL(&gdl_Dev_ST7365P_R320x480_DMA_SPI, 320, 480, dc, cs, rst, bl){
+  setDriverICResolution(ST7365P_IC_WIDTH, ST7365P_IC_HEIGHT);
+  madctlReg.madctl = ST7365P_MADCTL;
+  madctlReg.args.value = ST7365P_MADCTL_RGB;
+  invertOffCmd = ST7365P_INVOFF;
+  invertOnCmd = ST7365P_INVON;
+}
+DFRobot_ST7365P_320x480_DMA_SPI::~DFRobot_ST7365P_320x480_DMA_SPI(){}
+void DFRobot_ST7365P_320x480_DMA_SPI::begin(uint32_t freq)
+{
+  gdlInit(freq);
+  initDisplay();
+  setColorMode(COLOR_MODE_RGB666);
+  invertDisplay(1);
+}
+void DFRobot_ST7365P_320x480_DMA_SPI::setDisplayArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+{
+  //if((x + w ) > _width || (y + h) > _height) return;
+  sendCommand(0x2A);
+  sendData16(_xStart + x);
+  sendData16(_xStart + x + w -1);
+  sendCommand(0x2B);
+  sendData16(_yStart + y);
+  sendData16(_yStart + y + h -1);
+  sendCommand(0x2C);
+}
+
+
+void DFRobot_ST7365P_320x480_DMA_SPI::pushColor(uint8_t *color,uint32_t len){
+  uint8_t rgb666[3];
+  uint16_t col = color[1]<<8 | color[0];
+  rgb565ToRGB666(rgb666, col);
+  sendColor(rgb666, sizeof(rgb666), (uint32_t)len);
+}
+
+void DFRobot_ST7365P_320x480_DMA_SPI::setRotation(uint8_t r){
+  if(madctlReg.madctl == 0) return;
+  if(madctlReg.madctl == 0xA0){
+      rotation = r&1;
+      switch(rotation){
+          case 0:
+                sendCommand(madctlReg.madctl);
+                sendCommand(madctlReg.args.value);
+                break;
+          case 1:
+                sendCommand(madctlReg.madctl | 1);
+                sendCommand(madctlReg.args.value | 8);
+                break;
+      }
+  }else{
+        rotation = r&3;
+        uint8_t temp = madctlReg.args.value;
+        switch(rotation){
+            case 0:
+                _width = WIDTH;
+                _height = HEIGHT;
+                _xStart = 0;
+                _yStart = 0;
+                break;
+            case 1:
+                madctlReg.args.mv = 1;
+                madctlReg.args.mx = 0;
+                _width = HEIGHT;
+                _height = WIDTH;
+                _xStart = 0;
+                _yStart = 0;
+                break;
+            case 2:
+			
+                madctlReg.args.my = 1;
+                madctlReg.args.mx = 0;
+                _width = WIDTH;
+                _height = HEIGHT;
+                _xStart = 0;
+                _yStart = _icHeight - HEIGHT;
+                break;
+            default:
+                madctlReg.args.mv = 1;
+                madctlReg.args.my = 1;
+                _width = HEIGHT;
+                _height = WIDTH;
+                _xStart = _icHeight - HEIGHT;
+                _yStart = 0;
+                break;
+        }
+        sendCommand(madctlReg.madctl, &madctlReg.args.value, 1,true);
+        madctlReg.args.value = temp;
+  }
 }
 DFRobot_ILI9341_240x320_DMA_SPI::DFRobot_ILI9341_240x320_DMA_SPI(uint8_t dc, uint8_t cs, uint8_t rst, uint8_t bl)
   :DFRobot_GDL(&gdl_Dev_ILI9341_R240x320_DMA_SPI, 240, 320, dc, cs, rst, bl){

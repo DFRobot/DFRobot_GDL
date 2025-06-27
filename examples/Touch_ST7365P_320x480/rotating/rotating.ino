@@ -1,6 +1,7 @@
 /*!
  * @file UI_button.ino
  * @brief call setRotation(), you can change the direction of the screen display
+ * @n The demo supports Mega2560, FireBeetle-ESP32, FireBeetle-M0
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
@@ -15,34 +16,44 @@
 
 /*M0*/
 #if defined ARDUINO_SAM_ZERO
-#define TFT_DC  7
-#define TFT_CS  5
-#define TFT_RST 6
+#define TFT_DC    7
+#define TFT_CS    5
+#define TFT_RST   6
+#define TFT_BL    9
+#define TOUCH_RST 2
+#define TOUCH_INT 3
 /*ESP32 and ESP8266*/
-#elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D2
-#define TFT_CS  D6
-#define TFT_RST D3
-
+#elif defined(ESP32)
+#define TFT_DC    26    
+#define TFT_CS    14     
+#define TFT_RST   0    
+#define TFT_BL    25   
+#define TOUCH_RST 13
+#define TOUCH_INT 2 
 /* AVR series mainboard */
 #else
-#define TFT_DC  2
-#define TFT_CS  3
-#define TFT_RST 4
+#define TFT_DC    34
+#define TFT_CS    36
+#define TFT_RST   35
+#define TFT_BL    33
+#define TOUCH_RST 31
+#define TOUCH_INT 32
+
 #endif
 /**
    @brief Constructor  When the touch uses the gt series chip, you can call this constructor
 */
-DFRobot_Touch_GT911 touch;
+DFRobot_Touch_GT911_IPS touch(0X5D,TOUCH_RST,TOUCH_INT);
 /**
- * @brief Constructor When the screen uses hardware SPI communication, the driver IC is ILI9341, and the screen resolution is 320x480, this constructor can be called
+ * @brief Constructor When the screen uses hardware SPI communication, the driver IC is ST7365P, and the screen resolution is 320x480, this constructor can be called
  * @param dc Command/data line pin for SPI communication
  * @param cs Chip select pin for SPI communication
  * @param rst Reset pin of the screen
  */
-DFRobot_ILI9488_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+DFRobot_ST7365P_320x480_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL);
 /* M0 mainboard DMA transfer */
-//DFRobot_ILI9488_320x480_HW_SPI  screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST);
+//DFRobot_ST7365P_320x480_DMA_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST,/*bl=*/TFT_BL);
+
 
 /**
  * @brief Constructor
@@ -73,8 +84,8 @@ void setup()
   //Set the UI theme, there are two themes to choose from: CLASSIC and MODERN.
   ui.setTheme(DFRobot_UI::CLASSIC); 
   //Create a text box control
-  touch.setRotation(3);
-  screen.setRotation(3);
+  touch.setRotation(1);
+  screen.setRotation(1);
   DFRobot_UI::sTextBox_t & tb = ui.creatText();
   tb.bgColor = 0xe6B6;
   ui.draw(&tb);
@@ -83,7 +94,6 @@ void setup()
   DFRobot_UI::sButton_t & btn1 = ui.creatButton();
   //Set the name of the button
   btn1.setText("ON");
-  btn1.fontSize = 3;
   btn1.bgColor = COLOR_RGB565_RED;
   btn1.setCallback(btnCallback);
   //Each button has a text box, its parameter needs to be set by yourself.

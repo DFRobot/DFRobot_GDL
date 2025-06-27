@@ -23,9 +23,9 @@
 #define TFT_RST 6
 /*ESP32 and ESP8266*/
 #elif defined(ESP32) || defined(ESP8266)
-#define TFT_DC  D2
-#define TFT_CS  D6
-#define TFT_RST D3
+#define TFT_DC  10
+#define TFT_CS  15
+#define TFT_RST 2
 /* AVR series mainboard */
 #else
 #define TFT_DC  2
@@ -38,9 +38,8 @@
 */
 DFRobot_Touch_GT911 touch;
 
-
 /**
-   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x320, this constructor can be called
+   @brief Constructor When the screen uses hardware SPI communication, the driver IC is ILI9488, and the screen resolution is 320x480, this constructor can be called
    @param dc Command/data line pin for SPI communication
    @param cs Chip select pin for SPI communication
    @param rst Reset pin of the screen

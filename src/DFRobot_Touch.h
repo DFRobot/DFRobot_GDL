@@ -83,7 +83,7 @@ public:
     */
   void initTouch();
   void setRotation(uint8_t rotate);
-  String pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height);
+  virtual String pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height);
   virtual void begin(uint32_t freq = 0)=0;
   /**
     * @brief Touch configuration function
@@ -98,14 +98,13 @@ public:
   uint8_t direction  = 0;
 };
 
-
 class DFRobot_Touch_GT911: public DFRobot_Touch{
 public:
   DFRobot_Touch_GT911(uint8_t addr = 0x5D, uint8_t rst = 255, uint8_t irq = 255);
   ~DFRobot_Touch_GT911();
   void begin(uint32_t freq = 0);
   String scan();
-private:
+protected:
   typedef struct{
       uint8_t id;
       uint8_t xl;
@@ -122,6 +121,26 @@ private:
   sGtPoints_t _p[5];
   String id;
 
+};
+
+
+/**
+ * @brief the screen of the ST7365P model is horizontally mirrored and flipped，the touch coordinates also need to be reversed.
+ */
+class DFRobot_Touch_GT911_IPS: public DFRobot_Touch_GT911{
+public:
+  DFRobot_Touch_GT911_IPS(uint8_t addr = 0x5D, uint8_t rst = 255, uint8_t irq = 255);
+  ~DFRobot_Touch_GT911_IPS();
+  /**
+    * @brief Change the coordinates read by the touch screen
+    * @n the screen of the ST7365P model is horizontally mirrored and flipped.
+    * @n a horizontal mirror flip has also been applied to the x-coordinate.
+    * @param x Original x-coordinate
+    * @param y Original y-coordinate
+    * @param _width Screen width
+    * @param _height Screen height
+    */
+  String pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height);
 };
 
 class DFRobot_Touch_XPT2046:public DFRobot_Touch{
