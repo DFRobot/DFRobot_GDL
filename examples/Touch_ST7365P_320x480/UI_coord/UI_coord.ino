@@ -8,7 +8,7 @@
  * @version  V1.0
  * @date  2019-12-6
  * @get from https://www.dfrobot.com
- * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
+ * @url https://github.com/DFRobot/DFRobot_GDL
 */
 
 
@@ -22,17 +22,17 @@
 #define TFT_CS    5
 #define TFT_RST   6
 #define TFT_BL    9
-#define TOUCH_RST 2
-#define TOUCH_INT 3
+#define TOUCH_RST 10
+#define TOUCH_INT 2
 #define TOUCH_CS A3
 /*ESP32 and ESP8266*/
 #elif defined(ESP32)
-#define TFT_DC    26    
-#define TFT_CS    14     
-#define TFT_RST   0    
-#define TFT_BL    25   
-#define TOUCH_RST 13
-#define TOUCH_INT 2 
+#define TFT_DC    D2     
+#define TFT_CS    D6      
+#define TFT_RST   D3    
+#define TFT_BL    D13   
+#define TOUCH_RST D10
+#define TOUCH_INT D11
 /* AVR series mainboard */
 #else
 #define TFT_DC    34
@@ -46,6 +46,8 @@
 /**
    @brief Constructor  When the touch uses the gt series chip, you can call this constructor
 */
+
+//If you are using the Firebeetle 2 ESP32-E (N16R2) board and connecting the screen through the GDI interface with the address set to 0x14, and other card addresses are set to 0x5D.
 DFRobot_Touch_GT911_IPS touch(0X5D,TOUCH_RST,TOUCH_INT);
  
 /**
