@@ -19,7 +19,6 @@ void DFRobot_Touch::initTouch(){
   memset(&_point, 0, sizeof(sPoints_t));
   initInterface();
 }
-
 void DFRobot_Touch::touchConfig(uint8_t *addr){
   uint8_t regByte = pgm_read_byte(addr++);
   uint8_t regValByte = pgm_read_byte(addr++);
@@ -55,14 +54,13 @@ void DFRobot_Touch::setRotation(uint8_t rotate)
    direction = rotate;
 }
 
-
 String DFRobot_Touch::pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height){
 
    uint16_t tempX = x;
    uint16_t tempY = y;
    switch(direction){
      case 0:{
-
+       
      break;
      }
      case 1:{
@@ -125,7 +123,6 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
   //Serial.println("_size.xw = ");Serial.println(_size.xw);
   //Serial.println("_size.yh = ");Serial.println(_size.yh);
 }
-
 String DFRobot_Touch_GT911::scan(){
    
    if(IC == FT5436){
@@ -205,6 +202,50 @@ String DFRobot_Touch_GT911::ft5436Scan()
   return "255,0,0,0,0 ";
 
 }
+
+DFRobot_Touch_GT911_IPS::DFRobot_Touch_GT911_IPS(uint8_t addr, uint8_t rst, uint8_t irq)
+  :DFRobot_Touch_GT911(addr, rst, irq){
+  id = "";
+  PIN_OUT(rst);
+  PIN_OUT(irq);
+  PIN_LOW(irq);
+  delay(10);
+  PIN_HIGH(rst);
+  memset(_p, 0, sizeof(_p));
+}
+DFRobot_Touch_GT911_IPS::~DFRobot_Touch_GT911_IPS(){
+}
+String DFRobot_Touch_GT911_IPS::pointRemap(uint16_t &x,uint16_t &y,uint16_t _width,uint16_t _height){
+
+   uint16_t tempX = x;
+   uint16_t tempY = y;
+   switch(direction){
+     case 0:{
+        x = _width -tempX;  //X-axis mirroring
+     break;
+     }
+     case 1:{
+       x = tempY;
+       y = _height -tempX;
+     break;
+    }
+     case 2:{
+       x = tempX;
+       y = _height -tempY;
+     break;
+     }
+     case 3:{
+       x = _height -tempY;
+       y = _width -tempX;
+     break;
+    }
+     
+   }
+  
+   return "ok";
+
+}
+
 DFRobot_Touch_XPT2046::DFRobot_Touch_XPT2046(uint8_t cs, uint8_t rst , uint8_t irq )
 :DFRobot_Touch(&gdl_Dev_XPT2046_TOUCH_HW_SPI, cs, rst, irq, GDL_PIN_NC){}
 DFRobot_Touch_XPT2046::~DFRobot_Touch_XPT2046(){}

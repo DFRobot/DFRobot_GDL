@@ -38,7 +38,7 @@
 #endif
 
 /**
-   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x204, this constructor can be called
+   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 172x320, this constructor can be called
    @param dc Command/data line pin for SPI communication
    @param cs Chip select pin for SPI communication
    @param rst Reset pin of the screen
@@ -57,7 +57,6 @@ DFRobot_ST7789_172x320_HW_SPI screen(/*dc=*/TFT_DC,/*cs=*/TFT_CS,/*rst=*/TFT_RST
  *COLOR_RGB565_RED     COLOR_RGB565_MAGENTA COLOR_RGB565_YELLOW   COLOR_RGB565_ORANGE           
  *COLOR_RGB565_WHITE   
  */
-
 
 void setup() {
   // put your setup code here, to run once:

@@ -27,9 +27,9 @@
 #define TFT_RST D3
 /* AVR series mainboard */
 #else
-#define TFT_DC  2
-#define TFT_CS  3
-#define TFT_RST 4
+#define TFT_DC  34
+#define TFT_CS  36
+#define TFT_RST 35
 #endif
 
 /**
@@ -37,9 +37,8 @@
 */
 DFRobot_Touch_GT911 touch;
 
-
 /**
-   @brief Constructor When the screen uses hardware SPI communication, the driver IC is st7789, and the screen resolution is 240x320, this constructor can be called
+   @brief Constructor When the screen uses hardware SPI communication, the driver IC is ILI9488, and the screen resolution is 320x480, this constructor can be called
    @param dc Command/data line pin for SPI communication
    @param cs Chip select pin for SPI communication
    @param rst Reset pin of the screen
