@@ -1,0 +1,3 @@
+FontFileNamePre = default
+FontSizeList = [24]
+
