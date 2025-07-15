@@ -191,6 +191,7 @@ Please contact us via e-mail addresses as below:<br>
 * Ajax.zhong@dfrobot.com
 * Ivey.lu@dfrobot.com
 * li.feng@dfrobot.com
+* hi@dattasaurabh.com
 
 ## Thanks
 * Internally integrated Adafruit's [GFX](https://learn.adafruit.com/adafruit-gfx-graphics-library) library. 
