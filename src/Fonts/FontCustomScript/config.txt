@@ -1,3 +1,0 @@
-FontFileNamePre = S1
-FontSizeList = [12,18,24,36,48,72]
-
