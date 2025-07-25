@@ -74,7 +74,7 @@ void btnCallback(DFRobot_UI::sButton_t &btn,DFRobot_UI::sTextBox_t &obj) {
 void setup()
 {
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   //Initialize UI 
   ui.begin();
   //Set the UI theme, there are two themes to choose from: CLASSIC and MODERN.
