@@ -412,4 +412,5 @@ String DFRobot_Touch_FT3267::scan(){
 	return s;
   }
   return "255,0,0,0,0 ";
+
 }
