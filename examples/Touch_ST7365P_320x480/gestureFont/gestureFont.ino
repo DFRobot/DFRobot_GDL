@@ -7,7 +7,7 @@
  * @license The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
  * @version V1.0
- * @date 2019-12-6
+ * @date 2025-8-19
  * @get from https://www.dfrobot.com
  * @url https://github.com/DFRobot/DFRobot_GDL
 */
@@ -26,11 +26,11 @@
 /*ESP32 and ESP8266*/
 #elif defined(ESP32)
 #define TFT_DC    D2    
-#define TFT_CS    D6     
-#define TFT_RST   D3    
+#define TFT_CS    D6      
+#define TFT_RST   D3     
 #define TFT_BL    D13   
 #define TOUCH_RST D10
-#define TOUCH_INT D11  
+#define TOUCH_INT D11
 /* AVR series mainboard */
 #else
 #define TFT_DC    34

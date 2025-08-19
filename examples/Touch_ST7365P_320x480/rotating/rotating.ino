@@ -6,7 +6,7 @@
  * @license The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
  * @version V1.0
- * @date 2022-03-14
+ * @date 2025-8-19
  * @url https://github.com/DFRobot/DFRobot_GDL
 */
 #include "DFRobot_UI.h"
