@@ -47,7 +47,7 @@
    @brief Constructor  When the touch uses the gt series chip, you can call this constructor
 */
 
-//If you are using the Firebeetle 2 ESP32-E (N16R2) board and connecting the screen through the GDI interface with the address set to 0x14, and other card addresses are set to 0x5D.
+
 DFRobot_Touch_GT911_IPS touch(0X5D,TOUCH_RST,TOUCH_INT);
  
 /**
