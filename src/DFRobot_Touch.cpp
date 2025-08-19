@@ -211,8 +211,8 @@ DFRobot_Touch_GT911_IPS::DFRobot_Touch_GT911_IPS(uint8_t addr, uint8_t rst, uint
   :DFRobot_Touch_GT911(addr, rst, irq){
   id = "";
 
-  PIN_OUT(rst);
-  PIN_OUT(irq);
+  // PIN_OUT(rst);
+  // PIN_OUT(irq);
   memset(_p, 0, sizeof(_p));
 }
 DFRobot_Touch_GT911_IPS::~DFRobot_Touch_GT911_IPS(){
@@ -412,4 +412,5 @@ String DFRobot_Touch_FT3267::scan(){
 	return s;
   }
   return "255,0,0,0,0 ";
+
 }
