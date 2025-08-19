@@ -100,12 +100,13 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
   uint16_t sizeReg = 0;
   readReg(0x8140,temp,4);
   id += temp;
-  //Serial.println(id);
+  
   if(id == "5688"){
       _if.dev->addr = (uint8_t *)touchGt5688ConfigTable;
       sizeReg = 0x8051;
   }else if(id == "911"){
    IC = GT911;
+   //Serial.println(id);
    _if.dev->addr = (uint8_t *)touchGT911ConfigTable;
    sizeReg = 0x8048;
   }else{
@@ -113,6 +114,7 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
    _if.pinList[IF_PIN_ADDR] = 0x38;
    return;
   }
+  
   uint8_t *addr = _if.dev->addr;
   touchConfig(addr);
   readReg(sizeReg,temp,4);
@@ -120,8 +122,10 @@ void DFRobot_Touch_GT911::begin(uint32_t freq){
   _size.xw = ((uint8_t)temp[1] << 8) | (uint8_t)temp[0];
   _size.yh = ((uint8_t)temp[3] << 8) | (uint8_t)temp[2];
   
-  //Serial.println("_size.xw = ");Serial.println(_size.xw);
-  //Serial.println("_size.yh = ");Serial.println(_size.yh);
+  // Serial.println("_size.xw = ");Serial.println(_size.xw);
+  // Serial.println("_size.yh = ");Serial.println(_size.yh);
+
+  PIN_IN(_if.pinList[IF_PIN_BL]);
 }
 String DFRobot_Touch_GT911::scan(){
    
@@ -206,11 +210,9 @@ String DFRobot_Touch_GT911::ft5436Scan()
 DFRobot_Touch_GT911_IPS::DFRobot_Touch_GT911_IPS(uint8_t addr, uint8_t rst, uint8_t irq)
   :DFRobot_Touch_GT911(addr, rst, irq){
   id = "";
-  PIN_OUT(rst);
-  PIN_OUT(irq);
-  PIN_LOW(irq);
-  delay(10);
-  PIN_HIGH(rst);
+
+  // PIN_OUT(rst);
+  // PIN_OUT(irq);
   memset(_p, 0, sizeof(_p));
 }
 DFRobot_Touch_GT911_IPS::~DFRobot_Touch_GT911_IPS(){
@@ -410,4 +412,5 @@ String DFRobot_Touch_FT3267::scan(){
 	return s;
   }
   return "255,0,0,0,0 ";
+
 }

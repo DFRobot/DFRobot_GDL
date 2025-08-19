@@ -37,5 +37,4 @@ static const uint8_t PROGMEM touchGT911ConfigTable[] = {
 0x00, 0x00, 0x00, 0x00, 0x12, 0x00
 };
 
-
 #endif
