@@ -99,11 +99,13 @@ void DFRobot_UI:: begin()
 
 }
 
-void  DFRobot_UI::sButton_t::setText(char * c){
-   //DFRobot_UI::sObject_t * ob = ( DFRobot_UI::sObject_t *)this;
-   //DFRobot_UI::sButton_t *btn = ( DFRobot_UI::sButton_t *)this->privateData;
-  memcpy(this->text, c, strlen(c));
-  //Serial.println("setTerxe()");
+void  DFRobot_UI::sButton_t::setText(const char * c){
+  size_t len = strlen(c);
+  if (len >= sizeof(this->text)) {
+    len = sizeof(this->text) - 1;
+  }
+  memcpy(this->text, c, len);
+  this->text[len] = '\0';
 }
 void DFRobot_UI::sButton_t::setCallback(buttonCallback *callBack){
   this->callBack = callBack;
@@ -652,18 +654,23 @@ void DFRobot_UI::drawText(void *obj)
   }
 }
 
-void DFRobot_UI::sTextBox_t::setText(char *text) {
-
-  memcpy(this->text, text, strlen(text));
-  memcpy(this->text + strlen(text), "\0", 1);
+void DFRobot_UI::sTextBox_t::setText(const char *text) {
+  size_t len = strlen(text);
+  if (len >= sizeof(this->text)) {
+    len = sizeof(this->text) - 1;
+  }
+  memcpy(this->text, text, len);
+  this->text[len] = '\0';
   this->state = DRAWTEXT;
-  
 }
-void DFRobot_UI::sTextBox_t::setText(String &text) {
-
-  strcpy(this->text, text.c_str());
+void DFRobot_UI::sTextBox_t::setText(const String &text) {
+  size_t len = text.length();
+  if (len >= sizeof(this->text)) {
+    len = sizeof(this->text) - 1;
+  }
+  memcpy(this->text, text.c_str(), len);
+  this->text[len] = '\0';
   this->state = DRAWTEXT;
-  
 }
 void DFRobot_UI::sTextBox_t::addChar(char txt) {
   this->cache = txt;
