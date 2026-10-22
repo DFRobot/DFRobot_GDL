@@ -1,6 +1,6 @@
 aiofiles==22.1.0
 ajsonrpc==1.2.0
-anyio==3.6.2
+anyio==4.14.2
 async-timeout==4.0.2
 bottle==0.12.23
 certifi==2024.7.4
