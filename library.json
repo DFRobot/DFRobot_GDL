@@ -1,6 +1,6 @@
 {
     "name": "DFRobot_GDL",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "license": "MIT",
     "description": "DFRobot_GDL is a comprehensive display interaction framework that supports multiple MCUs, supporting display, touch, and UI.",
     "keywords": "GFX, Graphics, TFT, SPI",
