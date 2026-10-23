@@ -17,12 +17,17 @@
         {
             "name": "Li",
             "email": "li.feng@dfrobot.com",
-            "maintainer": true
+            "maintainer": false
         },
         {
             "name": "Saurabh Datta",
             "url": "https://github.com/dattasaurabh82",
             "maintainer": false
+        },
+        {
+            "name": "xiao.wu",
+            "email": "xiao.wu@dfrobot.com",
+            "maintainer": true
         }
     ],
     "frameworks": "arduino",
