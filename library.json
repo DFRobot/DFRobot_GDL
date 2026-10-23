@@ -1,41 +1,33 @@
 {
     "name": "DFRobot_GDL",
-    "version": "1.0.3",
-    "license": "Copyright 2010 DFRobot Co.Ltd",
+    "version": "1.0.4",
+    "license": "MIT",
     "description": "DFRobot_GDL is a comprehensive display interaction framework that supports multiple MCUs, supporting display, touch, and UI.",
     "keywords": "GFX, Graphics, TFT, SPI",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dattasaurabh82/DFRobot_GDL"
+        "url": "https://github.com/DFRobot/DFRobot_GDL.git"
     },
     "authors": [
         {
             "name": "Xue",
-            "url": "xue.peng@dfrobot.com",
+            "email": "xue.peng@dfrobot.com",
             "maintainer": false
         },
         {
             "name": "Li",
-            "url": "li.feng@dfrobot.com",
+            "email": "li.feng@dfrobot.com",
             "maintainer": true
         },
         {
             "name": "Saurabh Datta",
             "url": "https://github.com/dattasaurabh82",
-            "maintainer": true
-        },
-    ], 
-    "frameworks": "arduino",
-    "platforms": [
-        "espressif8266",
-        "espressif32", 
-        "atmelavr", 
-        "atmelsam", 
-        "nordicnrf51",
-        "teensy", 
-        "nordicnrf52"
+            "maintainer": false
+        }
     ],
+    "frameworks": "arduino",
+    "platforms": "*",
     "dependencies": {
-        "Adafruit GFX Library": "^1.11.9"
+        "adafruit/Adafruit GFX Library": "^1.11.9"
     }
 }
