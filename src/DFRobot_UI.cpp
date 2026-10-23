@@ -4,8 +4,8 @@
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2019-12-6
+ * @version  V1.0.5
+ * @date  2026-10-23
  * @get from https://www.dfrobot.com
  * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
  */
@@ -36,9 +36,10 @@ void DFRobot_UI::buttonEvent(void *btn1)
   }
   if ( judgePress(btn, position[0].x, position[0].y) == false && btn->click == 1) {
     btn->click = 0;
+    uint8_t clears = clearCount;
     if(btn->callBack) btn->callBack(*btn,*btn->output);
-
-   
+    // If the callback called clear(), this button is gone, so don't draw it back
+    if(clears != clearCount) return;
     drawButton(btn);
   }
 }
@@ -56,6 +57,9 @@ DFRobot_UI::DFRobot_UI(DFRobot_GDL *gdl,DFRobot_Touch *touch)
 {
 
   cursorState = true;
+  refreshing = false;
+  clearCount = 0;
+  pendingFree = NULL;
   theme = MODERN;
   _gdl = gdl;
 
@@ -96,7 +100,8 @@ void DFRobot_UI:: begin()
   head.next = NULL;
   head.event =NULL;
   _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);
-
+  paintedBgColor = bgColor;
+  firstDraw = true;
 }
 
 void  DFRobot_UI::sButton_t::setText(const char * c){
@@ -337,12 +342,42 @@ DFRobot_UI::sBar_t &DFRobot_UI::creatBar(){
   return *barData;
 }
 
-void DFRobot_UI::clear(){
-  struct object* obj= &head;
-  while(obj->next != NULL){
-    obj->next = NULL;//resets objects
+void DFRobot_UI::freeObjects(sObject_t *obj){
+  while(obj != NULL){
+    sObject_t *next = obj->next;
+    if(obj->event == &DFRobot_UI::coordinateEvent){ //coordinate controls own extra point lists
+      sCoordinate_t *coord = (sCoordinate_t *)obj;
+      sLine_t *line = coord->line.line;
+      for(uint8_t i = 0; i < coord->lineNumber && line != NULL; i++){
+        sLine_t *nextLine = (i + 1 < coord->lineNumber) ? line->line : NULL;
+        free(line->point);
+        free(line);
+        line = nextLine;
+      }
+    }
+    free(obj);
+    obj = next;
   }
-  _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);//this will reset teh background
+}
+
+void DFRobot_UI::clear(){
+  // Detach all controls. If we are inside refresh() (e.g. clear() was called from a
+  // button callback), the old controls are still in use, so free them when refresh() ends.
+  sObject_t *list = head.next;
+  head.next = NULL;
+  if(refreshing){
+    if(list != NULL){
+      sObject_t *last = list;
+      while(last->next != NULL) last = last->next;
+      last->next = pendingFree;
+      pendingFree = list;
+    }
+  }else{
+    freeObjects(list);
+  }
+  clearCount++;
+  _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);//this will reset the background
+  paintedBgColor = bgColor;
 }
 
 
@@ -359,10 +394,14 @@ void DFRobot_UI::draw(sObject_t *obj,uint16_t posx,uint16_t posy,uint16_t width,
   if(height != 0){
   obj->height = height;
   }
-  static uint8_t count = 1;
-  if(count == 1 ){
-    _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);
-     count ++;
+  // On the first draw, repaint the background only if setBgColor() changed it since
+  // begin()/clear(), so text drawn before the first control is not wiped out
+  if(firstDraw){
+    firstDraw = false;
+    if(bgColor != paintedBgColor){
+      _gdl->fillRect(0, 0, lcdWidth, lcdHeight, bgColor);
+      paintedBgColor = bgColor;
+    }
   }
   (this->*obj->draw)(obj);
 }
@@ -444,13 +483,18 @@ DFRobot_UI::sCoordinate_t &DFRobot_UI::creatCoordinate(){
 void DFRobot_UI::refresh()
 {
   struct object* obj= &head;
-
+  uint8_t clears = clearCount;
 
   updateCoordinate();
+  refreshing = true;
   while(obj->next != NULL){
     obj = obj->next;
    (this->*obj->event)(obj);
+    if(clears != clearCount) break; //clear() was called from a callback
   }
+  refreshing = false;
+  freeObjects(pendingFree);
+  pendingFree = NULL;
 }
 
 

@@ -186,6 +186,10 @@ This is a 120-minute instructional video designed to help beginners quickyly get
 - [ ]支持屏幕的链接
 
 
+## History
+
+- 2026/10/23 - Version 1.0.5 released: ui.clear() now frees controls and can be called from callbacks; the first draw() no longer wipes text drawn before it; button setText() is const-correct and bounds-checked; fixed library.json for PlatformIO.
+
 ## Contacts
 Please contact us via e-mail addresses as below:<br>
 * Ajax.zhong@dfrobot.com

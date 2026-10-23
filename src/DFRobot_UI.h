@@ -5,8 +5,8 @@
  * @copyright Copyright (c) 2010 DFRobot Co. Ltd (http://www.dfrobot.com)
  * @licence The MIT License (MIT)
  * @author [fengli] (li.feng@dfrobot.com)
- * @version V1.0
- * @date 2019-12-6
+ * @version V1.0.5
+ * @date 2026-10-23
  * @get from https://www.dfrobot.com
  * @url https://github.com/DFRobot/DFRobot_GDL/src/DFRpbot_UI
  */
@@ -390,7 +390,9 @@ public:
   void draw(sObject_t *obj,uint16_t posx = 0,uint16_t posy = 0,uint16_t width = 0,uint16_t height = 0);
 
    /**
-   * @brief Clear all objects on screen and draw the original background.
+   * @brief Delete all controls created with creat*() and repaint the background.
+   * @n     Their memory is freed, so references to them must not be used afterwards.
+   * @n     It is safe to call this from a control's callback.
    */
   void clear();
 
@@ -538,6 +540,12 @@ private:
   uint16_t  cursorPosx ,cursorPosy;
   uint16_t lcdWidth;
   uint16_t lcdHeight;
+  uint16_t paintedBgColor; //Background color last painted over the whole screen
+  bool firstDraw; //True until the first draw() after begin()
+  bool refreshing; //True while refresh() is running the control events
+  uint8_t clearCount; //Incremented by clear()
+  sObject_t *pendingFree; //Controls removed by clear() during refresh(), freed when it ends
+  void freeObjects(sObject_t *obj);
   DFRobot_Touch *_touch;
   uint8_t number;
   long long timer;
