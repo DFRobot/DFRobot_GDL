@@ -205,7 +205,7 @@ public:
     bool click;/**<Flag to indicate whether the button was clicked>**/
     buttonCallback  *callBack ;/**<Function pointer of the button callback function>**/
 	void setCallback(buttonCallback *callBack);/**<Set callback function>**/
-	void setText(char * c);/**<Set button name>**/
+	void setText(const char * c);/**<Set button name>**/
 	void setOutput(struct textBox * obj);/**<Set the output text box position of the button>**/
 	struct textBox *output;/**<the output position of the button>**/
   }  ;
@@ -229,8 +229,8 @@ public:
     uint16_t cursorx;/**<The X-coordinate of the text box cursor>**/
     uint16_t cursory;/**<The Y-coordinate of the text box cursor>**/
     bool selected;/**<Whether the text box is selected>**/
-	void setText(char *text);/**<Set the content of the text box>**/
-	void setText(String &str);
+	void setText(const char *text);/**<Set the content of the text box>**/
+	void setText(const String &str);
 	void addChar(char txt) ;/**<Add a character to the text box>**/
 	void deleteChar();/**<Delete the last character of the text box>**/
 	bool getState();/**<Get text box status>**/
